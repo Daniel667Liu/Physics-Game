@@ -13,6 +13,7 @@ public class AddForce : MonoBehaviour
     public GameObject EndPos;
     private Vector3 Pos1;//start of the direction vector
     private Vector3 Pos2;//end of the direction vector
+    public bool is_engineStart;
 
     //define the dierection of the force by using a int, 1 = foward, 2 = backward, 3 = up, 4 = down, 5 = left. 6 = right.
     public bool Direction_Reverse;
@@ -48,7 +49,8 @@ public class AddForce : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (is_engineStart)
+            ForceStart();
     }
 
     
