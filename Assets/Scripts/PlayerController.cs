@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
         {
             InputX = Input.GetAxis("Horizontal");
             InputZ = Input.GetAxis("Vertical");
-            
         }
 
         v_movement = charController.transform.forward * InputZ;
