@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoxTrigger : MonoBehaviour
 {
-    public bool controlButton = false;
+    
+    public AddForce Engine;
     void Start()
     {
         
@@ -19,7 +20,7 @@ public class BoxTrigger : MonoBehaviour
     {
         if(Player.gameObject.tag == "Player")
         {
-            controlButton = true;
+            Engine.is_engineStart = true;
         }
     }
     private void OnTriggerExit(Collider Player)
@@ -27,7 +28,7 @@ public class BoxTrigger : MonoBehaviour
 
         if (Player.gameObject.tag == "Player")
         {
-            controlButton = false;
+            Engine.is_engineStart  = false;
         }
     }
 }
