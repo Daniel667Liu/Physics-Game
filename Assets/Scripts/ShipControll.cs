@@ -33,8 +33,9 @@ public class ShipControll : MonoBehaviour
     public float PitchStrength = 0.1f;
     public float RollStrength = 0.1f;
     public float YawStrength = 0.1f;
-    
 
+    //Fire/Jet Control
+    public ParticleSysController PC;
 
     //calculate the direction of forces.
     private void DirectionCal()
@@ -107,29 +108,97 @@ public class ShipControll : MonoBehaviour
     {
         DirectionCal();
 
-        if (Input.GetKey(KeyCode.UpArrow)) 
-            PitchUp();
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            MoveForward();
+            //PitchUp();
+            PC.MoveF();
+        }
+        else
+        {
+            PC.MoveFclose();
+        }
+
 
         if (Input.GetKey(KeyCode.DownArrow))
-            PitchDown();
+        {
+            MoveBackward();
+            //PitchDown();
+            PC.MoveB();
+        }
+        else
+        {
+            PC.MoveBclose();
+        }
 
-        if (Input.GetKey(KeyCode.LeftArrow)) 
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
             RollLeft();
+            PC.RollL();
+        }
+        else
+        {
+            PC.RollLclose();
+        }
+
 
         if (Input.GetKey(KeyCode.RightArrow))
+        {
             RollRight();
+            PC.RollR();
+        }
+        else
+        {
+            PC.RollRclose();
+        }
+
 
         if (Input.GetKey(KeyCode.W))
-            MoveForward();
+        {
+            PitchUp();
+            PC.PitchU();
+            //MoveForward();
+        }
+        else
+        {
+            PC.PitchUclose();
+        }
 
-        if (Input.GetKey(KeyCode.S)) 
-            MoveBackward();
 
-        if (Input.GetKey(KeyCode.A)) 
+        if (Input.GetKey(KeyCode.S))
+        {
+            PitchDown();
+            //MoveBackward();
+            PC.PitchD();
+        }
+        else
+        {
+            PC.PitchDclose();
+        }
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
             YawLeft();
+            PC.YawL();
+        }
+        else
+        {
+            PC.YawLclose();
+        }
 
-        if (Input.GetKey(KeyCode.D)) 
+
+        if (Input.GetKey(KeyCode.D))
+        {
             YawRight();
+            PC.YawR();
+        }
+        else
+        {
+            PC.YawRclose();
+        }
+            
 
     }
 }
