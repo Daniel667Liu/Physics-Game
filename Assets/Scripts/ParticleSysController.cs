@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ParticleSysController : MonoBehaviour
 {
-    public ParticleSystem sys;
+    public ShipControll  SC;
+    public GameObject SpaceShip;
 
     public float StartLifeTime, Zero;
 
@@ -18,9 +19,13 @@ public class ParticleSysController : MonoBehaviour
     public ParticleSystem [] YawsL;
     public ParticleSystem[] YawsR;
 
+    //Adjustment Syste
+    public Vector3 YawV;
+    public Vector3 PitchV;
+    public Vector3 RollV;
+
     private void OnEnable()
     {
-        sysMain = sys.main;
     }
     void Start()
     {
@@ -28,9 +33,187 @@ public class ParticleSysController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        YawV = Vector3.Project(SC.ForwardCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position), SC.LeftDir).normalized;
+        PitchV = Vector3.Project(SC.ForwardCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position), SC.UpDir).normalized;
+        RollV = Vector3.Project(SC.LeftCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position), SC.UpDir).normalized;
+
+        //Debug.Log(SC.ForwardCubePos.GetComponent<Rigidbody>().velocity);
+        //Debug.Log(SC.ForwardCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position));
+        //Debug.Log(Vector3.Project(SC.ForwardCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position),SC.LeftDir));
+        //Debug.Log(Vector3.Project(SC.ForwardCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position), SC.LeftDir).normalized);
+        //Debug.Log(Vector3.Project(SC.ForwardCubePos.GetComponent<Rigidbody>().GetPointVelocity(SC.ForwardCubePos.GetComponent<Rigidbody>().position), SC.LeftDir).magnitude);
+
+        //Debug.Log(SC.LeftDir);
+        //Debug.Log(YawV);
+        //Pose Adjustment System 
+
+
+        //Particle System of ship movement
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            PitchU();
+        }
+        else
+        {
+            PitchUclose();
+        }
+
+
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            //MoveBackward();
+            PitchD();
+
+        }
+        else
+        {
+            PitchDclose();
+        }
+
+
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            RollL();
+
+        }
+        else
+        {
+            RollLclose();
+        }
+
+
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            RollR();
+
+        }
+        else
+        {
+            RollRclose();
+        }
+
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            //PitchUp();
+            MoveF();
+        }
+        else
+        {
+            MoveFclose();
+
+            YawRclose();
+            YawLclose();
+            PitchUclose();
+            PitchDclose();
+            RollRclose();
+            RollLclose();
+        }
+
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            MoveB();
+
+        }
+        else
+        {
+            MoveBclose();
+
+            YawRclose();
+            YawLclose();
+            PitchUclose();
+            PitchDclose();
+            RollRclose();
+            RollLclose();
+        }
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            YawL();
+        }
+        else
+        {
+            //YawLclose();
+            //Adjustment     
+        }
+
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            YawR();
+
+        }
+        else
+        {
+            //YawRclose();
+        }
+
+        if(!Input.anyKey)
+        {
+            //Yaw adjustment
+            YawRclose();
+            YawLclose();
+            if (YawV == SC.LeftDir)
+            {
+                Debug.Log("Equal true YawR");
+                YawL();
+            }
+            else if (YawV == Vector3.zero)
+            {
+                YawRclose();
+                YawLclose();
+            }
+            else if (YawV != SC.LeftDir)
+            {
+                Debug.Log("Equal true YawL");
+                YawR();
+            }
+
+            //Pitch adjustment
+            PitchUclose();
+            PitchDclose();
+            if (PitchV == SC.UpDir)
+            {
+                Debug.Log("Equal true YawR");
+                PitchD();
+            }
+            else if (PitchV == Vector3.zero)
+            {
+                PitchUclose();
+                PitchDclose();
+            }
+            else if (PitchV != SC.UpDir)
+            {
+                Debug.Log("Equal true YawL");
+                PitchU();
+            }
+
+            //Roll adjustment
+            RollRclose();
+            RollLclose();
+            if (RollV == SC.UpDir)
+            {
+                Debug.Log("Equal true YawR");
+                RollL();
+            }
+            else if (RollV == Vector3.zero)
+            {
+                RollRclose();
+                RollLclose();
+            }
+            else if (RollV != SC.UpDir)
+            {
+                Debug.Log("Equal true YawL");
+                RollR();
+            }
+        }
     }
 
     public void MoveF()

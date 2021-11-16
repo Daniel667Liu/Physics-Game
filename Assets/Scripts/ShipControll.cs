@@ -15,12 +15,12 @@ public class ShipControll : MonoBehaviour
     public GameObject BackwardPos;
 
     //store the direction of foreces
-    private Vector3 ForwardDir;
-    private Vector3 BackwardDir;
-    private Vector3 LeftDir;
-    private Vector3 RightDir;
-    private Vector3 UpDir;
-    private Vector3 DownDir;
+    public Vector3 ForwardDir;
+    public Vector3 BackwardDir;
+    public Vector3 LeftDir;
+    public Vector3 RightDir;
+    public Vector3 UpDir;
+    public Vector3 DownDir;
 
     //get the force position
     public GameObject ForwardCubePos;
@@ -34,8 +34,7 @@ public class ShipControll : MonoBehaviour
     public float RollStrength = 0.1f;
     public float YawStrength = 0.1f;
 
-    //Fire/Jet Control
-    public ParticleSysController PC;
+ 
 
     //calculate the direction of forces.
     private void DirectionCal()
@@ -65,26 +64,26 @@ public class ShipControll : MonoBehaviour
 
     public void PitchUp() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
     public void PitchDown() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
     public void YawLeft() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(RightDir * YawStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(RightDir * YawStrength* -1f, ForceMode.Impulse);
     }
 
     public void YawRight() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(RightDir * YawStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(RightDir * YawStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength * -1f, ForceMode.Impulse);
     }
 
     public void RollLeft() 
@@ -110,95 +109,70 @@ public class ShipControll : MonoBehaviour
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            MoveForward();
-            //PitchUp();
-            PC.MoveF();
+            //MoveForward();
+            PitchUp();
+          
         }
-        else
-        {
-            PC.MoveFclose();
-        }
+       
 
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            MoveBackward();
-            //PitchDown();
-            PC.MoveB();
+            //MoveBackward();
+            PitchDown();
+            
         }
-        else
-        {
-            PC.MoveBclose();
-        }
+        
 
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             RollLeft();
-            PC.RollL();
+         
         }
-        else
-        {
-            PC.RollLclose();
-        }
+      
 
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
             RollRight();
-            PC.RollR();
+           
         }
-        else
-        {
-            PC.RollRclose();
-        }
+     
 
 
         if (Input.GetKey(KeyCode.W))
         {
-            PitchUp();
-            PC.PitchU();
-            //MoveForward();
+            //PitchUp();
+          
+            MoveForward();
         }
-        else
-        {
-            PC.PitchUclose();
-        }
+   
 
 
         if (Input.GetKey(KeyCode.S))
         {
-            PitchDown();
-            //MoveBackward();
-            PC.PitchD();
+            //PitchDown();
+            MoveBackward();
+            
         }
-        else
-        {
-            PC.PitchDclose();
-        }
+        
 
 
         if (Input.GetKey(KeyCode.A))
         {
             YawLeft();
-            PC.YawL();
+            
         }
-        else
-        {
-            PC.YawLclose();
-        }
+        
 
 
         if (Input.GetKey(KeyCode.D))
         {
             YawRight();
-            PC.YawR();
+           
         }
-        else
-        {
-            PC.YawRclose();
-        }
-            
+        
 
     }
 }

@@ -113110,8 +113110,8 @@ Rigidbody:
   m_GameObject: {fileID: 846150312643512240}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 80
+  m_AngularDrag: 60
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -115418,15 +115418,20 @@ MonoBehaviour:
   RightPos: {fileID: 8107269703661818357}
   ForwardPos: {fileID: 8107269702183981725}
   BackwardPos: {fileID: 8107269703143496846}
+  ForwardDir: {x: 0, y: 0, z: 0}
+  BackwardDir: {x: 0, y: 0, z: 0}
+  LeftDir: {x: 0, y: 0, z: 0}
+  RightDir: {x: 0, y: 0, z: 0}
+  UpDir: {x: 0, y: 0, z: 0}
+  DownDir: {x: 0, y: 0, z: 0}
   ForwardCubePos: {fileID: 8107269703150732441}
   BackwardCubePos: {fileID: 8107269702624628391}
   LeftCubePos: {fileID: 8107269702293609557}
   RightCubePos: {fileID: 8107269702912708663}
-  ForwardStrength: 0.1
-  PitchStrength: 0.1
-  RollStrength: 0.1
-  YawStrength: 0.1
-  PC: {fileID: 8107269702554762992}
+  ForwardStrength: 3
+  PitchStrength: 1
+  RollStrength: 1
+  YawStrength: 1
 --- !u!4 &8107269702554762961
 Transform:
   m_ObjectHideFlags: 0
@@ -115471,7 +115476,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a42a6a19a222974696db43ba59e18a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sys: {fileID: 0}
+  SC: {fileID: 8107269702554762960}
+  SpaceShip: {fileID: 0}
   StartLifeTime: 0.4
   Zero: 0
   RollsL:
@@ -115500,6 +115506,9 @@ MonoBehaviour:
   YawsR:
   - {fileID: 715511092}
   - {fileID: 791920741}
+  YawV: {x: 0, y: 0, z: 0}
+  PitchV: {x: 0, y: 0, z: 0}
+  RollV: {x: 0, y: 0, z: 0}
 --- !u!1 &8107269702624628391
 GameObject:
   m_ObjectHideFlags: 0
