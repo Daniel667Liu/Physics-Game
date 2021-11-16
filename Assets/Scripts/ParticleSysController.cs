@@ -106,13 +106,6 @@ public class ParticleSysController : MonoBehaviour
         else
         {
             MoveFclose();
-
-            YawRclose();
-            YawLclose();
-            PitchUclose();
-            PitchDclose();
-            RollRclose();
-            RollLclose();
         }
 
 
@@ -124,13 +117,6 @@ public class ParticleSysController : MonoBehaviour
         else
         {
             MoveBclose();
-
-            YawRclose();
-            YawLclose();
-            PitchUclose();
-            PitchDclose();
-            RollRclose();
-            RollLclose();
         }
 
 
@@ -140,7 +126,7 @@ public class ParticleSysController : MonoBehaviour
         }
         else
         {
-            //YawLclose();
+            YawLclose();
             //Adjustment     
         }
 
@@ -152,7 +138,7 @@ public class ParticleSysController : MonoBehaviour
         }
         else
         {
-            //YawRclose();
+            YawRclose();
         }
 
         if(!Input.anyKey)
@@ -163,7 +149,7 @@ public class ParticleSysController : MonoBehaviour
             if (YawV == SC.LeftDir)
             {
                 Debug.Log("Equal true YawR");
-                YawL();
+                YawLadj();
             }
             else if (YawV == Vector3.zero)
             {
@@ -173,7 +159,7 @@ public class ParticleSysController : MonoBehaviour
             else if (YawV != SC.LeftDir)
             {
                 Debug.Log("Equal true YawL");
-                YawR();
+                YawRadj();
             }
 
             //Pitch adjustment
@@ -182,7 +168,7 @@ public class ParticleSysController : MonoBehaviour
             if (PitchV == SC.UpDir)
             {
                 Debug.Log("Equal true YawR");
-                PitchD();
+                PitchDadj();
             }
             else if (PitchV == Vector3.zero)
             {
@@ -192,7 +178,7 @@ public class ParticleSysController : MonoBehaviour
             else if (PitchV != SC.UpDir)
             {
                 Debug.Log("Equal true YawL");
-                PitchU();
+                PitchUadj();
             }
 
             //Roll adjustment
@@ -201,7 +187,7 @@ public class ParticleSysController : MonoBehaviour
             if (RollV == SC.UpDir)
             {
                 Debug.Log("Equal true YawR");
-                RollL();
+                RollLadj();
             }
             else if (RollV == Vector3.zero)
             {
@@ -211,7 +197,7 @@ public class ParticleSysController : MonoBehaviour
             else if (RollV != SC.UpDir)
             {
                 Debug.Log("Equal true YawL");
-                RollR();
+                RollRadj();
             }
         }
     }
@@ -250,6 +236,14 @@ public class ParticleSysController : MonoBehaviour
             StartLifeTime.startLifetime = 2f;
         }
     }
+    public void PitchUadj()
+    {
+        foreach (ParticleSystem smoke in PitchesU)
+        {
+            var StartLifeTime = smoke.main;
+            StartLifeTime.startLifetime = 0.5f;
+        }
+    }
     public void PitchUclose()
     {
         foreach (ParticleSystem smoke in PitchesU)
@@ -264,6 +258,14 @@ public class ParticleSysController : MonoBehaviour
         {
             var StartLifeTime = smoke.main;
             StartLifeTime.startLifetime = 2f;
+        }
+    }
+    public void PitchDadj()
+    {
+        foreach (ParticleSystem smoke in PitchesD)
+        {
+            var StartLifeTime = smoke.main;
+            StartLifeTime.startLifetime = 0.5f;
         }
     }
     public void PitchDclose()
@@ -283,6 +285,14 @@ public class ParticleSysController : MonoBehaviour
             StartLifeTime.startLifetime = 2f;
         }
     }
+    public void YawLadj()
+    {
+        foreach (ParticleSystem smoke in YawsL)
+        {
+            var StartLifeTime = smoke.main;
+            StartLifeTime.startLifetime = 0.5f;
+        }
+    }
     public void YawLclose()
     {
         foreach (ParticleSystem smoke in YawsL)
@@ -297,6 +307,14 @@ public class ParticleSysController : MonoBehaviour
         {
             var StartLifeTime = smoke.main;
             StartLifeTime.startLifetime = 2f;
+        }
+    }
+    public void YawRadj()
+    {
+        foreach (ParticleSystem smoke in YawsR)
+        {
+            var StartLifeTime = smoke.main;
+            StartLifeTime.startLifetime = 0.5f;
         }
     }
     public void YawRclose()
@@ -317,6 +335,15 @@ public class ParticleSysController : MonoBehaviour
             StartLifeTime.startLifetime = 2f;
         }
     }
+
+    public void RollLadj()
+    {
+        foreach (ParticleSystem smoke in RollsL)
+        {
+            var StartLifeTime = smoke.main;
+            StartLifeTime.startLifetime = 0.5f;
+        }
+    }
     public void RollLclose()
     {
         foreach (ParticleSystem smoke in RollsL)
@@ -331,6 +358,15 @@ public class ParticleSysController : MonoBehaviour
         {
             var StartLifeTime = smoke.main;
             StartLifeTime.startLifetime = 2f;
+        }
+    }
+
+    public void RollRadj()
+    {
+        foreach (ParticleSystem smoke in RollsR)
+        {
+            var StartLifeTime = smoke.main;
+            StartLifeTime.startLifetime = 0.5f;
         }
     }
     public void RollRclose()
