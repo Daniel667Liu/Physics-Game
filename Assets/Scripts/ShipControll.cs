@@ -15,12 +15,12 @@ public class ShipControll : MonoBehaviour
     public GameObject BackwardPos;
 
     //store the direction of foreces
-    private Vector3 ForwardDir;
-    private Vector3 BackwardDir;
-    private Vector3 LeftDir;
-    private Vector3 RightDir;
-    private Vector3 UpDir;
-    private Vector3 DownDir;
+    public Vector3 ForwardDir;
+    public Vector3 BackwardDir;
+    public Vector3 LeftDir;
+    public Vector3 RightDir;
+    public Vector3 UpDir;
+    public Vector3 DownDir;
 
     //get the force position
     public GameObject ForwardCubePos;
@@ -64,14 +64,14 @@ public class ShipControll : MonoBehaviour
 
     public void PitchUp() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
     public void PitchDown() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
     public void YawLeft() 
