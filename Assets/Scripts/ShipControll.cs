@@ -37,7 +37,7 @@ public class ShipControll : MonoBehaviour
     //define the max force and the acceleration of force.
     public float MaxForceTimes = 2.0f;
     private float InitialForceTimes = 1.0f;
-    public float ForceTimes = 1.0f; //only apply on the forward and backward forces.
+    private float ForceTimes = 1.0f; //only apply on the forward and backward forces.
     public float Acceleration = 0.1f;
 
     //push the gas -> force increase, realse the gas -> force decrease.
