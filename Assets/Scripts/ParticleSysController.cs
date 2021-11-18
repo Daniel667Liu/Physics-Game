@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticleSysController : MonoBehaviour
 {
     public ShipControll  SC;
-    public GameObject SpaceShip;
+    //public GameObject SpaceShip;
 
     public float StartLifeTime, Zero;
 
@@ -23,6 +23,9 @@ public class ParticleSysController : MonoBehaviour
     public Vector3 YawV;
     public Vector3 PitchV;
     public Vector3 RollV;
+
+    float AdjLifeTime = 0.1f;
+    float startLifeTime = 0.2f;
 
     private void OnEnable()
     {
@@ -207,7 +210,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in MovesF)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.4f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
     public void MoveFclose()
@@ -233,7 +236,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in PitchesU)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 2f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
     public void PitchUadj()
@@ -241,7 +244,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in PitchesU)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.5f;
+            StartLifeTime.startLifetime = AdjLifeTime;
         }
     }
     public void PitchUclose()
@@ -257,7 +260,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in PitchesD)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 2f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
     public void PitchDadj()
@@ -265,7 +268,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in PitchesD)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.5f;
+            StartLifeTime.startLifetime = AdjLifeTime;
         }
     }
     public void PitchDclose()
@@ -282,7 +285,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in YawsL)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 2f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
     public void YawLadj()
@@ -290,7 +293,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in YawsL)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.5f;
+            StartLifeTime.startLifetime = AdjLifeTime;
         }
     }
     public void YawLclose()
@@ -306,7 +309,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in YawsR)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 2f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
     public void YawRadj()
@@ -314,7 +317,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in YawsR)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.5f;
+            StartLifeTime.startLifetime = AdjLifeTime;
         }
     }
     public void YawRclose()
@@ -332,7 +335,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in RollsL)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 2f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
 
@@ -341,7 +344,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in RollsL)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.5f;
+            StartLifeTime.startLifetime = AdjLifeTime;
         }
     }
     public void RollLclose()
@@ -357,7 +360,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in RollsR)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 2f;
+            StartLifeTime.startLifetime = startLifeTime;
         }
     }
 
@@ -366,7 +369,7 @@ public class ParticleSysController : MonoBehaviour
         foreach (ParticleSystem smoke in RollsR)
         {
             var StartLifeTime = smoke.main;
-            StartLifeTime.startLifetime = 0.5f;
+            StartLifeTime.startLifetime = AdjLifeTime;
         }
     }
     public void RollRclose()
