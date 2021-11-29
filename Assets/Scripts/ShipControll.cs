@@ -15,12 +15,12 @@ public class ShipControll : MonoBehaviour
     public GameObject BackwardPos;
 
     //store the direction of foreces
-    private Vector3 ForwardDir;
-    private Vector3 BackwardDir;
-    private Vector3 LeftDir;
-    private Vector3 RightDir;
-    private Vector3 UpDir;
-    private Vector3 DownDir;
+    public Vector3 ForwardDir;
+    public Vector3 BackwardDir;
+    public Vector3 LeftDir;
+    public Vector3 RightDir;
+    public Vector3 UpDir;
+    public Vector3 DownDir;
 
     //get the force position
     public GameObject ForwardCubePos;
@@ -34,7 +34,24 @@ public class ShipControll : MonoBehaviour
     public float RollStrength = 0.1f;
     public float YawStrength = 0.1f;
 
- 
+    //define the max force and the acceleration of force.
+    public float MaxForceTimes = 2.0f;
+    private float InitialForceTimes = 1.0f;
+    private float ForceTimes = 1.0f; //only apply on the forward and backward forces.
+    public float Acceleration = 0.1f;
+
+    //push the gas -> force increase, realse the gas -> force decrease.
+    public void ForceLerp()
+    {
+        ForceTimes = Mathf.Lerp(InitialForceTimes, MaxForceTimes, Acceleration);
+        InitialForceTimes = ForceTimes;
+    }
+
+    public void ReverseForceLerp()
+    {
+        ForceTimes = Mathf.Lerp(InitialForceTimes, 1.0f, Acceleration);
+        InitialForceTimes = ForceTimes;
+    }
 
     //calculate the direction of forces.
     private void DirectionCal()
@@ -52,26 +69,26 @@ public class ShipControll : MonoBehaviour
     //decalre the move functions.
     public void MoveForward() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * -1f, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * -1f, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
     }
 
     public void MoveBackward() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * -1f, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * -1f, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
     }
 
     public void PitchUp() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
     public void PitchDown() 
     {
-        ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength, ForceMode.Impulse);
-        BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength, ForceMode.Impulse);
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * -1f, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
     public void YawLeft() 
@@ -107,72 +124,81 @@ public class ShipControll : MonoBehaviour
     {
         DirectionCal();
 
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            //MoveForward();
-            PitchUp();
-          
-        }
+       
        
 
 
+        if (Input.GetKey(KeyCode.UpArrow))
+            {
+                //MoveForward();
+                PitchUp();
+          
+            }
+
+
+
         if (Input.GetKey(KeyCode.DownArrow))
-        {
-            //MoveBackward();
-            PitchDown();
+            {
+               //MoveBackward();
+               PitchDown();
             
-        }
-        
+             }
+
 
 
         if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            RollLeft();
+            {
+                RollLeft();
          
-        }
-      
+            }
+
 
 
         if (Input.GetKey(KeyCode.RightArrow))
-        {
-            RollRight();
+            {
+                RollRight();
            
-        }
-     
+            }
+
 
 
         if (Input.GetKey(KeyCode.W))
         {
-            //PitchUp();
-          
             MoveForward();
+            ForceLerp();
         }
-   
+        else 
+        {
+            ReverseForceLerp();
+        }
+        //push and release the gas control.
+            
+
 
 
         if (Input.GetKey(KeyCode.S))
-        {
-            //PitchDown();
-            MoveBackward();
-            
-        }
-        
+            {
+                //PitchDown();
+                MoveBackward();
+              
 
+            }
+            
 
         if (Input.GetKey(KeyCode.A))
-        {
-            YawLeft();
+            {
+                YawLeft();
             
-        }
-        
+            }
+
 
 
         if (Input.GetKey(KeyCode.D))
-        {
-            YawRight();
+            {
+                YawRight();
            
-        }
-        
+            }
 
+       
     }
 }
