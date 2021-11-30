@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,9 @@ public class ShipControll : MonoBehaviour
     private float ForceTimes = 1.0f; //only apply on the forward and backward forces.
     public float Acceleration = 0.1f;
 
+    //if use controller or not
+    public bool UseController = true;
+
     //push the gas -> force increase, realse the gas -> force decrease.
     public void ForceLerp()
     {
@@ -73,12 +77,34 @@ public class ShipControll : MonoBehaviour
         BackwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
     }
 
+    //Move forward with controller
+    public void ForwardWithCon() 
+    {
+        if (UseController) 
+        {
+            float ForwardInput = Input.GetAxis("Forward");
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * ForwardInput * -1f, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * ForwardInput * -1f, ForceMode.Impulse);
+        }
+    }
+
     public void MoveBackward() 
     {
         ForwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
         BackwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * ForceTimes * -1f, ForceMode.Impulse);
     }
 
+    //Move backward with controller
+    public void BackwardWithCon() 
+    {
+        if (UseController) 
+        {
+            float BackwardInput = Input.GetAxis("Backward");
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * ForceTimes * BackwardInput * -1f, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(BackwardDir * ForwardStrength * ForceTimes * BackwardInput * -1f, ForceMode.Impulse);
+            //Debug.Log(BackwardInput);
+        }
+    }
     public void PitchUp() 
     {
         ForwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
@@ -91,6 +117,16 @@ public class ShipControll : MonoBehaviour
         BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * -1f, ForceMode.Impulse);
     }
 
+    //pitch with controller
+    public void PitchWithCon() 
+    {
+        if (UseController) 
+        {
+            float InputVertical = Input.GetAxis("Vertical");
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical, ForceMode.Impulse);
+        }
+    }
     public void YawLeft() 
     {
         ForwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength * -1f, ForceMode.Impulse);
@@ -103,16 +139,30 @@ public class ShipControll : MonoBehaviour
         BackwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength * -1f, ForceMode.Impulse);
     }
 
+    
     public void RollLeft() 
     {
         LeftCubePos.GetComponent<Rigidbody>().AddForce(UpDir * RollStrength, ForceMode.Impulse);
         RightCubePos.GetComponent<Rigidbody>().AddForce(DownDir * RollStrength, ForceMode.Impulse);
     }
 
+    
     public void RollRight() 
     {
         LeftCubePos.GetComponent<Rigidbody>().AddForce(DownDir * RollStrength, ForceMode.Impulse);
         RightCubePos.GetComponent<Rigidbody>().AddForce(UpDir * RollStrength, ForceMode.Impulse);
+    }
+
+    //Roll with controller
+   
+    public void RollWithCon()
+    {
+        if (UseController)
+        {
+            float RollInput = Input.GetAxis("Roll") * -1f;
+            LeftCubePos.GetComponent<Rigidbody>().AddForce(UpDir * RollStrength * RollInput, ForceMode.Impulse);
+            RightCubePos.GetComponent<Rigidbody>().AddForce(DownDir * RollStrength * RollInput, ForceMode.Impulse);
+        }
     }
     void Start()
     {
@@ -124,7 +174,23 @@ public class ShipControll : MonoBehaviour
     {
         DirectionCal();
 
-       
+        //call controller func
+        RollWithCon();
+        PitchWithCon();
+        ForwardWithCon();
+        BackwardWithCon();
+
+        
+
+        //use keyboard ir controller
+        if (Input.anyKey)
+        {
+            UseController = false;
+        }
+        else 
+        {
+            UseController = true;
+        }
        
 
 
@@ -185,7 +251,7 @@ public class ShipControll : MonoBehaviour
             }
             
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.JoystickButton4))
             {
                 YawLeft();
             
@@ -193,7 +259,7 @@ public class ShipControll : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.JoystickButton5))
             {
                 YawRight();
            
