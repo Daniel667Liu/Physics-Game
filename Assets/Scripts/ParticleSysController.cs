@@ -151,7 +151,7 @@ public class ParticleSysController : MonoBehaviour
             YawLclose();
             if (YawV == SC.LeftDir)
             {
-                Debug.Log("Equal true YawR");
+                //Debug.Log("Equal true YawR");
                 YawLadj();
             }
             else if (YawV == Vector3.zero)
@@ -161,7 +161,7 @@ public class ParticleSysController : MonoBehaviour
             }
             else if (YawV != SC.LeftDir)
             {
-                Debug.Log("Equal true YawL");
+               // Debug.Log("Equal true YawL");
                 YawRadj();
             }
 
@@ -170,7 +170,7 @@ public class ParticleSysController : MonoBehaviour
             PitchDclose();
             if (PitchV == SC.UpDir)
             {
-                Debug.Log("Equal true YawR");
+                //Debug.Log("Equal true YawR");
                 PitchDadj();
             }
             else if (PitchV == Vector3.zero)
@@ -180,7 +180,7 @@ public class ParticleSysController : MonoBehaviour
             }
             else if (PitchV != SC.UpDir)
             {
-                Debug.Log("Equal true YawL");
+                //Debug.Log("Equal true YawL");
                 PitchUadj();
             }
 
@@ -189,7 +189,7 @@ public class ParticleSysController : MonoBehaviour
             RollLclose();
             if (RollV == SC.UpDir)
             {
-                Debug.Log("Equal true YawR");
+               // Debug.Log("Equal true YawR");
                 RollLadj();
             }
             else if (RollV == Vector3.zero)
@@ -199,7 +199,7 @@ public class ParticleSysController : MonoBehaviour
             }
             else if (RollV != SC.UpDir)
             {
-                Debug.Log("Equal true YawL");
+                //Debug.Log("Equal true YawL");
                 RollRadj();
             }
         }
