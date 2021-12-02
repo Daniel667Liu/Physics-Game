@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 30561022164603114}
   - component: {fileID: 8793973111059469140}
   - component: {fileID: 6708555026978064201}
+  - component: {fileID: 2561118606714800660}
   m_Layer: 0
   m_Name: Meteorite7
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2561118606714800660
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3487931454860333981}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 554568917712885240, guid: 0a56ff1b9d1bcc24e868c31b2bb4ad0c, type: 3}
