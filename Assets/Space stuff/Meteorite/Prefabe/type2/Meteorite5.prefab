@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2507717217136188941}
   - component: {fileID: 1830301532238934528}
   - component: {fileID: 6699890532600737946}
+  - component: {fileID: 3590621060240592342}
   m_Layer: 0
   m_Name: Meteorite5
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3590621060240592342
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168773262665396312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7045188397998520065, guid: 0a56ff1b9d1bcc24e868c31b2bb4ad0c, type: 3}
