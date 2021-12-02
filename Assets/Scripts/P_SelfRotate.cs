@@ -15,6 +15,6 @@ public class P_SelfRotate : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Planet.transform.Rotate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedZ * Time.deltaTime, Space.Self);
+        this.transform.Rotate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedZ * Time.deltaTime, Space.Self);
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4577531267806136487}
   - component: {fileID: 7536809488132034839}
   - component: {fileID: 6066334509916200635}
+  - component: {fileID: 4001661375711840592}
   m_Layer: 0
   m_Name: Meteorite2
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4001661375711840592
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589138737116620337}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3571660130449703130, guid: 0a56ff1b9d1bcc24e868c31b2bb4ad0c, type: 3}

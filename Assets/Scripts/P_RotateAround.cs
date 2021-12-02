@@ -16,7 +16,7 @@ public class P_RotateAround : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Planet.transform.RotateAround(Center.transform.position, Vector3.up, speed * Time.deltaTime);
+        this.transform.RotateAround(Center.transform.position, Vector3.up, speed * Time.deltaTime);
 
     }
 }
