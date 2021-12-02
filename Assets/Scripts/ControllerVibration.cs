@@ -13,6 +13,7 @@ public class ControllerVibration : MonoBehaviour
     //the holder should be a gameobject contains only the colliders and public bool
     private bool IsHitted;
     public float VibrateStrength = 1f;
+    public GameObject ShipMain;
 
 
 
@@ -27,13 +28,19 @@ public class ControllerVibration : MonoBehaviour
     void Start()
     {
         SpaceshipColliderHolder = FindObjectOfType<ShipCollider>();
+        
         //need to add a WHOLE collider to the spaceship.
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        float ShipSpeed = ShipMain.gameObject.GetComponent<Rigidbody>().velocity.magnitude;
+        VibrateStrength = ShipSpeed / 12f;//calculate the vibration strength
         IsHitted = SpaceshipColliderHolder.isHitted;//detect if the ship is hitted from the holder
+        
+        
         if (IsHitted)
         {
             GamePad.SetVibration(playerIndex, VibrateStrength, VibrateStrength);
