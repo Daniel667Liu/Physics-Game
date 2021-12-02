@@ -17,7 +17,7 @@ public class Pipe : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("run");
+        Debug.Log(other.gameObject.name);
         PC.GetComponent<PipeController>().ShowandDes();
     }
 }

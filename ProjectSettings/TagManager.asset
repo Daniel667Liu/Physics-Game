@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - box
+  - test
+  - Item
+  - Destination
   layers:
   - Default
   - TransparentFX
