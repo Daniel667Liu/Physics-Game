@@ -44,6 +44,12 @@ public class ShipControll : MonoBehaviour
     //if use controller or not
     public bool UseController = true;
 
+    //define how to use the controller
+    private bool isLeftControl = true;
+    public float InputVertical;
+    public float YawInput;
+
+    private FreeLookSwitch FreeLookSwitch;
     //push the gas -> force increase, realse the gas -> force decrease.
     public void ForceLerp()
     {
@@ -122,7 +128,15 @@ public class ShipControll : MonoBehaviour
     {
         if (UseController) 
         {
-            float InputVertical = Input.GetAxis("Vertical");
+            
+            if (isLeftControl)
+            {   
+                InputVertical = Input.GetAxis("Vertical"); 
+            }
+            else 
+            {
+                InputVertical = Input.GetAxis("Mouse Y");
+            }
             ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical, ForceMode.Impulse);
             BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical, ForceMode.Impulse);
         }
@@ -139,7 +153,25 @@ public class ShipControll : MonoBehaviour
         BackwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength * -1f, ForceMode.Impulse);
     }
 
-    
+    //control yaw with controller
+    public void YawWithCon() 
+    {
+        
+        if (isLeftControl)
+        {
+            YawInput = Input.GetAxis("Roll");
+        }
+        else 
+        {
+            YawInput = Input.GetAxis("Mouse X");
+        }
+        ForwardCubePos.GetComponent<Rigidbody>().AddForce(LeftDir * YawStrength * YawInput, ForceMode.Impulse);
+        BackwardCubePos.GetComponent<Rigidbody>().AddForce(RightDir * YawStrength * YawInput, ForceMode.Impulse);
+    }
+
+  
+
+
     public void RollLeft() 
     {
         LeftCubePos.GetComponent<Rigidbody>().AddForce(UpDir * RollStrength, ForceMode.Impulse);
@@ -153,29 +185,45 @@ public class ShipControll : MonoBehaviour
         RightCubePos.GetComponent<Rigidbody>().AddForce(UpDir * RollStrength, ForceMode.Impulse);
     }
 
-    //Roll with controller
-   
-    public void RollWithCon()
+
+    //switch the controller side
+    public void ControllerSwitch() 
     {
-        if (UseController)
+        if (isLeftControl)
         {
-            float RollInput = Input.GetAxis("Roll") * -1f;
-            LeftCubePos.GetComponent<Rigidbody>().AddForce(UpDir * RollStrength * RollInput, ForceMode.Impulse);
-            RightCubePos.GetComponent<Rigidbody>().AddForce(DownDir * RollStrength * RollInput, ForceMode.Impulse);
+            isLeftControl = false;
         }
+        else 
+        {
+            isLeftControl = true;
+        }
+
+        FreeLookSwitch.CameraControllSwitch();
     }
+   
+    
+
+
     void Start()
     {
-        
+        FreeLookSwitch = FindObjectOfType<FreeLookSwitch>();
     }
 
     // Update is called once per frame
     void Update()
     {
+       Debug.Log(isLeftControl);
+
+        if (Input.GetKeyDown(KeyCode.G)) 
+        {
+            ControllerSwitch();
+        }
+
+
         DirectionCal();
 
         //call controller func
-        RollWithCon();
+        YawWithCon();
         PitchWithCon();
         ForwardWithCon();
         BackwardWithCon();
@@ -212,7 +260,7 @@ public class ShipControll : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.JoystickButton4))
             {
                 RollLeft();
          
@@ -220,7 +268,7 @@ public class ShipControll : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.JoystickButton5))
             {
                 RollRight();
            
@@ -251,7 +299,7 @@ public class ShipControll : MonoBehaviour
             }
             
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.JoystickButton4))
+        if (Input.GetKey(KeyCode.A))
             {
                 YawLeft();
             
@@ -259,7 +307,7 @@ public class ShipControll : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.JoystickButton5))
+        if (Input.GetKey(KeyCode.D))
             {
                 YawRight();
            

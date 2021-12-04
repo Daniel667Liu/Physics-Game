@@ -8,6 +8,7 @@ public class P_RotateAround : MonoBehaviour
     public GameObject Center;
     public GameObject Planet;
     public float speed;
+    bool rotate = true;
     void Start()
     {
         
@@ -16,7 +17,15 @@ public class P_RotateAround : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        this.transform.RotateAround(Center.transform.position, Vector3.up, speed * Time.deltaTime);
+        if (rotate)
+            this.transform.RotateAround(Center.transform.position, Vector3.up, speed * Time.deltaTime);
+    }
 
+    private void OnCollisionEnter(UnityEngine.Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            rotate = false;
+        }
     }
 }
