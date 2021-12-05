@@ -14,7 +14,7 @@ public class OrbitDebugDisplay : MonoBehaviour {
 
     void Start () {
         if (Application.isPlaying) {
-            HideOrbits ();
+            //HideOrbits ();
         }
     }
 
