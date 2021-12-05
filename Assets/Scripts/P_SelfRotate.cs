@@ -16,7 +16,7 @@ public class P_SelfRotate : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(true)
+        if(rotate)
         this.transform.Rotate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedZ * Time.deltaTime, Space.Self);
     }
 
