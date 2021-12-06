@@ -6,6 +6,9 @@ public class PickUp : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool Picked = false;
+
+    public GameObject Solar1OrbitController;
+    public GameObject Solar2OrbitController;
     void Start()
     {
         
@@ -14,7 +17,14 @@ public class PickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (!Solar1OrbitController.GetComponent<OrbitDebugDisplay>().Displaying)
+                Solar1OrbitController.GetComponent<OrbitDebugDisplay>().Displaying = true;
+            else
+                Solar1OrbitController.GetComponent<OrbitDebugDisplay>().Displaying = false;
+
+        }
     }
     private void OnTriggerEnter(Collider collision)
     {
