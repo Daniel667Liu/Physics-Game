@@ -8,6 +8,7 @@ TagManager:
   - test
   - Item
   - Destination
+  - Planet
   layers:
   - Default
   - TransparentFX
