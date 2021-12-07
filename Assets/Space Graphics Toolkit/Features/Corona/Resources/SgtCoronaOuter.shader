@@ -1,4 +1,3 @@
-//<HASH>-536568216</HASH>
 ////////////////////////////////////////
 // Generated with Better Shaders
 //
@@ -108,7 +107,6 @@ ZWrite Off
 
 #define _UNLIT 1
 #define REQUIRE_DEPTH_TEXTURE
-#define _USINGTEXCOORD1 1
 
 
             // this has to be here or specular color will be ignored. Not in SG code
@@ -168,12 +166,12 @@ ZWrite Off
          float3 worldPos : TEXCOORD0;
          float3 worldNormal : TEXCOORD1;
          float4 worldTangent : TEXCOORD2;
-          float4 texcoord0 : TEXCOORD3;
-          float4 texcoord1 : TEXCOORD4;
-         // float4 texcoord2 : TEXCOORD5;
+          float4 texcoord0 : TEXCCOORD3;
+          float4 texcoord1 : TEXCCOORD4;
+         // float4 texcoord2 : TEXCCOORD5;
 
          // #if %TEXCOORD3REQUIREKEY%
-         // float4 texcoord3 : TEXCOORD6;
+         // float4 texcoord3 : TEXCCOORD6;
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
@@ -265,8 +263,6 @@ ZWrite Off
                half IridescenceMask;
                half IridescenceThickness;
                int DiffusionProfileHash;
-               float SpecularAAThreshold;
-               float SpecularAAScreenSpaceVariance;
                // requires _OVERRIDE_BAKEDGI to be defined, but is mapped in all pipelines
                float3 DiffuseGI;
                float3 BackDiffuseGI;
@@ -332,27 +328,12 @@ ZWrite Off
                float4 tangent : TANGENT;
                float4 texcoord0 : TEXCOORD0;
 
-               // optimize out mesh coords when not in use by user or lighting system
-               #if _URP && (_USINGTEXCOORD1 || _PASSMETA || _PASSFORWARD || _PASSGBUFFER)
-                  float4 texcoord1 : TEXCOORD1;
-               #endif
+               // would love to strip these, but they are used in certain
+               // combinations of the lighting system, and may be used
+               // by the user as well, so no easy way to strip them.
 
-               #if _URP && (_USINGTEXCOORD2 || _PASSMETA || ((_PASSFORWARD || _PASSGBUFFER) && defined(DYNAMICLIGHTMAP_ON)))
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
-
-               #if _STANDARD && (_USINGTEXCOORD1 || (_PASSMETA || ((_PASSFORWARD || _PASSGBUFFER || _PASSFORWARDADD) && LIGHTMAP_ON)))
-                  float4 texcoord1 : TEXCOORD1;
-               #endif
-               #if _STANDARD && (_USINGTEXCOORD2 || (_PASSMETA || ((_PASSFORWARD || _PASSGBUFFER) && DYNAMICLIGHTMAP_ON)))
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
-
-
-               #if _HDRP
-                  float4 texcoord1 : TEXCOORD1;
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
+               float4 texcoord1 : TEXCOORD1;
+               float4 texcoord2 : TEXCOORD2;
 
                // #if %TEXCOORD3REQUIREKEY%
                // float4 texcoord3 : TEXCOORD3;
@@ -362,7 +343,7 @@ ZWrite Off
                // float4 vertexColor : COLOR;
                // #endif
 
-               #if _HDRP && (_PASSMOTIONVECTOR || ((_PASSFORWARD || _PASSUNLIT) && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
+               #if _HDRP && (_PASSMOTIONVECTOR || (_PASSFORWARD && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
                   float3 previousPositionOS : TEXCOORD4; // Contain previous transform position (in case of skinning for example)
                   #if defined (_ADD_PRECOMPUTED_VELOCITY)
                      float3 precomputedVelocity    : TEXCOORD5; // Add Precomputed Velocity (Alembic computes velocities on runtime side).
@@ -391,7 +372,7 @@ ZWrite Off
 
                // #if %EXTRAV2F0REQUIREKEY%
                // float4 extraV2F0 : TEXCOORD5;
-               // #endif
+               // endif
 
                // #if %EXTRAV2F1REQUIREKEY%
                // float4 extraV2F1 : TEXCOORD6;
@@ -421,7 +402,7 @@ ZWrite Off
                // float4 extraV2F7 : TEXCOORD12;
                // #endif
 
-               #if _HDRP && (_PASSMOTIONVECTOR || ((_PASSFORWARD || _PASSUNLIT) && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
+               #if _HDRP && (_PASSMOTIONVECTOR || (_PASSFORWARD && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
                   float3 previousPositionOS : TEXCOORD13; // Contain previous transform position (in case of skinning for example)
                   #if defined (_ADD_PRECOMPUTED_VELOCITY)
                      float3 precomputedVelocity : TEXCOORD14;
@@ -443,7 +424,6 @@ ZWrite Off
                float4 extraV2F6;
                float4 extraV2F7;
                Blackboard blackboard;
-               float4 time;
             };
 
 
@@ -757,7 +737,7 @@ ZWrite Off
 	{
 		OutputWithoutAlpha(o, finalColor);
 
-		o.Alpha = finalColor.w;
+		o.Alpha = saturate(finalColor.w);
 	}
 
 
@@ -832,28 +812,13 @@ ZWrite Off
                  // Ext_SurfaceFunction17(l, d);
                  // Ext_SurfaceFunction18(l, d);
 		           // Ext_SurfaceFunction19(l, d);
-                 // Ext_SurfaceFunction20(l, d);
-                 // Ext_SurfaceFunction21(l, d);
-                 // Ext_SurfaceFunction22(l, d);
-                 // Ext_SurfaceFunction23(l, d);
-                 // Ext_SurfaceFunction24(l, d);
-                 // Ext_SurfaceFunction25(l, d);
-                 // Ext_SurfaceFunction26(l, d);
-                 // Ext_SurfaceFunction27(l, d);
-                 // Ext_SurfaceFunction28(l, d);
-		           // Ext_SurfaceFunction29(l, d);
             }
 
-            void ChainModifyVertex(inout VertexData v, inout VertexToPixel v2p, float4 time)
+            void ChainModifyVertex(inout VertexData v, inout VertexToPixel v2p)
             {
                  ExtraV2F d;
-                 
                  ZERO_INITIALIZE(ExtraV2F, d);
                  ZERO_INITIALIZE(Blackboard, d.blackboard);
-                 // due to motion vectors in HDRP, we need to use the last
-                 // time in certain spots. So if you are going to use _Time to adjust vertices,
-                 // you need to use this time or motion vectors will break. 
-                 d.time = time;
 
                    Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
@@ -875,16 +840,6 @@ ZWrite Off
                  // Ext_ModifyVertex17(v, d);
                  // Ext_ModifyVertex18(v, d);
                  // Ext_ModifyVertex19(v, d);
-                 // Ext_ModifyVertex20(v, d);
-                 // Ext_ModifyVertex21(v, d);
-                 // Ext_ModifyVertex22(v, d);
-                 // Ext_ModifyVertex23(v, d);
-                 // Ext_ModifyVertex24(v, d);
-                 // Ext_ModifyVertex25(v, d);
-                 // Ext_ModifyVertex26(v, d);
-                 // Ext_ModifyVertex27(v, d);
-                 // Ext_ModifyVertex28(v, d);
-                 // Ext_ModifyVertex29(v, d);
 
 
                  // #if %EXTRAV2F0REQUIREKEY%
@@ -979,16 +934,6 @@ ZWrite Off
                // Ext_ModifyTessellatedVertex17(v, d);
                // Ext_ModifyTessellatedVertex18(v, d);
                // Ext_ModifyTessellatedVertex19(v, d);
-               // Ext_ModifyTessellatedVertex20(v, d);
-               // Ext_ModifyTessellatedVertex21(v, d);
-               // Ext_ModifyTessellatedVertex22(v, d);
-               // Ext_ModifyTessellatedVertex23(v, d);
-               // Ext_ModifyTessellatedVertex24(v, d);
-               // Ext_ModifyTessellatedVertex25(v, d);
-               // Ext_ModifyTessellatedVertex26(v, d);
-               // Ext_ModifyTessellatedVertex27(v, d);
-               // Ext_ModifyTessellatedVertex28(v, d);
-               // Ext_ModifyTessellatedVertex29(v, d);
 
                // #if %EXTRAV2F0REQUIREKEY%
                // v2p.extraV2F0 = d.extraV2F0;
@@ -1045,16 +990,6 @@ ZWrite Off
                //  Ext_FinalColorForward17(l, d, color);
                //  Ext_FinalColorForward18(l, d, color);
                //  Ext_FinalColorForward19(l, d, color);
-               //  Ext_FinalColorForward20(l, d, color);
-               //  Ext_FinalColorForward21(l, d, color);
-               //  Ext_FinalColorForward22(l, d, color);
-               //  Ext_FinalColorForward23(l, d, color);
-               //  Ext_FinalColorForward24(l, d, color);
-               //  Ext_FinalColorForward25(l, d, color);
-               //  Ext_FinalColorForward26(l, d, color);
-               //  Ext_FinalColorForward27(l, d, color);
-               //  Ext_FinalColorForward28(l, d, color);
-               //  Ext_FinalColorForward29(l, d, color);
             }
 
             void ChainFinalGBufferStandard(inout Surface s, inout ShaderData d, inout half4 GBuffer0, inout half4 GBuffer1, inout half4 GBuffer2, inout half4 outEmission, inout half4 outShadowMask)
@@ -1079,16 +1014,6 @@ ZWrite Off
                //  Ext_FinalGBufferStandard17(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
                //  Ext_FinalGBufferStandard18(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
                //  Ext_FinalGBufferStandard19(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard20(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard21(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard22(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard23(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard24(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard25(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard26(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard27(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard28(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard29(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
             }
 
 
@@ -1180,7 +1105,7 @@ ZWrite Off
          
 
          
-         #if _PASSSHADOW
+         #if defined(SHADERPASS_SHADOWCASTER)
             float3 _LightDirection;
          #endif
 
@@ -1196,7 +1121,7 @@ ZWrite Off
 
 
 #if !_TESSELLATION_ON
-           ChainModifyVertex(v, o, _Time);
+           ChainModifyVertex(v, o);
 #endif
 
             o.texcoord0 = v.texcoord0;
@@ -1217,7 +1142,7 @@ ZWrite Off
            o.worldTangent = float4(TransformObjectToWorldDir(v.tangent.xyz), v.tangent.w);
 
 
-          #if _PASSSHADOW
+          #if defined(SHADERPASS_SHADOWCASTER)
               // Define shadow pass specific clip position for Universal
               o.pos = TransformWorldToHClip(ApplyShadowBias(o.worldPos, o.worldNormal, _LightDirection));
               #if UNITY_REVERSED_Z
@@ -1225,7 +1150,7 @@ ZWrite Off
               #else
                   o.pos.z = max(o.pos.z, o.pos.w * UNITY_NEAR_CLIP_VALUE);
               #endif
-          #elif _PASSMETA
+          #elif defined(SHADERPASS_META)
               o.pos = MetaVertexPosition(float4(v.vertex.xyz, 0), v.texcoord1.xy, v.texcoord2.xy, unity_LightmapST, unity_DynamicLightmapST);
           #else
               o.pos = TransformWorldToHClip(o.worldPos);
@@ -1236,7 +1161,7 @@ ZWrite Off
            o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
-          #if _PASSFORWARD || _PASSGBUFFER
+          #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
               float2 uv1 = v.texcoord1.xy;
               OUTPUT_LIGHTMAP_UV(uv1, unity_LightmapST, o.lightmapUV);
                o.texcoord1.xy = uv1;
@@ -1244,11 +1169,7 @@ ZWrite Off
           #endif
 
           #ifdef VARYINGS_NEED_FOG_AND_VERTEX_LIGHT
-              #if _BAKEDLIT
-                 half3 vertexLight = 0;
-              #else
-                 half3 vertexLight = VertexLighting(o.worldPos, o.worldNormal);
-              #endif
+              half3 vertexLight = VertexLighting(o.worldPos, o.worldNormal);
               half fogFactor = ComputeFogFactor(o.pos.z);
               o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
           #endif
@@ -1333,18 +1254,15 @@ ZWrite Off
             inputData.vertexLighting = IN.fogFactorAndVertexLight.yzw;
             #if defined(_OVERRIDE_BAKEDGI)
                inputData.bakedGI = l.DiffuseGI;
-               l.Emission += l.SpecularGI;
             #else
                inputData.bakedGI = SAMPLE_GI(IN.lightmapUV, IN.sh, inputData.normalWS);
             #endif
             inputData.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.pos);
-            #if !_BAKEDLIT
-               inputData.shadowMask = SAMPLE_SHADOWMASK(IN.lightmapUV);
+            inputData.shadowMask = SAMPLE_SHADOWMASK(IN.lightmapUV);
 
-               #if defined(_OVERRIDE_SHADOWMASK)
-                  float4 mulColor = saturate(dot(l.ShadowMask, _MainLightOcclusionProbes)); //unity_OcclusionMaskSelector));
-                  inputData.shadowMask = mulColor;
-               #endif
+            #if defined(_OVERRIDE_SHADOWMASK)
+               float4 mulColor = saturate(dot(l.ShadowMask, _MainLightOcclusionProbes)); //unity_OcclusionMaskSelector));
+               inputData.shadowMask = mulColor;
             #endif
 
             #if !_UNLIT
@@ -1357,8 +1275,6 @@ ZWrite Off
                      l.Emission,
                      l.Alpha);
                   color.a = l.Alpha;
-               #elif _BAKEDLIT
-                  color = UniversalFragmentBakedLit(inputData, l.Albedo, l.Alpha, normalTS);
                #else
 
                   
@@ -1385,7 +1301,7 @@ ZWrite Off
 
             #else
                half4 color = half4(l.Albedo, l.Alpha);
-               
+               color.rgb = MixFog(color.rgb, inputData.fogCoord);
             #endif
             ChainFinalColorForward(l, d, color);
 
@@ -1451,7 +1367,6 @@ ZWrite Off
 
 #define _UNLIT 1
 #define REQUIRE_DEPTH_TEXTURE
-#define _USINGTEXCOORD1 1
 
 
 
@@ -1504,12 +1419,12 @@ ZWrite Off
          float3 worldPos : TEXCOORD0;
          float3 worldNormal : TEXCOORD1;
          float4 worldTangent : TEXCOORD2;
-          float4 texcoord0 : TEXCOORD3;
-          float4 texcoord1 : TEXCOORD4;
-         // float4 texcoord2 : TEXCOORD5;
+          float4 texcoord0 : TEXCCOORD3;
+          float4 texcoord1 : TEXCCOORD4;
+         // float4 texcoord2 : TEXCCOORD5;
 
          // #if %TEXCOORD3REQUIREKEY%
-         // float4 texcoord3 : TEXCOORD6;
+         // float4 texcoord3 : TEXCCOORD6;
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
@@ -1601,8 +1516,6 @@ ZWrite Off
                half IridescenceMask;
                half IridescenceThickness;
                int DiffusionProfileHash;
-               float SpecularAAThreshold;
-               float SpecularAAScreenSpaceVariance;
                // requires _OVERRIDE_BAKEDGI to be defined, but is mapped in all pipelines
                float3 DiffuseGI;
                float3 BackDiffuseGI;
@@ -1668,27 +1581,12 @@ ZWrite Off
                float4 tangent : TANGENT;
                float4 texcoord0 : TEXCOORD0;
 
-               // optimize out mesh coords when not in use by user or lighting system
-               #if _URP && (_USINGTEXCOORD1 || _PASSMETA || _PASSFORWARD || _PASSGBUFFER)
-                  float4 texcoord1 : TEXCOORD1;
-               #endif
+               // would love to strip these, but they are used in certain
+               // combinations of the lighting system, and may be used
+               // by the user as well, so no easy way to strip them.
 
-               #if _URP && (_USINGTEXCOORD2 || _PASSMETA || ((_PASSFORWARD || _PASSGBUFFER) && defined(DYNAMICLIGHTMAP_ON)))
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
-
-               #if _STANDARD && (_USINGTEXCOORD1 || (_PASSMETA || ((_PASSFORWARD || _PASSGBUFFER || _PASSFORWARDADD) && LIGHTMAP_ON)))
-                  float4 texcoord1 : TEXCOORD1;
-               #endif
-               #if _STANDARD && (_USINGTEXCOORD2 || (_PASSMETA || ((_PASSFORWARD || _PASSGBUFFER) && DYNAMICLIGHTMAP_ON)))
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
-
-
-               #if _HDRP
-                  float4 texcoord1 : TEXCOORD1;
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
+               float4 texcoord1 : TEXCOORD1;
+               float4 texcoord2 : TEXCOORD2;
 
                // #if %TEXCOORD3REQUIREKEY%
                // float4 texcoord3 : TEXCOORD3;
@@ -1698,7 +1596,7 @@ ZWrite Off
                // float4 vertexColor : COLOR;
                // #endif
 
-               #if _HDRP && (_PASSMOTIONVECTOR || ((_PASSFORWARD || _PASSUNLIT) && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
+               #if _HDRP && (_PASSMOTIONVECTOR || (_PASSFORWARD && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
                   float3 previousPositionOS : TEXCOORD4; // Contain previous transform position (in case of skinning for example)
                   #if defined (_ADD_PRECOMPUTED_VELOCITY)
                      float3 precomputedVelocity    : TEXCOORD5; // Add Precomputed Velocity (Alembic computes velocities on runtime side).
@@ -1727,7 +1625,7 @@ ZWrite Off
 
                // #if %EXTRAV2F0REQUIREKEY%
                // float4 extraV2F0 : TEXCOORD5;
-               // #endif
+               // endif
 
                // #if %EXTRAV2F1REQUIREKEY%
                // float4 extraV2F1 : TEXCOORD6;
@@ -1757,7 +1655,7 @@ ZWrite Off
                // float4 extraV2F7 : TEXCOORD12;
                // #endif
 
-               #if _HDRP && (_PASSMOTIONVECTOR || ((_PASSFORWARD || _PASSUNLIT) && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
+               #if _HDRP && (_PASSMOTIONVECTOR || (_PASSFORWARD && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
                   float3 previousPositionOS : TEXCOORD13; // Contain previous transform position (in case of skinning for example)
                   #if defined (_ADD_PRECOMPUTED_VELOCITY)
                      float3 precomputedVelocity : TEXCOORD14;
@@ -1779,7 +1677,6 @@ ZWrite Off
                float4 extraV2F6;
                float4 extraV2F7;
                Blackboard blackboard;
-               float4 time;
             };
 
 
@@ -2093,7 +1990,7 @@ ZWrite Off
 	{
 		OutputWithoutAlpha(o, finalColor);
 
-		o.Alpha = finalColor.w;
+		o.Alpha = saturate(finalColor.w);
 	}
 
 
@@ -2168,28 +2065,13 @@ ZWrite Off
                  // Ext_SurfaceFunction17(l, d);
                  // Ext_SurfaceFunction18(l, d);
 		           // Ext_SurfaceFunction19(l, d);
-                 // Ext_SurfaceFunction20(l, d);
-                 // Ext_SurfaceFunction21(l, d);
-                 // Ext_SurfaceFunction22(l, d);
-                 // Ext_SurfaceFunction23(l, d);
-                 // Ext_SurfaceFunction24(l, d);
-                 // Ext_SurfaceFunction25(l, d);
-                 // Ext_SurfaceFunction26(l, d);
-                 // Ext_SurfaceFunction27(l, d);
-                 // Ext_SurfaceFunction28(l, d);
-		           // Ext_SurfaceFunction29(l, d);
             }
 
-            void ChainModifyVertex(inout VertexData v, inout VertexToPixel v2p, float4 time)
+            void ChainModifyVertex(inout VertexData v, inout VertexToPixel v2p)
             {
                  ExtraV2F d;
-                 
                  ZERO_INITIALIZE(ExtraV2F, d);
                  ZERO_INITIALIZE(Blackboard, d.blackboard);
-                 // due to motion vectors in HDRP, we need to use the last
-                 // time in certain spots. So if you are going to use _Time to adjust vertices,
-                 // you need to use this time or motion vectors will break. 
-                 d.time = time;
 
                    Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
@@ -2211,16 +2093,6 @@ ZWrite Off
                  // Ext_ModifyVertex17(v, d);
                  // Ext_ModifyVertex18(v, d);
                  // Ext_ModifyVertex19(v, d);
-                 // Ext_ModifyVertex20(v, d);
-                 // Ext_ModifyVertex21(v, d);
-                 // Ext_ModifyVertex22(v, d);
-                 // Ext_ModifyVertex23(v, d);
-                 // Ext_ModifyVertex24(v, d);
-                 // Ext_ModifyVertex25(v, d);
-                 // Ext_ModifyVertex26(v, d);
-                 // Ext_ModifyVertex27(v, d);
-                 // Ext_ModifyVertex28(v, d);
-                 // Ext_ModifyVertex29(v, d);
 
 
                  // #if %EXTRAV2F0REQUIREKEY%
@@ -2315,16 +2187,6 @@ ZWrite Off
                // Ext_ModifyTessellatedVertex17(v, d);
                // Ext_ModifyTessellatedVertex18(v, d);
                // Ext_ModifyTessellatedVertex19(v, d);
-               // Ext_ModifyTessellatedVertex20(v, d);
-               // Ext_ModifyTessellatedVertex21(v, d);
-               // Ext_ModifyTessellatedVertex22(v, d);
-               // Ext_ModifyTessellatedVertex23(v, d);
-               // Ext_ModifyTessellatedVertex24(v, d);
-               // Ext_ModifyTessellatedVertex25(v, d);
-               // Ext_ModifyTessellatedVertex26(v, d);
-               // Ext_ModifyTessellatedVertex27(v, d);
-               // Ext_ModifyTessellatedVertex28(v, d);
-               // Ext_ModifyTessellatedVertex29(v, d);
 
                // #if %EXTRAV2F0REQUIREKEY%
                // v2p.extraV2F0 = d.extraV2F0;
@@ -2381,16 +2243,6 @@ ZWrite Off
                //  Ext_FinalColorForward17(l, d, color);
                //  Ext_FinalColorForward18(l, d, color);
                //  Ext_FinalColorForward19(l, d, color);
-               //  Ext_FinalColorForward20(l, d, color);
-               //  Ext_FinalColorForward21(l, d, color);
-               //  Ext_FinalColorForward22(l, d, color);
-               //  Ext_FinalColorForward23(l, d, color);
-               //  Ext_FinalColorForward24(l, d, color);
-               //  Ext_FinalColorForward25(l, d, color);
-               //  Ext_FinalColorForward26(l, d, color);
-               //  Ext_FinalColorForward27(l, d, color);
-               //  Ext_FinalColorForward28(l, d, color);
-               //  Ext_FinalColorForward29(l, d, color);
             }
 
             void ChainFinalGBufferStandard(inout Surface s, inout ShaderData d, inout half4 GBuffer0, inout half4 GBuffer1, inout half4 GBuffer2, inout half4 outEmission, inout half4 outShadowMask)
@@ -2415,16 +2267,6 @@ ZWrite Off
                //  Ext_FinalGBufferStandard17(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
                //  Ext_FinalGBufferStandard18(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
                //  Ext_FinalGBufferStandard19(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard20(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard21(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard22(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard23(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard24(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard25(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard26(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard27(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard28(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard29(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
             }
 
 
@@ -2516,7 +2358,7 @@ ZWrite Off
          
 
             
-         #if _PASSSHADOW
+         #if defined(SHADERPASS_SHADOWCASTER)
             float3 _LightDirection;
          #endif
 
@@ -2532,7 +2374,7 @@ ZWrite Off
 
 
 #if !_TESSELLATION_ON
-           ChainModifyVertex(v, o, _Time);
+           ChainModifyVertex(v, o);
 #endif
 
             o.texcoord0 = v.texcoord0;
@@ -2553,7 +2395,7 @@ ZWrite Off
            o.worldTangent = float4(TransformObjectToWorldDir(v.tangent.xyz), v.tangent.w);
 
 
-          #if _PASSSHADOW
+          #if defined(SHADERPASS_SHADOWCASTER)
               // Define shadow pass specific clip position for Universal
               o.pos = TransformWorldToHClip(ApplyShadowBias(o.worldPos, o.worldNormal, _LightDirection));
               #if UNITY_REVERSED_Z
@@ -2561,7 +2403,7 @@ ZWrite Off
               #else
                   o.pos.z = max(o.pos.z, o.pos.w * UNITY_NEAR_CLIP_VALUE);
               #endif
-          #elif _PASSMETA
+          #elif defined(SHADERPASS_META)
               o.pos = MetaVertexPosition(float4(v.vertex.xyz, 0), v.texcoord1.xy, v.texcoord2.xy, unity_LightmapST, unity_DynamicLightmapST);
           #else
               o.pos = TransformWorldToHClip(o.worldPos);
@@ -2572,7 +2414,7 @@ ZWrite Off
            o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
-          #if _PASSFORWARD || _PASSGBUFFER
+          #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
               float2 uv1 = v.texcoord1.xy;
               OUTPUT_LIGHTMAP_UV(uv1, unity_LightmapST, o.lightmapUV);
                o.texcoord1.xy = uv1;
@@ -2580,11 +2422,7 @@ ZWrite Off
           #endif
 
           #ifdef VARYINGS_NEED_FOG_AND_VERTEX_LIGHT
-              #if _BAKEDLIT
-                 half3 vertexLight = 0;
-              #else
-                 half3 vertexLight = VertexLighting(o.worldPos, o.worldNormal);
-              #endif
+              half3 vertexLight = VertexLighting(o.worldPos, o.worldNormal);
               half fogFactor = ComputeFogFactor(o.pos.z);
               o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
           #endif
@@ -2689,7 +2527,6 @@ ZWrite Off
 
 #define _UNLIT 1
 #define REQUIRE_DEPTH_TEXTURE
-#define _USINGTEXCOORD1 1
 
 
             // this has to be here or specular color will be ignored. Not in SG code
@@ -2749,12 +2586,12 @@ ZWrite Off
          float3 worldPos : TEXCOORD0;
          float3 worldNormal : TEXCOORD1;
          float4 worldTangent : TEXCOORD2;
-          float4 texcoord0 : TEXCOORD3;
-          float4 texcoord1 : TEXCOORD4;
-         // float4 texcoord2 : TEXCOORD5;
+          float4 texcoord0 : TEXCCOORD3;
+          float4 texcoord1 : TEXCCOORD4;
+         // float4 texcoord2 : TEXCCOORD5;
 
          // #if %TEXCOORD3REQUIREKEY%
-         // float4 texcoord3 : TEXCOORD6;
+         // float4 texcoord3 : TEXCCOORD6;
          // #endif
 
          // #if %SCREENPOSREQUIREKEY%
@@ -2846,8 +2683,6 @@ ZWrite Off
                half IridescenceMask;
                half IridescenceThickness;
                int DiffusionProfileHash;
-               float SpecularAAThreshold;
-               float SpecularAAScreenSpaceVariance;
                // requires _OVERRIDE_BAKEDGI to be defined, but is mapped in all pipelines
                float3 DiffuseGI;
                float3 BackDiffuseGI;
@@ -2913,27 +2748,12 @@ ZWrite Off
                float4 tangent : TANGENT;
                float4 texcoord0 : TEXCOORD0;
 
-               // optimize out mesh coords when not in use by user or lighting system
-               #if _URP && (_USINGTEXCOORD1 || _PASSMETA || _PASSFORWARD || _PASSGBUFFER)
-                  float4 texcoord1 : TEXCOORD1;
-               #endif
+               // would love to strip these, but they are used in certain
+               // combinations of the lighting system, and may be used
+               // by the user as well, so no easy way to strip them.
 
-               #if _URP && (_USINGTEXCOORD2 || _PASSMETA || ((_PASSFORWARD || _PASSGBUFFER) && defined(DYNAMICLIGHTMAP_ON)))
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
-
-               #if _STANDARD && (_USINGTEXCOORD1 || (_PASSMETA || ((_PASSFORWARD || _PASSGBUFFER || _PASSFORWARDADD) && LIGHTMAP_ON)))
-                  float4 texcoord1 : TEXCOORD1;
-               #endif
-               #if _STANDARD && (_USINGTEXCOORD2 || (_PASSMETA || ((_PASSFORWARD || _PASSGBUFFER) && DYNAMICLIGHTMAP_ON)))
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
-
-
-               #if _HDRP
-                  float4 texcoord1 : TEXCOORD1;
-                  float4 texcoord2 : TEXCOORD2;
-               #endif
+               float4 texcoord1 : TEXCOORD1;
+               float4 texcoord2 : TEXCOORD2;
 
                // #if %TEXCOORD3REQUIREKEY%
                // float4 texcoord3 : TEXCOORD3;
@@ -2943,7 +2763,7 @@ ZWrite Off
                // float4 vertexColor : COLOR;
                // #endif
 
-               #if _HDRP && (_PASSMOTIONVECTOR || ((_PASSFORWARD || _PASSUNLIT) && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
+               #if _HDRP && (_PASSMOTIONVECTOR || (_PASSFORWARD && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
                   float3 previousPositionOS : TEXCOORD4; // Contain previous transform position (in case of skinning for example)
                   #if defined (_ADD_PRECOMPUTED_VELOCITY)
                      float3 precomputedVelocity    : TEXCOORD5; // Add Precomputed Velocity (Alembic computes velocities on runtime side).
@@ -2972,7 +2792,7 @@ ZWrite Off
 
                // #if %EXTRAV2F0REQUIREKEY%
                // float4 extraV2F0 : TEXCOORD5;
-               // #endif
+               // endif
 
                // #if %EXTRAV2F1REQUIREKEY%
                // float4 extraV2F1 : TEXCOORD6;
@@ -3002,7 +2822,7 @@ ZWrite Off
                // float4 extraV2F7 : TEXCOORD12;
                // #endif
 
-               #if _HDRP && (_PASSMOTIONVECTOR || ((_PASSFORWARD || _PASSUNLIT) && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
+               #if _HDRP && (_PASSMOTIONVECTOR || (_PASSFORWARD && defined(_WRITE_TRANSPARENT_MOTION_VECTOR)))
                   float3 previousPositionOS : TEXCOORD13; // Contain previous transform position (in case of skinning for example)
                   #if defined (_ADD_PRECOMPUTED_VELOCITY)
                      float3 precomputedVelocity : TEXCOORD14;
@@ -3024,7 +2844,6 @@ ZWrite Off
                float4 extraV2F6;
                float4 extraV2F7;
                Blackboard blackboard;
-               float4 time;
             };
 
 
@@ -3338,7 +3157,7 @@ ZWrite Off
 	{
 		OutputWithoutAlpha(o, finalColor);
 
-		o.Alpha = finalColor.w;
+		o.Alpha = saturate(finalColor.w);
 	}
 
 
@@ -3413,28 +3232,13 @@ ZWrite Off
                  // Ext_SurfaceFunction17(l, d);
                  // Ext_SurfaceFunction18(l, d);
 		           // Ext_SurfaceFunction19(l, d);
-                 // Ext_SurfaceFunction20(l, d);
-                 // Ext_SurfaceFunction21(l, d);
-                 // Ext_SurfaceFunction22(l, d);
-                 // Ext_SurfaceFunction23(l, d);
-                 // Ext_SurfaceFunction24(l, d);
-                 // Ext_SurfaceFunction25(l, d);
-                 // Ext_SurfaceFunction26(l, d);
-                 // Ext_SurfaceFunction27(l, d);
-                 // Ext_SurfaceFunction28(l, d);
-		           // Ext_SurfaceFunction29(l, d);
             }
 
-            void ChainModifyVertex(inout VertexData v, inout VertexToPixel v2p, float4 time)
+            void ChainModifyVertex(inout VertexData v, inout VertexToPixel v2p)
             {
                  ExtraV2F d;
-                 
                  ZERO_INITIALIZE(ExtraV2F, d);
                  ZERO_INITIALIZE(Blackboard, d.blackboard);
-                 // due to motion vectors in HDRP, we need to use the last
-                 // time in certain spots. So if you are going to use _Time to adjust vertices,
-                 // you need to use this time or motion vectors will break. 
-                 d.time = time;
 
                    Ext_ModifyVertex0(v, d);
                  // Ext_ModifyVertex1(v, d);
@@ -3456,16 +3260,6 @@ ZWrite Off
                  // Ext_ModifyVertex17(v, d);
                  // Ext_ModifyVertex18(v, d);
                  // Ext_ModifyVertex19(v, d);
-                 // Ext_ModifyVertex20(v, d);
-                 // Ext_ModifyVertex21(v, d);
-                 // Ext_ModifyVertex22(v, d);
-                 // Ext_ModifyVertex23(v, d);
-                 // Ext_ModifyVertex24(v, d);
-                 // Ext_ModifyVertex25(v, d);
-                 // Ext_ModifyVertex26(v, d);
-                 // Ext_ModifyVertex27(v, d);
-                 // Ext_ModifyVertex28(v, d);
-                 // Ext_ModifyVertex29(v, d);
 
 
                  // #if %EXTRAV2F0REQUIREKEY%
@@ -3560,16 +3354,6 @@ ZWrite Off
                // Ext_ModifyTessellatedVertex17(v, d);
                // Ext_ModifyTessellatedVertex18(v, d);
                // Ext_ModifyTessellatedVertex19(v, d);
-               // Ext_ModifyTessellatedVertex20(v, d);
-               // Ext_ModifyTessellatedVertex21(v, d);
-               // Ext_ModifyTessellatedVertex22(v, d);
-               // Ext_ModifyTessellatedVertex23(v, d);
-               // Ext_ModifyTessellatedVertex24(v, d);
-               // Ext_ModifyTessellatedVertex25(v, d);
-               // Ext_ModifyTessellatedVertex26(v, d);
-               // Ext_ModifyTessellatedVertex27(v, d);
-               // Ext_ModifyTessellatedVertex28(v, d);
-               // Ext_ModifyTessellatedVertex29(v, d);
 
                // #if %EXTRAV2F0REQUIREKEY%
                // v2p.extraV2F0 = d.extraV2F0;
@@ -3626,16 +3410,6 @@ ZWrite Off
                //  Ext_FinalColorForward17(l, d, color);
                //  Ext_FinalColorForward18(l, d, color);
                //  Ext_FinalColorForward19(l, d, color);
-               //  Ext_FinalColorForward20(l, d, color);
-               //  Ext_FinalColorForward21(l, d, color);
-               //  Ext_FinalColorForward22(l, d, color);
-               //  Ext_FinalColorForward23(l, d, color);
-               //  Ext_FinalColorForward24(l, d, color);
-               //  Ext_FinalColorForward25(l, d, color);
-               //  Ext_FinalColorForward26(l, d, color);
-               //  Ext_FinalColorForward27(l, d, color);
-               //  Ext_FinalColorForward28(l, d, color);
-               //  Ext_FinalColorForward29(l, d, color);
             }
 
             void ChainFinalGBufferStandard(inout Surface s, inout ShaderData d, inout half4 GBuffer0, inout half4 GBuffer1, inout half4 GBuffer2, inout half4 outEmission, inout half4 outShadowMask)
@@ -3660,16 +3434,6 @@ ZWrite Off
                //  Ext_FinalGBufferStandard17(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
                //  Ext_FinalGBufferStandard18(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
                //  Ext_FinalGBufferStandard19(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard20(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard21(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard22(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard23(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard24(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard25(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard26(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard27(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard28(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
-               //  Ext_FinalGBufferStandard29(s, d, GBuffer0, GBuffer1, GBuffer2, outEmission, outShadowMask);
             }
 
 
@@ -3761,7 +3525,7 @@ ZWrite Off
          
 
          
-         #if _PASSSHADOW
+         #if defined(SHADERPASS_SHADOWCASTER)
             float3 _LightDirection;
          #endif
 
@@ -3777,7 +3541,7 @@ ZWrite Off
 
 
 #if !_TESSELLATION_ON
-           ChainModifyVertex(v, o, _Time);
+           ChainModifyVertex(v, o);
 #endif
 
             o.texcoord0 = v.texcoord0;
@@ -3798,7 +3562,7 @@ ZWrite Off
            o.worldTangent = float4(TransformObjectToWorldDir(v.tangent.xyz), v.tangent.w);
 
 
-          #if _PASSSHADOW
+          #if defined(SHADERPASS_SHADOWCASTER)
               // Define shadow pass specific clip position for Universal
               o.pos = TransformWorldToHClip(ApplyShadowBias(o.worldPos, o.worldNormal, _LightDirection));
               #if UNITY_REVERSED_Z
@@ -3806,7 +3570,7 @@ ZWrite Off
               #else
                   o.pos.z = max(o.pos.z, o.pos.w * UNITY_NEAR_CLIP_VALUE);
               #endif
-          #elif _PASSMETA
+          #elif defined(SHADERPASS_META)
               o.pos = MetaVertexPosition(float4(v.vertex.xyz, 0), v.texcoord1.xy, v.texcoord2.xy, unity_LightmapST, unity_DynamicLightmapST);
           #else
               o.pos = TransformWorldToHClip(o.worldPos);
@@ -3817,7 +3581,7 @@ ZWrite Off
            o.screenPos = ComputeScreenPos(o.pos, _ProjectionParams.x);
           // #endif
 
-          #if _PASSFORWARD || _PASSGBUFFER
+          #if defined(SHADERPASS_FORWARD) || (SHADERPASS == SHADERPASS_GBUFFER)
               float2 uv1 = v.texcoord1.xy;
               OUTPUT_LIGHTMAP_UV(uv1, unity_LightmapST, o.lightmapUV);
                o.texcoord1.xy = uv1;
@@ -3825,11 +3589,7 @@ ZWrite Off
           #endif
 
           #ifdef VARYINGS_NEED_FOG_AND_VERTEX_LIGHT
-              #if _BAKEDLIT
-                 half3 vertexLight = 0;
-              #else
-                 half3 vertexLight = VertexLighting(o.worldPos, o.worldNormal);
-              #endif
+              half3 vertexLight = VertexLighting(o.worldPos, o.worldNormal);
               half fogFactor = ComputeFogFactor(o.pos.z);
               o.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
           #endif

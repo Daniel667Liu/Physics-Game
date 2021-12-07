@@ -1,8 +1,11 @@
 ﻿BEGIN_OPTIONS
 	Workflow "Unlit"
+	Alpha "Blend"
 END_OPTIONS
 
 BEGIN_PASS("All")
+	Blend[_SrcMode][_DstMode]
+	ZWrite[_ZWriteMode]
 	ZTest LEqual
 	Cull Back
 END_PASS
@@ -17,6 +20,10 @@ BEGIN_PROPERTIES
 
 	_LightingTex("Lighting Tex", 2D) = "white" {}
 	_AmbientColor("Ambient Color", Color) = (0,0,0)
+
+	_SrcMode("Src Mode", Float) = 1 // 1 = One
+	_DstMode("Dst Mode", Float) = 1 // 0 = Zero
+	_ZWriteMode("ZWrite Mode", Float) = 4 // 4 = Less Equal
 END_PROPERTIES
 
 BEGIN_DEFINES
@@ -43,10 +50,6 @@ BEGIN_CBUFFER
 	sampler2D _LightingTex;
 	float3    _AmbientColor;
 END_CBUFFER
-
-BEGIN_BLACKBOARD
-	float4 finalColor;
-END_BLACKBOARD
 
 BEGIN_CODE
 	float2 Rotate(float2 v, float a)
@@ -107,13 +110,13 @@ BEGIN_CODE
 
 			float3 lighting = 0.0f;
 
-			for (int i = 0; i < SgtLightCount; i++)
+			for (int i = 0; i < _LightCount; i++)
 			{
 				float3 normal = GetOutside(d.texcoord1.xyz, normalize(d.texcoord2.xyz));
-				float3 lightv = mul(UNITY_MATRIX_V, SgtLightPosition[i]).xyz;
+				float3 lightv = mul(UNITY_MATRIX_V, _LightPosition[i]).xyz;
 				float  theta  = dot(normal, normalize(lightv - d.texcoord3.xyz)) * 0.5f + 0.5f;
 
-				lighting += tex2D(_LightingTex, theta) * SgtLightColor[i];
+				lighting += tex2D(_LightingTex, theta) * _LightColor[i];
 			}
 
 			finalColor.xyz += lighting * main.rgb * ShadowColor(d.worldSpacePosition);
@@ -121,6 +124,17 @@ BEGIN_CODE
 			finalColor = ModifyUnlitOutput(finalColor);
 		#endif
 
-		d.blackboard.finalColor = finalColor;
+		#if _ALPHA_TEST
+			if (finalColor.a < 0.5f)
+			{
+				finalColor.a = 0.0f; discard;
+			}
+			else
+			{
+				finalColor.a = 1.0f;
+			}
+		#endif
+
+		OutputWithAlpha(o, finalColor);
 	}
 END_CODE

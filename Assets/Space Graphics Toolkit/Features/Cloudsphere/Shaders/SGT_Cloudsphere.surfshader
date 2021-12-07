@@ -116,11 +116,11 @@ BEGIN_CODE
 
 			float4 lighting = 0.0f;
 
-			for (int i = 0; i < SgtLightCount; i++)
+			for (int i = 0; i < _LightCount; i++)
 			{
-				float theta = dot(d.worldSpaceNormal, SgtLightDirection[i]) * 0.5f + 0.5f;
+				float theta = dot(d.worldSpaceNormal, _LightDirection[i]) * 0.5f + 0.5f;
 
-				lighting += tex2D(_LightingTex, theta) * main * SgtLightColor[i];
+				lighting += tex2D(_LightingTex, theta) * main * _LightColor[i];
 			}
 
 			finalColor += lighting * ShadowColor(d.worldSpacePosition);

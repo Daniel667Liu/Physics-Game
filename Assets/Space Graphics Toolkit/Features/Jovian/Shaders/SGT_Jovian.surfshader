@@ -120,18 +120,18 @@ BEGIN_CODE
 			float4 lighting   = 0.0f;
 			float4 scattering = 0.0f;
 
-			for (int i = 0; i < SgtLightCount; i++)
+			for (int i = 0; i < _LightCount; i++)
 			{
-				float theta = dot(wnorm, SgtLightDirection[i]) * 0.5f + 0.5f;
+				float theta = dot(wnorm, _LightDirection[i]) * 0.5f + 0.5f;
 
-				lighting += tex2D(_LightingTex, theta) * main * SgtLightColor[i];
+				lighting += tex2D(_LightingTex, theta) * main * _LightColor[i];
 
 				#if _SCATTERING
 					float3 worldViewDir  = normalize(d.worldSpacePosition - wcam);
-					float3 worldLightDir = normalize(SgtLightPosition[i].xyz - wcam);
+					float3 worldLightDir = normalize(_LightPosition[i].xyz - wcam);
 					float  angle         = dot(worldViewDir, worldLightDir) * 0.5f + 0.5f;
 
-					scattering += tex2D(_ScatteringTex, float2(theta, angle)) * SgtLightScatter[i];
+					scattering += tex2D(_ScatteringTex, float2(theta, angle)) * _LightScatter[i];
 				#endif
 			}
 

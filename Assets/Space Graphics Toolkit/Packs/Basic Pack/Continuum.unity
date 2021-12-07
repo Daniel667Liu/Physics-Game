@@ -504,9 +504,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
     Group: 3000
-    Offset: -1
+    Offset: 0
   powerRgb: 1
   clampSize: 1
   clampSizeMin: 15
@@ -682,9 +683,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
     Group: 3000
-    Offset: -1
+    Offset: 0
   powerRgb: 1
   clampSize: 1
   clampSizeMin: 15
@@ -810,9 +812,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
     Group: 3000
-    Offset: -1
+    Offset: 0
   powerRgb: 1
   clampSize: 1
   clampSizeMin: 15
@@ -938,9 +941,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
     Group: 3000
-    Offset: -1
+    Offset: 0
   powerRgb: 1
   clampSize: 1
   clampSizeMin: 15

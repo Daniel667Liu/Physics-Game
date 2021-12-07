@@ -425,7 +425,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ac9ad034589a7d84ebceb55548502e8f, type: 2}
   normalFadeRange: 0
-  water: {fileID: 0}
 --- !u!114 &529394727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,7 +571,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0f838b759cda642b6dbef61c3975cc, type: 3}
+  m_Script: {fileID: 11500000, guid: dafcadce2aec5dc4b8dde998829302c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &830020990
@@ -700,17 +699,18 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
-  seed: -2120377354
+    Group: 2000
+    Offset: 0
+  seed: 0
   radius: 1000
   squash: 0.703
   starCount: 100
   starColors:
     serializedVersion: 2
-    key0: {r: 0.8301887, g: 0.5316643, b: 0, a: 1}
-    key1: {r: 1, g: 0.06914881, b: 0, a: 1}
+    key0: {r: 0, g: 1, b: 0.006896496, a: 1}
+    key1: {r: 0, g: 0.25517225, b: 1, a: 1}
     key2: {r: 0, g: 1, b: 0.13103485, a: 1}
     key3: {r: 1, g: 1, b: 1, a: 0}
     key4: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
@@ -1337,16 +1337,17 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
-  squash: 0.757
+  squash: 0.751
   starCount: 10000
   starColors:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0.34033394, a: 1}
+    key0: {r: 0, g: 1, b: 0.7931032, a: 1}
     key1: {r: 0.07493514, g: 0.5388752, b: 0.9264706, a: 1}
     key2: {r: 0.36078432, g: 0.36078432, b: 0.36078432, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -1373,9 +1374,9 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  starRadiusMin: 0.2
-  starRadiusMax: 10
-  starRadiusBias: 10
+  starRadiusMin: 1
+  starRadiusMax: 15
+  starRadiusBias: 5
   powerRgb: 1
   clampSize: 1
   clampSizeMin: 5
@@ -1699,17 +1700,17 @@ PrefabInstance:
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.8137193
+      value: 4.725915
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9627439
+      value: 0.945183
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9627439
+      value: 0.945183
       objectReference: {fileID: 0}
     - target: {fileID: 9050509117733569411, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}

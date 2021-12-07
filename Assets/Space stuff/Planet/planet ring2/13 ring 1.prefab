@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 420800103139808193}
   - component: {fileID: 3719242402848006776}
   - component: {fileID: 2899786602741208133}
+  - component: {fileID: 4613502404553096057}
   m_Layer: 0
   m_Name: PM3D_Ring3D4
   m_TagString: Untagged
@@ -116,6 +117,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4613502404553096057
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3027827662145520732}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7883039509718158644, guid: 773ab11d1b7e06a4cbcf7d91fb6ac7a2, type: 3}
 --- !u!1 &4355854932143981857
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +142,7 @@ GameObject:
   - component: {fileID: 7193073086763364702}
   - component: {fileID: 3897374261455311802}
   - component: {fileID: 8821110577699692598}
+  - component: {fileID: 243942066791128208}
   m_Layer: 0
   m_Name: PM3D_Ring3D5
   m_TagString: Untagged
@@ -197,6 +213,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &243942066791128208
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4355854932143981857}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6874386215061539390, guid: 773ab11d1b7e06a4cbcf7d91fb6ac7a2, type: 3}
 --- !u!1 &7574694393117482621
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +238,7 @@ GameObject:
   - component: {fileID: 6689108240583210389}
   - component: {fileID: 1118772561580484480}
   - component: {fileID: 4112393207657049003}
+  - component: {fileID: 4949466393455561293}
   m_Layer: 0
   m_Name: PM3D_Ring3D3
   m_TagString: Untagged
@@ -278,6 +309,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4949466393455561293
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574694393117482621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8205009769561666270, guid: 773ab11d1b7e06a4cbcf7d91fb6ac7a2, type: 3}
 --- !u!1 &7766970619924945267
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +334,7 @@ GameObject:
   - component: {fileID: 4713757300509910084}
   - component: {fileID: 5834133876378950706}
   - component: {fileID: 2655532504077619686}
+  - component: {fileID: 8195358366130545406}
   m_Layer: 0
   m_Name: PM3D_Ring3D6
   m_TagString: Untagged
@@ -359,6 +405,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8195358366130545406
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7766970619924945267}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7017624728971651611, guid: 773ab11d1b7e06a4cbcf7d91fb6ac7a2, type: 3}
 --- !u!1 &8139187978892736832
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,6 +430,7 @@ GameObject:
   - component: {fileID: 1746004929836347370}
   - component: {fileID: 5632189800299312553}
   - component: {fileID: 4556085762666876976}
+  - component: {fileID: 1164430294019582192}
   m_Layer: 0
   m_Name: PM3D_Ring3D2
   m_TagString: Untagged
@@ -440,3 +501,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1164430294019582192
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8139187978892736832}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7151294816373864886, guid: 773ab11d1b7e06a4cbcf7d91fb6ac7a2, type: 3}

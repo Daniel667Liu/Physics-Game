@@ -688,9 +688,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.751
@@ -1049,9 +1050,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.703
@@ -1161,37 +1163,37 @@ PrefabInstance:
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.39943427
+      value: -0.5644476
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5834829
+      value: -0.42590952
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.39943424
+      value: -0.5644476
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.58348286
+      value: 0.42590952
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.720431
+      value: 4.571237
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.9440862
+      value: 0.9142474
       objectReference: {fileID: 0}
     - target: {fileID: 8939579533220809484, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.9440862
+      value: 0.9142474
       objectReference: {fileID: 0}
     - target: {fileID: 9050509117733569411, guid: 9b785895ac6691c42869b5fbf7453067,
         type: 3}
@@ -1425,9 +1427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb9cb85b7014bc4da7b5a69c9bfa21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharpnessR: 10
-  sharpnessG: 20
-  sharpnessB: 20
+  sharpnessR: 1
+  sharpnessG: 2
+  sharpnessB: 2
   radiusMax: 1100
   startCalled: 1
 --- !u!114 &1654270561
@@ -1457,7 +1459,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ac9ad034589a7d84ebceb55548502e8f, type: 2}
   normalFadeRange: 0
-  water: {fileID: 0}
 --- !u!114 &1654270563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,7 +1507,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728162581}
-  m_LocalRotation: {x: -0.016594183, y: 0.87179476, z: -0.36924252, w: -0.32149434}
+  m_LocalRotation: {x: -0.016631335, y: 0.8717531, z: -0.36934435, w: -0.3214884}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1812,7 +1813,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0f838b759cda642b6dbef61c3975cc, type: 3}
+  m_Script: {fileID: 11500000, guid: dafcadce2aec5dc4b8dde998829302c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &1958846228 stripped
@@ -1846,7 +1847,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990937256}
-  m_LocalRotation: {x: -0.36732438, y: 0.32368422, z: 0.021777723, w: 0.8716807}
+  m_LocalRotation: {x: 0.3182763, y: -0.37211594, z: -0.14412917, w: -0.8599167}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3000, y: 3000, z: 3000}
   m_Children:

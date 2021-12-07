@@ -158,15 +158,11 @@ namespace SpaceGraphicsToolkit
 		}
 
 		// Get the world space vector between two positions
-		public static Vector3 Vector(ref SgtPosition a, ref SgtPosition b, double scale = 1.0)
+		public static Vector3 Vector(ref SgtPosition a, ref SgtPosition b)
 		{
 			var x = (b.GlobalX - a.GlobalX) * CELL_SIZE + b.LocalX - a.LocalX;
 			var y = (b.GlobalY - a.GlobalY) * CELL_SIZE + b.LocalY - a.LocalY;
 			var z = (b.GlobalZ - a.GlobalZ) * CELL_SIZE + b.LocalZ - a.LocalZ;
-
-			x *= scale;
-			y *= scale;
-			z *= scale;
 
 			return new Vector3((float)x, (float)y, (float)z);
 		}

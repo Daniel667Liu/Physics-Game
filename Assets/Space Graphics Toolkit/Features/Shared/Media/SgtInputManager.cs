@@ -303,7 +303,7 @@ namespace SpaceGraphicsToolkit
 
 		private static List<Finger> fingers = new List<Finger>();
 
-		private static List<Finger> filteredFingers = new List<Finger>();
+		private static List<Finger> filleredFingers = new List<Finger>();
 
 		private static Stack<Finger> pool = new Stack<Finger>();
 
@@ -324,7 +324,7 @@ namespace SpaceGraphicsToolkit
 
 		public static List<Finger> GetFingers(bool ignoreStartedOverGui = false, bool ignoreHover = false)
 		{
-			filteredFingers.Clear();
+			filleredFingers.Clear();
 
 			foreach (var finger in fingers)
 			{
@@ -338,10 +338,10 @@ namespace SpaceGraphicsToolkit
 					continue;
 				}
 
-				filteredFingers.Add(finger);
+				filleredFingers.Add(finger);
 			}
 
-			return filteredFingers;
+			return filleredFingers;
 		}
 
 		public static bool PointOverGui(Vector2 screenPosition, int guiLayers = 1 << 5)
@@ -763,31 +763,18 @@ namespace SpaceGraphicsToolkit
 
 		private static UnityEngine.InputSystem.Controls.ButtonControl GetButtonControl(KeyCode oldKey)
 		{
-			var mouse = UnityEngine.InputSystem.Mouse.current;
-
-			if (mouse != null)
+			if (UnityEngine.InputSystem.Mouse.current != null)
 			{
-				if (oldKey == KeyCode.Mouse0) return mouse.leftButton;
-				if (oldKey == KeyCode.Mouse1) return mouse.rightButton;
-				if (oldKey == KeyCode.Mouse2) return mouse.middleButton;
+				if (oldKey == KeyCode.Mouse0) return UnityEngine.InputSystem.Mouse.current.leftButton;
+				if (oldKey == KeyCode.Mouse1) return UnityEngine.InputSystem.Mouse.current.rightButton;
+				if (oldKey == KeyCode.Mouse2) return UnityEngine.InputSystem.Mouse.current.middleButton;
 			}
 
 			NewCode newKey;
 
 			if (keyMapping.TryGetValue(oldKey, out newKey) == true)
 			{
-				var keyboard = UnityEngine.InputSystem.Keyboard.current;
-
-				if (keyboard != null)
-				{
-					foreach (var key in keyboard.allKeys)
-					{
-						if (key.keyCode == newKey)
-						{
-							return key;
-						}
-					}
-				}
+				return UnityEngine.InputSystem.Keyboard.current[newKey];
 			}
 
 			return null;
@@ -818,19 +805,21 @@ namespace SpaceGraphicsToolkit
 
 		public static void GetMouse(ref bool set, ref bool up)
 		{
-			var mouse = UnityEngine.InputSystem.Mouse.current;
-
-			if (mouse != null)
+			if (UnityEngine.InputSystem.Mouse.current == null)
 			{
-				foreach (var control in mouse.allControls)
-				{
-					var button = control as UnityEngine.InputSystem.Controls.ButtonControl;
+				return;
+			}
 
-					if (button != null)
-					{
-						set |= button.isPressed;
-						up  |= button.wasReleasedThisFrame;
-					}
+			var controls = UnityEngine.InputSystem.Mouse.current.allControls;
+
+			for (var i = 0; i < controls.Count; i++)
+			{
+				var button = controls[i] as UnityEngine.InputSystem.Controls.ButtonControl;
+
+				if (button != null)
+				{
+					set |= button.isPressed;
+					up  |= button.wasReleasedThisFrame;
 				}
 			}
 		}
@@ -839,19 +828,7 @@ namespace SpaceGraphicsToolkit
 		{
 			get
 			{
-				var mouse = UnityEngine.InputSystem.Mouse.current;
-
-				if (mouse != null)
-				{
-					var position = mouse.position;
-
-					if (position != null)
-					{
-						return position.ReadValue();
-					}
-				}
-
-				return UnityEngine.Vector2.zero;
+				return UnityEngine.InputSystem.Mouse.current.position.ReadValue();
 			}
 		}
 
@@ -859,19 +836,7 @@ namespace SpaceGraphicsToolkit
 		{
 			get
 			{
-				var mouse = UnityEngine.InputSystem.Mouse.current;
-
-				if (mouse != null)
-				{
-					var scroll = mouse.scroll;
-
-					if (scroll != null)
-					{
-						return scroll.y.ReadValue();
-					}
-				}
-
-				return 0.0f;
+				return UnityEngine.InputSystem.Mouse.current.scroll.y.ReadValue();
 			}
 		}
 
