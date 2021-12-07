@@ -55,20 +55,6 @@ namespace SpaceGraphicsToolkit
 		[System.NonSerialized]
 		private Vector3 remainingDelta;
 
-		[System.NonSerialized]
-		private Vector3 lastFixedDelta;
-
-		private Vector3 GetDelta(float deltaTime)
-		{
-			var delta = default(Vector3);
-
-			delta.x = horizontalControls.GetValue(deltaTime);
-			delta.y =   verticalControls.GetValue(deltaTime);
-			delta.z =      depthControls.GetValue(deltaTime);
-
-			return delta;
-		}
-
 		protected virtual void OnEnable()
 		{
 			SgtInputManager.EnsureThisComponentExists();
@@ -76,11 +62,9 @@ namespace SpaceGraphicsToolkit
 
 		protected virtual void Update()
 		{
-			lastFixedDelta = GetDelta(Time.fixedDeltaTime);
-
 			if (target == null && listen == true)
 			{
-				AddToDelta(GetDelta(Time.deltaTime));
+				AddToDelta();
 				DampenDelta();
 			}
 
@@ -94,7 +78,7 @@ namespace SpaceGraphicsToolkit
 		{
 			if (target != null && listen == true)
 			{
-				AddToDelta(lastFixedDelta);
+				AddToDelta();
 				DampenDelta();
 			}
 		}
@@ -115,8 +99,15 @@ namespace SpaceGraphicsToolkit
 			return 0.0f;
 		}
 
-		private void AddToDelta(Vector3 delta)
+		private void AddToDelta()
 		{
+			// Get delta from binds
+			var delta = default(Vector3);
+
+			delta.x = horizontalControls.GetValue(Time.deltaTime);
+			delta.y = verticalControls  .GetValue(Time.deltaTime);
+			delta.z = depthControls     .GetValue(Time.deltaTime);
+
 			// Store old position
 			var oldPosition = transform.position;
 

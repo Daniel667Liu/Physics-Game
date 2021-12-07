@@ -4,8 +4,8 @@ using FSA = UnityEngine.Serialization.FormerlySerializedAsAttribute;
 
 namespace SpaceGraphicsToolkit
 {
-	/// <summary>This component turns the current GameObject into a billboard that always faces the camera.
-	/// This feature can be used with the <b>SpriteRenderer</b> or <b>SgtFlare</b> (Flare feature) components.</summary>
+	/// <summary>This component turns the current GameObject into a billboard.
+	/// NOTE: If you're using the floating origin system then you should use the SgtFloatingBillboard component instead.</summary>
 	[ExecuteInEditMode]
 	[HelpURL(SgtHelper.HelpUrlPrefix + "SgtBillboard")]
 	[AddComponentMenu(SgtHelper.ComponentMenuPrefix + "Billboard")]

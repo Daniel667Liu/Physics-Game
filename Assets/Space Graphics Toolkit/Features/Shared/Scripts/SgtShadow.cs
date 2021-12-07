@@ -8,8 +8,6 @@ namespace SpaceGraphicsToolkit
 	{
 		public const int MAX_SPHERE_SHADOWS = 16;
 
-		public const int MAX_RING_SHADOWS = 1;
-
 		private static List<ShadowProperties> cachedShadowProperties = new List<ShadowProperties>();
 
 		private static List<string> cachedShadowKeywords = new List<string>();
@@ -156,23 +154,40 @@ namespace SpaceGraphicsToolkit
 			}
 		}
 
-		private static Matrix4x4[] tempSphereMatrix = new Matrix4x4[MAX_SPHERE_SHADOWS];
-		private static Vector4[]   tempSpherePower  = new Vector4[MAX_SPHERE_SHADOWS];
+		private static List<Matrix4x4> tempMatrix = new List<Matrix4x4>();
+		private static List<Vector4>   tempPower  = new List<Vector4>();
+		private static List<float>     tempRatio  = new List<float>();
 
 		public static void WriteSphere(int maxShadows)
 		{
 			var shadowCount = 0;
 
-			for (var i = 0; i < tempShadows.Count && shadowCount < maxShadows; i++)
+			tempMatrix.Clear();
+			tempPower.Clear();
+
+			for (var i = 0; i < tempShadows.Count; i++)
 			{
 				var shadow = tempShadows[i];
-
+				
 				if (shadow is SgtShadowSphere)
 				{
-					tempSphereMatrix[shadowCount] = shadow.cachedMatrix;
-					tempSpherePower[shadowCount] = shadow.cachedPower;
-
 					shadowCount += 1;
+
+					for (var j = SgtHelper.tempMaterials.Count - 1; j >= 0; j--)
+					{
+						var tempMaterial = SgtHelper.tempMaterials[j];
+
+						if (tempMaterial != null)
+						{
+							tempMatrix.Add(shadow.cachedMatrix);
+							tempPower.Add(shadow.cachedPower);
+						}
+					}
+
+					if (shadowCount >= maxShadows)
+					{
+						break;
+					}
 				}
 			}
 
@@ -184,32 +199,45 @@ namespace SpaceGraphicsToolkit
 
 					if (shadowCount > 0)
 					{
-						tempMaterial.SetMatrixArray("_SphereShadowMatrix", tempSphereMatrix);
-						tempMaterial.SetVectorArray("_SphereShadowPower", tempSpherePower);
+						tempMaterial.SetMatrixArray("_SphereShadowMatrix", tempMatrix);
+						tempMaterial.SetVectorArray("_SphereShadowPower", tempPower);
 					}
 				}
 			}
 		}
-		
-		private static Texture     tempRingTexture;
-		private static Matrix4x4[] tempRingMatrix = new Matrix4x4[MAX_RING_SHADOWS];
-		private static float[]     tempRingRatio  = new float[MAX_RING_SHADOWS];
 
 		public static void WriteRing(int maxShadows)
 		{
 			var shadowCount = 0;
+			var tempTexture = (Texture)Texture2D.whiteTexture;
 
-			for (var i = 0; i < tempShadows.Count && shadowCount < maxShadows; i++)
+			tempMatrix.Clear();
+			tempRatio.Clear();
+
+			for (var i = 0; i < tempShadows.Count; i++)
 			{
 				var shadowRing = tempShadows[i] as SgtShadowRing;
-
+				
 				if (shadowRing != null)
 				{
-					tempRingTexture = shadowRing.Texture;
-					tempRingMatrix[shadowCount] = shadowRing.cachedMatrix;
-					tempRingRatio[shadowCount] = shadowRing.cachedRatio;
-
 					shadowCount += 1;
+
+					for (var j = SgtHelper.tempMaterials.Count - 1; j >= 0; j--)
+					{
+						var tempMaterial = SgtHelper.tempMaterials[j];
+
+						if (tempMaterial != null)
+						{
+							tempTexture = shadowRing.Texture;
+							tempMatrix.Add(shadowRing.cachedMatrix);
+							tempRatio.Add(shadowRing.cachedRatio);
+						}
+					}
+
+					if (shadowCount >= maxShadows)
+					{
+						break;
+					}
 				}
 			}
 
@@ -221,9 +249,9 @@ namespace SpaceGraphicsToolkit
 
 					if (shadowCount > 0)
 					{
-						tempMaterial.SetTexture("_RingShadowTexture", tempRingTexture);
-						tempMaterial.SetMatrixArray("_RingShadowMatrix", tempRingMatrix);
-						tempMaterial.SetFloatArray("_RingShadowRatio", tempRingRatio);
+						tempMaterial.SetTexture("_RingShadowTexture", tempTexture);
+						tempMaterial.SetMatrixArray("_RingShadowMatrix", tempMatrix);
+						tempMaterial.SetFloatArray("_RingShadowRatio", tempRatio);
 					}
 				}
 			}

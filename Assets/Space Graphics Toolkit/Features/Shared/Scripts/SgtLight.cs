@@ -253,16 +253,21 @@ namespace SpaceGraphicsToolkit
 			}
 		}
 
-		private static Vector4[] tempColor     = new Vector4[MAX_LIGHTS];
-		private static Vector4[] tempScatter   = new Vector4[MAX_LIGHTS];
-		private static Vector4[] tempPosition  = new Vector4[MAX_LIGHTS];
-		private static Vector4[] tempDirection = new Vector4[MAX_LIGHTS];
+		private static List<Vector4> tempColor     = new List<Vector4>();
+		private static List<Vector4> tempScatter   = new List<Vector4>();
+		private static List<Vector4> tempPosition  = new List<Vector4>();
+		private static List<Vector4> tempDirection = new List<Vector4>();
 
 		public static void Write(Vector3 center, Transform directionTransform, Transform positionTransform, float scatterStrength, int maxLights)
 		{
 			var lightCount = 0;
 
-			for (var i = 0; i < tempLights.Count && lightCount < maxLights; i++)
+			tempColor.Clear();
+			tempScatter.Clear();
+			tempPosition.Clear();
+			tempDirection.Clear();
+
+			for (var i = 0; i < tempLights.Count; i++)
 			{
 				var light     = tempLights[i];
 				var position  = default(Vector3);
@@ -272,26 +277,31 @@ namespace SpaceGraphicsToolkit
 
 				Calculate(light, center, directionTransform, positionTransform, ref position, ref direction, ref color, ref intensity);
 
-				tempColor[lightCount] = SgtHelper.Brighten(color, intensity);
-				tempScatter[lightCount] = SgtHelper.Brighten(color, intensity * scatterStrength);
-				tempPosition[lightCount] = SgtHelper.NewVector4(position, 1.0f);
-				tempDirection[lightCount] = direction;
-
 				lightCount += 1;
+
+				tempColor.Add(SgtHelper.Brighten(color, intensity));
+				tempScatter.Add(SgtHelper.Brighten(color, intensity * scatterStrength));
+				tempPosition.Add(SgtHelper.NewVector4(position, 1.0f));
+				tempDirection.Add(direction);
+
+				if (lightCount >= maxLights)
+				{
+					break;
+				}
 			}
 
 			foreach (var tempMaterial in SgtHelper.tempMaterials)
 			{
 				if (tempMaterial != null)
 				{
-					tempMaterial.SetInt("SgtLightCount", lightCount);
+					tempMaterial.SetInt("_LightCount", lightCount);
 
 					if (lightCount > 0)
 					{
-						tempMaterial.SetVectorArray("SgtLightColor", tempColor);
-						tempMaterial.SetVectorArray("SgtLightScatter", tempScatter);
-						tempMaterial.SetVectorArray("SgtLightPosition", tempPosition);
-						tempMaterial.SetVectorArray("SgtLightDirection", tempDirection);
+						tempMaterial.SetVectorArray("_LightColor", tempColor);
+						tempMaterial.SetVectorArray("_LightScatter", tempScatter);
+						tempMaterial.SetVectorArray("_LightPosition", tempPosition);
+						tempMaterial.SetVectorArray("_LightDirection", tempDirection);
 					}
 				}
 			}

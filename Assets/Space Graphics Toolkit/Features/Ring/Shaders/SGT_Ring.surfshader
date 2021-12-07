@@ -94,15 +94,15 @@ BEGIN_CODE
 			float4 lighting   = 0.0f;
 			float4 scattering = 0.0f;
 
-			for (int i = 0; i < SgtLightCount; i++)
+			for (int i = 0; i < _LightCount; i++)
 			{
-				float3 worldLightDir = normalize(d.worldSpacePosition - SgtLightPosition[i].xyz);
+				float3 worldLightDir = normalize(d.worldSpacePosition - _LightPosition[i].xyz);
 				float  theta         = dot(d.worldSpaceViewDir, worldLightDir);
 
-				lighting += tex2D(_LightingTex, theta * 0.5f + 0.5f) * main * SgtLightColor[i];
+				lighting += tex2D(_LightingTex, theta * 0.5f + 0.5f) * main * _LightColor[i];
 
 				#if _SCATTERING
-					scattering += MiePhase2(theta, _ScatteringMie) * SgtLightScatter[i];
+					scattering += MiePhase2(theta, _ScatteringMie) * _LightScatter[i];
 				#endif
 			}
 

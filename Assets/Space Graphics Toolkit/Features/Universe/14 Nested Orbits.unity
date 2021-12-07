@@ -783,7 +783,7 @@ MonoBehaviour:
   intensityInSGT: 1
   intensityInStandard: 1
   intensityInURP: 1
-  intensityInHDRP: 300000
+  intensityInHDRP: 120000
 --- !u!108 &655612621
 Light:
   m_ObjectHideFlags: 0

@@ -46,25 +46,6 @@ namespace SpaceGraphicsToolkit
 			return newCameraState;
 		}
 
-		public static bool Exists<T>(List<T> cameraStates, Camera camera)
-			where T : SgtCameraState
-		{
-			if (cameraStates != null)
-			{
-				for (var i = cameraStates.Count - 1; i >= 0; i--)
-				{
-					var cameraState = cameraStates[i];
-
-					if (cameraState.Camera == camera)
-					{
-						return true;
-					}
-				}
-			}
-
-			return false;
-		}
-
 		public static T Restore<T>(List<T> cameraStates, Camera camera)
 			where T : SgtCameraState
 		{

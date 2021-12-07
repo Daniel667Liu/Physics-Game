@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 namespace SpaceGraphicsToolkit
 {
-	/// <summary>This component allows you to deform the attached <b>SgtTerrain</b> with a heightmap using equirectangular cylindrical projection.</summary>
+	/// <summary>This component allows you to deform the attached <b>SgtTerrain</b> with a heightmap.</summary>
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(SgtTerrain))]
 	[HelpURL(SgtHelper.HelpUrlPrefix + "SgtTerrainHeightmap")]
@@ -22,6 +22,7 @@ namespace SpaceGraphicsToolkit
 		}
 
 		/// <summary>The heightmap texture used to displace the mesh.
+		/// NOTE: The height data should be stored in the alpha channel.
 		/// NOTE: This should use the equirectangular cylindrical projection.</summary>
 		public Texture2D Heightmap { set { if (heightmap != value) { heightmap = value; PrepareTexture(); } } get { return heightmap; } } [SerializeField] private Texture2D heightmap;
 
@@ -59,13 +60,6 @@ namespace SpaceGraphicsToolkit
 
 			cachedTerrain.MarkAsDirty();
 		}
-
-#if UNITY_EDITOR
-		protected virtual void OnValidate()
-		{
-			MarkAsDirty();
-		}
-#endif
 
 		protected virtual void OnDidApplyAnimationProperties()
 		{

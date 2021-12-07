@@ -172,7 +172,7 @@ namespace SpaceGraphicsToolkit
 			color.b = SgtEase.Evaluate(sunsetEase, 1.0f - SgtHelper.Sharpness(sunsetU, sunsetSharpnessB));
 			color.a = (color.r + color.g + color.b) / 3.0f;
 
-			generatedTexture.SetPixel(x, 0, SgtHelper.ToLinear(SgtHelper.Saturate(color)));
+			generatedTexture.SetPixel(x, 0, SgtHelper.ToGamma(SgtHelper.Saturate(color)));
 		}
 	}
 }

@@ -8,7 +8,6 @@ namespace SpaceGraphicsToolkit
 		public static int _Age;
 		public static int _AmbientColor;
 		public static int _AnimOffset;
-		public static int _Brightness;
 		public static int _BumpScale;
 		public static int _CameraRollAngle;
 		public static int _Center;
@@ -126,7 +125,6 @@ namespace SpaceGraphicsToolkit
 			_Age = Shader.PropertyToID("_Age");
 			_AmbientColor = Shader.PropertyToID("_AmbientColor");
 			_AnimOffset = Shader.PropertyToID("_AnimOffset");
-			_Brightness = Shader.PropertyToID("_Brightness");
 			_BumpScale = Shader.PropertyToID("_BumpScale");
 			_CameraRollAngle = Shader.PropertyToID("_CameraRollAngle");
 			_Center = Shader.PropertyToID("_Center");
