@@ -40,12 +40,12 @@ public class Landing : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-/*        Debug.Log(other.gameObject.name);
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.tag == "Planet")
         {
             isLanding = true;
             Planet = other.gameObject;
-        }*/
+        }
     }
 
     private void OnTriggerExit(Collider other)
