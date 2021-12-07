@@ -212,7 +212,7 @@ public class ShipControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Debug.Log(isLeftControl);
+       //Debug.Log(isLeftControl);
 
         if (Input.GetKeyDown(KeyCode.G)) 
         {

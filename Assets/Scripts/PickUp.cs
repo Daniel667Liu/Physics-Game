@@ -6,6 +6,9 @@ public class PickUp : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool Picked = false;
+
+    public GameObject MainCam;
+    public int onMissionIndex = 0;
     void Start()
     {
         
@@ -14,26 +17,24 @@ public class PickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+
+        }
     }
     private void OnTriggerEnter(Collider collision)
     {
         Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag=="Item")
+        if (collision.gameObject.tag=="Item"&& onMissionIndex== MainCam.GetComponent<MissionPoints>().MissionIndex)
         {
             //picked Up
+            onMissionIndex+=1;
+            MainCam.GetComponent<MissionPoints>().MissionIndex+=1;
             Picked = true;
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+            //Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "Destination")
-        {
-            //picked Up
-            if(Picked)
-            {
-                Destroy(collision.gameObject);
-            }
-        }
     }
 
 
