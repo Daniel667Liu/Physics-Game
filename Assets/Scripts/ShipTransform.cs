@@ -30,19 +30,19 @@ public class ShipTransform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T)) 
+        if (Input.GetKeyDown("joystick button 0")) 
         {
             if (isSmall)
             {
                 ShipAnimator.SetBool("isSmall", false);
                 isSmall = false;
-                ShiptoLarge();
+                //ShiptoLarge();
             }
             else 
             {
                 ShipAnimator.SetBool("isSmall", true);
                 isSmall = true;
-                ShipToSmall();
+                //ShipToSmall();
             }
         }
     }
