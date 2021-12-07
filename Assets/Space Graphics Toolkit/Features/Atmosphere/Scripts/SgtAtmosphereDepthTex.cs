@@ -217,7 +217,7 @@ namespace SpaceGraphicsToolkit
 
 			color.a = SgtHelper.ToGamma(alphaU);
 
-			texture2D.SetPixel(x, 0, SgtHelper.ToLinear(SgtHelper.Saturate(color)));
+			texture2D.SetPixel(x, 0, SgtHelper.ToGamma(SgtHelper.Saturate(color)));
 		}
 	}
 }

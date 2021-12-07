@@ -230,7 +230,7 @@ namespace SpaceGraphicsToolkit
 		private void UpdateRoot()
 		{
 			var point  = cachedTerrain.GetAboveGroundObserverCubePoint();
-			var middle = (resolution + resolution % 2) / 2;
+			var middle = resolution / 2;
 			var center = middle * point;
 			var bounds = new SgtLongBounds((long)center.x, (long)center.y, (long)center.z, radius);
 			var outer  = new SgtLongBounds(-middle, -middle, middle-1,middle,middle,middle);
@@ -254,7 +254,7 @@ namespace SpaceGraphicsToolkit
 			var cubeC   = SgtTerrainTopology.CubeC[face];
 			var cubeH   = SgtTerrainTopology.CubeH[face];
 			var cubeV   = SgtTerrainTopology.CubeV[face];
-			var step    = 1.0 / (resolution + resolution % 2);
+			var step    = 1.0 / resolution;
 			var stepX   = cubeH * step;
 			var stepY   = cubeV * step;
 			var corner  = cubeC + stepX * middle + stepY * middle;
@@ -413,7 +413,7 @@ namespace SpaceGraphicsToolkit
 			Separator();
 
 			Draw("limit", ref markAsDirty, "The maximum amount of prefabs that can spawn per chunk.");
-			BeginError(Any(tgts, t => t.Resolution <= 0));
+			BeginError(Any(tgts, t => t.Resolution <= 0.0));
 				Draw("resolution", ref markAsDirty, "The terrain will be split into this many cells on each axis.");
 			EndError();
 			Draw("radius", ref markAsDirty, "The radius in chunks around the camera that will have colliders.\n\n1 = 3x3 chunks.\n\n2 = 5x5 chunks.\n\n3 = 7x7 chunks.");

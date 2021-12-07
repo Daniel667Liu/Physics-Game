@@ -1,10 +1,11 @@
 ﻿BEGIN_OPTIONS
 	Workflow "Unlit"
-	Alpha "Add"
 END_OPTIONS
 
 BEGIN_PASS("All")
     Cull Off
+	ZWrite Off
+	Blend One One
 END_PASS
 
 BEGIN_SUBSHADERS

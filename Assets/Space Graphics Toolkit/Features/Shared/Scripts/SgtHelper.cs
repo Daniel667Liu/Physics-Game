@@ -402,18 +402,13 @@ namespace SpaceGraphicsToolkit
 
 			if (shader == null)
 			{
-				Debug.LogError("Failed to find shader: " + shaderName);
+				Debug.LogError("Failed to find shader: " + shaderName); return null;
 			}
 
-			return CreateTempMaterial(materialName, shader);
-		}
-
-		public static Material CreateTempMaterial(string materialName, Shader shader)
-		{
 			var material = new Material(shader);
 
 			material.name = materialName;
-
+		
 #if UNITY_EDITOR
 			material.hideFlags = HideFlags.HideAndDontSave;
 #endif
@@ -831,16 +826,6 @@ namespace SpaceGraphicsToolkit
 			}
 
 			return linear;
-		}
-
-		public static Color ToLinear(Color gamma)
-		{
-			if (QualitySettings.activeColorSpace == ColorSpace.Linear)
-			{
-				return gamma.linear;
-			}
-
-			return gamma;
 		}
 
 		public static float ToGamma(float linear)

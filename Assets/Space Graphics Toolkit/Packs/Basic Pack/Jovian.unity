@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  brightness: 0.25
+  brightness: 0.15
   mainTex: {fileID: 2800000, guid: e00be132151d04e498160fce5528b94d, type: 3}
   layout: 0
   layoutColumns: 1
@@ -210,9 +210,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0
@@ -1069,9 +1070,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.62
@@ -1166,9 +1168,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.94
@@ -1388,10 +1391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fb9cb85b7014bc4da7b5a69c9bfa21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharpnessR: 20
-  sharpnessG: 20
-  sharpnessB: 10
-  radiusMax: 1
+  sharpnessR: 0.46
+  sharpnessG: 1
+  sharpnessB: 1
+  radiusMax: 1.1
   startCalled: 1
 --- !u!114 &1452649278
 MonoBehaviour:
@@ -1471,9 +1474,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.62

@@ -212,9 +212,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: -1906237741
   radius: 1000
   squash: 0.963
@@ -470,9 +471,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: -127482430
   radius: 1000
   squash: 0.926
@@ -603,9 +605,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 2073833559
   radius: 1000
   squash: 0.67
@@ -1654,9 +1657,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 1971765025
   radius: 1000
   squash: 0.74

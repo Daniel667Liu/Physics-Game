@@ -7,6 +7,14 @@ namespace SpaceGraphicsToolkit
 	/// <summary>This is the base class for all starfields, providing a simple interface for generating meshes from a list of stars, as well as the material to render it.</summary>
 	public abstract class SgtQuads : MonoBehaviour
 	{
+		public enum BlendModeType
+		{
+			Default,
+			Additive,
+			AlphaTest,
+			AdditiveSmooth
+		}
+
 		public enum LayoutType
 		{
 			Grid,
@@ -33,6 +41,12 @@ namespace SpaceGraphicsToolkit
 
 		/// <summary>The rects of each cell in the texture.</summary>
 		public List<Rect> LayoutRects { get { if (layoutRects == null) layoutRects = new List<Rect>(); return layoutRects; } } [FSA("LayoutRects")] [SerializeField] protected List<Rect> layoutRects;
+
+		/// <summary>The blend mode used to render the material.</summary>
+		public BlendModeType BlendMode { set { if (blendMode != value) { blendMode = value; DirtyMaterial(); } } get { return blendMode; } } [FSA("BlendMode")] [SerializeField] protected BlendModeType blendMode;
+
+		/// <summary>This allows you to adjust the render queue of the quads material. You can normally adjust the render queue in the material settings, but since this material is procedurally generated your changes will be lost.</summary>
+		public SgtRenderQueue RenderQueue { set { if (renderQueue != value) { renderQueue = value; DirtyMaterial(); } } get { return renderQueue; } } [FSA("RenderQueue")] [SerializeField] protected SgtRenderQueue renderQueue = SgtRenderQueue.GroupType.Transparent;
 
 		[System.NonSerialized]
 		protected Material material;
@@ -149,8 +163,44 @@ namespace SpaceGraphicsToolkit
 		{
 			dirtyMaterial = false;
 
+			material.renderQueue = renderQueue;
+
+			switch (blendMode)
+			{
+				case BlendModeType.Additive: BuildAdditive(); break;
+				case BlendModeType.AlphaTest: BuildAlphaTest(); break;
+				case BlendModeType.AdditiveSmooth: BuildAdditiveSmooth(); break;
+			}
+
 			material.SetTexture(SgtShader._MainTex, mainTex);
 			material.SetColor(SgtShader._Color, SgtHelper.Brighten(Color, Color.a * Brightness, false));
+		}
+
+		protected void BuildAdditive()
+		{
+			material.SetInt(SgtShader._SrcMode, (int)UnityEngine.Rendering.BlendMode.One);
+			material.SetInt(SgtShader._DstMode, (int)UnityEngine.Rendering.BlendMode.One);
+			material.SetInt(SgtShader._ZWriteMode, 0);
+
+			SgtHelper.DisableKeyword("_ALPHA_TEST", material);
+		}
+
+		protected void BuildAlphaTest()
+		{
+			material.SetInt(SgtShader._SrcMode, (int)UnityEngine.Rendering.BlendMode.One);
+			material.SetInt(SgtShader._DstMode, (int)UnityEngine.Rendering.BlendMode.Zero);
+			material.SetInt(SgtShader._ZWriteMode, 1);
+
+			SgtHelper.EnableKeyword("_ALPHA_TEST", material);
+		}
+
+		protected void BuildAdditiveSmooth()
+		{
+			material.SetInt(SgtShader._SrcMode, (int)UnityEngine.Rendering.BlendMode.One);
+			material.SetInt(SgtShader._DstMode, (int)UnityEngine.Rendering.BlendMode.OneMinusSrcColor);
+			material.SetInt(SgtShader._ZWriteMode, 0);
+
+			SgtHelper.DisableKeyword("_ALPHA_TEST", material);
 		}
 
 		protected void BuildRects()
@@ -234,6 +284,8 @@ namespace SpaceGraphicsToolkit
 			BeginError(Any(tgts, t => t.Brightness < 0.0f));
 				Draw("brightness", ref dirtyMaterial, "The Color.rgb values are multiplied by this, allowing you to quickly adjust the overall brightness.");
 			EndError();
+			Draw("blendMode", ref dirtyMaterial, "The blend mode used to render the material.");
+			Draw("renderQueue", ref dirtyMaterial, "This allows you to adjust the render queue of the quads material. You can normally adjust the render queue in the material settings, but since this material is procedurally generated your changes will be lost.");
 		}
 
 		protected virtual void DrawMainTex(ref bool dirtyMaterial)
