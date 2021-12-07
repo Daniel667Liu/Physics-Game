@@ -30,10 +30,10 @@ public class ShipControll : MonoBehaviour
     public GameObject RightCubePos;
 
     //define the force strength
-    public float ForwardStrength = 0.1f;
-    public float PitchStrength = 0.1f;
-    public float RollStrength = 0.1f;
-    public float YawStrength = 0.1f;
+    public float ForwardStrength ;
+    public float PitchStrength ;
+    public float RollStrength ;
+    public float YawStrength ;
 
     //define the max force and the acceleration of force.
     public float MaxForceTimes = 2.0f;
@@ -91,6 +91,7 @@ public class ShipControll : MonoBehaviour
             float ForwardInput = Input.GetAxis("Forward");
             ForwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * ForwardInput * -1f, ForceMode.Impulse);
             BackwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * ForwardInput * -1f, ForceMode.Impulse);
+            
         }
     }
 
@@ -126,8 +127,7 @@ public class ShipControll : MonoBehaviour
     //pitch with controller
     public void PitchWithCon() 
     {
-        if (UseController) 
-        {
+        
             
             if (isLeftControl)
             {   
@@ -137,9 +137,9 @@ public class ShipControll : MonoBehaviour
             {
                 InputVertical = Input.GetAxis("Mouse Y");
             }
-            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical, ForceMode.Impulse);
-            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical, ForceMode.Impulse);
-        }
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical*-1f, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical*-1f, ForceMode.Impulse);
+        
     }
     public void YawLeft() 
     {
@@ -231,14 +231,7 @@ public class ShipControll : MonoBehaviour
         
 
         //use keyboard ir controller
-        if (Input.anyKey)
-        {
-            UseController = false;
-        }
-        else 
-        {
-            UseController = true;
-        }
+       
        
 
 

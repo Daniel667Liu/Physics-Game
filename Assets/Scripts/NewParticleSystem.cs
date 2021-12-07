@@ -6,14 +6,16 @@ public class NewParticleSystem : MonoBehaviour
 {
     public ParticleSystem MainFire;
     public ParticleSystem MainSmoke;
-   
+    public GameObject[] SmallFires;
+    
     private float SapceshipXSpeed;
     private float MainFireStrength;
+    public float SmallFireStrength = 1.5f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        SmallFires = GameObject.FindGameObjectsWithTag("SmallFire");
     }
 
     // Update is called once per frame
@@ -22,7 +24,17 @@ public class NewParticleSystem : MonoBehaviour
         MainFireStrength = Input.GetAxis("Forward");
         MainFireControll();
         MainSmokeControll();
+        SmallFireControl();
 
+    }
+
+    public void SmallFireControl() 
+    {
+        for (int i = 0; i < SmallFires.Length; i++) 
+        {
+            SmallFires[i].GetComponent<ParticleSystem>().startSpeed = -1f - (SmallFireStrength * MainFireStrength);
+
+        }
     }
 
     public void MainFireControll() 

@@ -9,6 +9,7 @@ TagManager:
   - Item
   - Destination
   - Planet
+  - SmallFire
   layers:
   - Default
   - TransparentFX
