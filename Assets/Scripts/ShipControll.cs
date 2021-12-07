@@ -30,10 +30,10 @@ public class ShipControll : MonoBehaviour
     public GameObject RightCubePos;
 
     //define the force strength
-    public float ForwardStrength = 0.1f;
-    public float PitchStrength = 0.1f;
-    public float RollStrength = 0.1f;
-    public float YawStrength = 0.1f;
+    public float ForwardStrength ;
+    public float PitchStrength ;
+    public float RollStrength ;
+    public float YawStrength ;
 
     //define the max force and the acceleration of force.
     public float MaxForceTimes = 2.0f;
@@ -91,6 +91,7 @@ public class ShipControll : MonoBehaviour
             float ForwardInput = Input.GetAxis("Forward");
             ForwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * ForwardInput * -1f, ForceMode.Impulse);
             BackwardCubePos.GetComponent<Rigidbody>().AddForce(ForwardDir * ForwardStrength * ForceTimes * ForwardInput * -1f, ForceMode.Impulse);
+            
         }
     }
 
@@ -212,7 +213,7 @@ public class ShipControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Debug.Log(isLeftControl);
+       //Debug.Log(isLeftControl);
 
         if (Input.GetKeyDown(KeyCode.G)) 
         {
