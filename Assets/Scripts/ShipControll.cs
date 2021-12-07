@@ -127,8 +127,7 @@ public class ShipControll : MonoBehaviour
     //pitch with controller
     public void PitchWithCon() 
     {
-        if (UseController) 
-        {
+        
             
             if (isLeftControl)
             {   
@@ -138,9 +137,9 @@ public class ShipControll : MonoBehaviour
             {
                 InputVertical = Input.GetAxis("Mouse Y");
             }
-            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical, ForceMode.Impulse);
-            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical, ForceMode.Impulse);
-        }
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical*-1f, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical*-1f, ForceMode.Impulse);
+        
     }
     public void YawLeft() 
     {
@@ -232,14 +231,7 @@ public class ShipControll : MonoBehaviour
         
 
         //use keyboard ir controller
-        if (Input.anyKey)
-        {
-            UseController = false;
-        }
-        else 
-        {
-            UseController = true;
-        }
+       
        
 
 
