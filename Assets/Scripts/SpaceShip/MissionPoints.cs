@@ -11,7 +11,7 @@ public class MissionPoints : MonoBehaviour
     public Transform [] Planets;
     public Text Dist;
     //
-
+    public int MissionIndex = 0;
     void Start()
     {
 
@@ -26,9 +26,9 @@ public class MissionPoints : MonoBehaviour
 
         float minY = Point.GetPixelAdjustedRect().width / 2;
         float maxY = Screen.height - minY;
-        Vector2 pos = Camera.main.WorldToScreenPoint(PlanetTest.position);
+        Vector2 pos = Camera.main.WorldToScreenPoint(Planets[MissionIndex].position);
         
-        if(Vector3.Dot(PlanetTest.position-transform.position,transform.forward)<0)
+        if(Vector3.Dot(Planets[MissionIndex].position - transform.position,transform.forward)<0)
         {
             if(pos.x < Screen.width/2)
             {

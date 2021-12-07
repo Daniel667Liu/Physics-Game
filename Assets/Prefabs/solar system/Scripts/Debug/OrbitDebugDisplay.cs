@@ -23,15 +23,7 @@ public class OrbitDebugDisplay : MonoBehaviour {
     void Update () {
 
         if (!Application.isPlaying) {
-            //DrawOrbits ();
-        }
-        if(Displaying)
-        {
-            DrawOrbits();
-        }
-        else
-        {
-            HideOrbits();
+            DrawOrbits ();
         }
     }
 

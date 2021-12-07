@@ -16,15 +16,8 @@ public class P_SelfRotate : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(rotate)
+        //if(rotate)
         this.transform.Rotate(speedX * Time.deltaTime, speedY * Time.deltaTime, speedZ * Time.deltaTime, Space.Self);
     }
 
-    private void OnCollisionEnter(UnityEngine.Collision collision)
-    {
-        if(collision.gameObject.tag=="Player")
-        {
-            rotate = false;
-        }
-    }
 }

@@ -7,8 +7,8 @@ public class PickUp : MonoBehaviour
     // Start is called before the first frame update
     public bool Picked = false;
 
-    public GameObject Solar1OrbitController;
-    public GameObject Solar2OrbitController;
+    public GameObject MainCam;
+    public int onMissionIndex = 0;
     void Start()
     {
         
@@ -19,31 +19,22 @@ public class PickUp : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (!Solar1OrbitController.GetComponent<OrbitDebugDisplay>().Displaying)
-                Solar1OrbitController.GetComponent<OrbitDebugDisplay>().Displaying = true;
-            else
-                Solar1OrbitController.GetComponent<OrbitDebugDisplay>().Displaying = false;
 
         }
     }
     private void OnTriggerEnter(Collider collision)
     {
         Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag=="Item")
+        if (collision.gameObject.tag=="Item"&& onMissionIndex== MainCam.GetComponent<MissionPoints>().MissionIndex)
         {
             //picked Up
+            onMissionIndex+=1;
+            MainCam.GetComponent<MissionPoints>().MissionIndex+=1;
             Picked = true;
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+            //Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "Destination")
-        {
-            //picked Up
-            if(Picked)
-            {
-                Destroy(collision.gameObject);
-            }
-        }
     }
 
 
