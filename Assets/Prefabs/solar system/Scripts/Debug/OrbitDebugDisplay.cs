@@ -12,6 +12,8 @@ public class OrbitDebugDisplay : MonoBehaviour {
     public float width = 100;
     public bool useThickLines;
 
+    public bool Displaying = false;
+
     void Start () {
         if (Application.isPlaying) {
             //HideOrbits ();
@@ -25,7 +27,7 @@ public class OrbitDebugDisplay : MonoBehaviour {
         }
     }
 
-    void DrawOrbits () {
+    public void DrawOrbits () {
         CelestialBody[] bodies = FindObjectsOfType<CelestialBody> ();
         var virtualBodies = new VirtualBody[bodies.Length];
         var drawPoints = new Vector3[bodies.Length][];
@@ -106,7 +108,7 @@ public class OrbitDebugDisplay : MonoBehaviour {
         return acceleration;
     }
 
-    void HideOrbits () {
+    public void HideOrbits () {
         CelestialBody[] bodies = FindObjectsOfType<CelestialBody> ();
 
         // Draw paths
