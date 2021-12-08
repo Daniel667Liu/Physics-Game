@@ -1,6 +1,5 @@
-﻿BEGIN_SUBSHADERS
-	"SGT_HDRP2.surfshader"
-END_SUBSHADERS
+﻿BEGIN_OPTIONS
+END_OPTIONS
 
 BEGIN_PROPERTIES
 	[NoScaleOffset]_MainTex("Albedo (RGB) Alpha (A)", 2D) = "white" {}

@@ -302,9 +302,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.845
@@ -639,10 +640,10 @@ MonoBehaviour:
     y: 0.5
     width: 0.5
     height: 0.5
+  blendMode: 0
   renderQueue:
     Group: 2000
     Offset: 0
-  blendMode: 0
   orbitOffset: 0
   orbitSpeed: 1
   lit: 1
@@ -1039,9 +1040,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0

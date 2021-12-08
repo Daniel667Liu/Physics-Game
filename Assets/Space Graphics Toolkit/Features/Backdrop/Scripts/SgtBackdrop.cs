@@ -12,9 +12,6 @@ namespace SpaceGraphicsToolkit
 	[AddComponentMenu(SgtHelper.ComponentMenuPrefix + "Backdrop")]
 	public class SgtBackdrop : SgtQuads
 	{
-		/// <summary>This allows you to adjust the render queue of the quads material. You can normally adjust the render queue in the material settings, but since this material is procedurally generated your changes will be lost.</summary>
-		public SgtRenderQueue RenderQueue { set { if (renderQueue != value) { renderQueue = value; DirtyMaterial(); } } get { return renderQueue; } } [FSA("RenderQueue")] [SerializeField] protected SgtRenderQueue renderQueue = new SgtRenderQueue(SgtRenderQueue.GroupType.Transparent, -1);
-
 		/// <summary>This allows you to set the random seed used during procedural generation.</summary>
 		public int Seed { set { if (seed != value) { seed = value; DirtyMesh(); } } get { return seed; } } [FSA("Seed")] [SerializeField] [SgtSeed] private int seed;
 
@@ -82,7 +79,10 @@ namespace SpaceGraphicsToolkit
 
 			base.UpdateMaterial();
 
-			material.renderQueue = renderQueue;
+			if (blendMode == BlendModeType.Default)
+			{
+				BuildAdditive();
+			}
 
 			if (powerRgb == true)
 			{
@@ -246,7 +246,6 @@ namespace SpaceGraphicsToolkit
 			var dirtyMesh     = false;
 
 			DrawMaterial(ref dirtyMaterial);
-			Draw("renderQueue", ref dirtyMaterial, "This allows you to adjust the render queue of the quads material. You can normally adjust the render queue in the material settings, but since this material is procedurally generated your changes will be lost.");
 
 			Separator();
 

@@ -39,6 +39,8 @@ namespace SpaceGraphicsToolkit
 		/// <summary>This event is called every <b>Update</b> with the current distance to the camera.</summary>
 		public event System.Action<double> OnDistance;
 
+		private bool busy;
+
 		/// <summary>This method allows you to reset the <b>Position</b>, which will then be calculated in <b>Start</b>, or when you manually call the <b>DerivePosition</b> method.
 		/// You should use this if your object is part of a prefab, and you want to spawn it using <b>Transform.position</b> values.</summary>
 		[ContextMenu("Reset Position")]
@@ -79,6 +81,20 @@ namespace SpaceGraphicsToolkit
 			}
 		}
 
+		public override void PositionChanged()
+		{
+			if (busy == false)
+			{
+				base.PositionChanged();
+
+				busy = true;
+				CheckForPositionChanges();
+				busy = false;
+
+				UpdatePositionNow();
+			}
+		}
+
 		protected virtual void OnEnable()
 		{
 			SgtFloatingCamera.OnSnap += HandleSnap;
@@ -91,7 +107,7 @@ namespace SpaceGraphicsToolkit
 				DerivePosition();
 			}
 
-			ApplyPosition();
+			UpdatePositionNow();
 		}
 
 		protected virtual void Update()
@@ -112,11 +128,25 @@ namespace SpaceGraphicsToolkit
 			SgtFloatingCamera.OnSnap -= HandleSnap;
 		}
 
+		protected virtual void UpdatePositionNow(SgtFloatingCamera floatingCamera)
+		{
+			transform.position = expectedPosition = floatingCamera.CalculatePosition(position);
+
+			expectedPositionSet = true;
+		}
+
 		private void HandleSnap(SgtFloatingCamera floatingCamera, Vector3 delta)
 		{
 			CheckForPositionChanges();
+			UpdatePositionNow(floatingCamera);
+		}
 
-			ApplyPosition(floatingCamera);
+		private void UpdatePositionNow()
+		{
+			if (SgtFloatingCamera.Instances.Count > 0)
+			{
+				UpdatePositionNow(SgtFloatingCamera.Instances.First.Value);
+			}
 		}
 	}
 }

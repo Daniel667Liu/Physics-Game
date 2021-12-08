@@ -83,6 +83,8 @@ namespace SpaceGraphicsToolkit
 			customStarfield.LayoutColumns     = layoutColumns;
 			customStarfield.LayoutRows        = layoutRows;
 			customStarfield.layoutRects       = new List<Rect>(layoutRects);
+			customStarfield.blendMode         = blendMode;
+			customStarfield.renderQueue       = renderQueue;
 			customStarfield.powerRgb          = powerRgb;
 			customStarfield.clampSize         = clampSize;
 			customStarfield.clampSizeMin      = clampSizeMin;
@@ -193,6 +195,11 @@ namespace SpaceGraphicsToolkit
 			}
 
 			base.UpdateMaterial();
+
+			if (blendMode == SgtQuads.BlendModeType.Default)
+			{
+				BuildAdditive();
+			}
 
 			if (powerRgb == true)
 			{

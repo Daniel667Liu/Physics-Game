@@ -1,10 +1,11 @@
 ﻿BEGIN_OPTIONS
 	Workflow "Unlit"
-	Alpha "Add"
+	Tags { "Queue" = "Transparent" }
 END_OPTIONS
 
 BEGIN_PASS("Forward")
-	Blend One [_DstBlend], One OneMinusSrcAlpha
+	Blend One [_DstBlend]
+	ZWrite Off
 	Cull Off
 END_PASS
 
@@ -22,7 +23,6 @@ BEGIN_DEFINES
 END_DEFINES
 
 BEGIN_SUBSHADERS
-	"../../Shared/Shaders/SGT_HDRP.surfshader"
 	"../../Shared/Shaders/SGT_Output.surfshader"
 END_SUBSHADERS
 

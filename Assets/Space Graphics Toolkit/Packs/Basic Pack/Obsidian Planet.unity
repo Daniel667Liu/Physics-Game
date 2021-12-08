@@ -146,7 +146,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106791392}
-  m_LocalRotation: {x: -0.5923881, y: 0.80565274, z: 0.000000014901161, w: -0.000000059604645}
+  m_LocalRotation: {x: -0.5923881, y: 0.80565274, z: -0, w: -0.000000074505806}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50000000, y: 50000024, z: 50000024}
   m_Children: []
@@ -515,9 +515,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 742889697
   radius: 1000
   squash: 0.48
@@ -668,9 +669,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 250895598
   radius: 1000
   squash: 0.703
@@ -772,7 +774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 01d2a0c0d3192dc41a0593124ce6435f, type: 2}
   normalFadeRange: 100000
-  water: {fileID: 0}
 --- !u!114 &1687117935
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -86,12 +86,28 @@ namespace SpaceGraphicsToolkit
 			return math.normalize(cube);
 		}
 
+		public static Color32 Tex2D_Point(NativeArray<Color32> pixels, int2 size, double2 uv)
+		{
+			var x = (long)math.floor(uv.x * size.x);
+			var y = (long)math.floor(uv.y * size.y);
+
+			return Sample(pixels, size, x, y);
+		}
+
 		public static byte Tex2D_Point(NativeArray<byte> pixels, int stride, int offset, int2 size, double2 uv)
 		{
 			var x = (long)math.floor(uv.x * size.x);
 			var y = (long)math.floor(uv.y * size.y);
 
 			return Sample(pixels, stride, offset, size, x, y);
+		}
+
+		public static byte Sample(NativeArray<byte> pixels, int stride, int offset, int2 size, long x, long y)
+		{
+			x = (x % size.x + size.x) % size.x;
+			y = (y % size.y + size.y) % size.y;
+
+			return pixels[(int)((x + y * size.x) * stride + offset)];
 		}
 
 		public static float Tex2D_Linear_WrapXY(NativeArray<byte> data, int stride, int offset, int2 size, double2 uv)
@@ -120,26 +136,34 @@ namespace SpaceGraphicsToolkit
 			return data[(int)((x + y * size.x) * stride + offset)] / 255.0f;
 		}
 
-		public static float Sample_Cubic(NativeArray<byte> data, int stride, int offset, int2 size, double2 uv)
+		public static Color Tex2D_Cubic(NativeArray<Color32> pixels, int2 size, double2 uv)
 		{
-			uv = math.saturate(uv);
+			uv *= size;
 
-			var fracX = (float)(uv.x * size.x % 1.0);
-			var fracY = (float)(uv.y * size.y % 1.0);
-			var x     = (long)math.floor(uv.x * size.x);
-			var y     = (long)math.floor(uv.y * size.y);
+			var fracX = (float)((uv.x % 1.0 + 1.0) % 1.0);
+			var fracY = (float)((uv.y % 1.0 + 1.0) % 1.0);
+			var x     = (long)math.floor(uv.x % size.x);
+			var y     = (long)math.floor(uv.y % size.y);
 
-			var aa = Sample(data, stride, offset, size, x - 1, y - 1); var ba = Sample(data, stride, offset, size, x, y - 1); var ca = Sample(data, stride, offset, size, x + 1, y - 1); var da = Sample(data, stride, offset, size, x + 2, y - 1);
-			var ab = Sample(data, stride, offset, size, x - 1, y    ); var bb = Sample(data, stride, offset, size, x, y    ); var cb = Sample(data, stride, offset, size, x + 1, y    ); var db = Sample(data, stride, offset, size, x + 2, y    );
-			var ac = Sample(data, stride, offset, size, x - 1, y + 1); var bc = Sample(data, stride, offset, size, x, y + 1); var cc = Sample(data, stride, offset, size, x + 1, y + 1); var dc = Sample(data, stride, offset, size, x + 2, y + 1);
-			var ad = Sample(data, stride, offset, size, x - 1, y + 2); var bd = Sample(data, stride, offset, size, x, y + 2); var cd = Sample(data, stride, offset, size, x + 1, y + 2); var dd = Sample(data, stride, offset, size, x + 2, y + 2);
+			var aa = Sample(pixels, size, x - 1, y - 1); var ba = Sample(pixels, size, x, y - 1); var ca = Sample(pixels, size, x + 1, y - 1); var da = Sample(pixels, size, x + 2, y - 1);
+			var ab = Sample(pixels, size, x - 1, y    ); var bb = Sample(pixels, size, x, y    ); var cb = Sample(pixels, size, x + 1, y    ); var db = Sample(pixels, size, x + 2, y    );
+			var ac = Sample(pixels, size, x - 1, y + 1); var bc = Sample(pixels, size, x, y + 1); var cc = Sample(pixels, size, x + 1, y + 1); var dc = Sample(pixels, size, x + 2, y + 1);
+			var ad = Sample(pixels, size, x - 1, y + 2); var bd = Sample(pixels, size, x, y + 2); var cd = Sample(pixels, size, x + 1, y + 2); var dd = Sample(pixels, size, x + 2, y + 2);
 
 			var a = Hermite(aa, ba, ca, da, fracX);
 			var b = Hermite(ab, bb, cb, db, fracX);
 			var c = Hermite(ac, bc, cc, dc, fracX);
 			var d = Hermite(ad, bd, cd, dd, fracX);
 
-			return Hermite(a, b, c, d, fracY) / 255.0f;
+			return Hermite(a, b, c, d, fracY);
+		}
+
+		public static Color32 Sample(NativeArray<Color32> pixels, int2 size, long x, long y)
+		{
+			x = (x % size.x + size.x) % size.x;
+			y = (y % size.y + size.y) % size.y;
+
+			return pixels[(int)x + (int)y * size.x];
 		}
 
 		public static float Sample_Cubic_Equirectangular(NativeArray<float> data, int stride, int offset, int2 size, double3 direction)
@@ -190,22 +214,6 @@ namespace SpaceGraphicsToolkit
 			var d = Hermite(ad, bd, cd, dd, fracX);
 
 			return Hermite(a, b, c, d, fracY);
-		}
-
-		public static byte Sample(NativeArray<byte> pixels, int stride, int offset, int2 size, long x, long y)
-		{
-			x = math.clamp(x, 0, size.x - 1);
-			y = math.clamp(y, 0, size.y - 1);
-
-			return pixels[(int)((x + y * size.x) * stride + offset)];
-		}
-
-		public static byte Sample_Wrap(NativeArray<byte> pixels, int stride, int offset, int2 size, long x, long y)
-		{
-			x = (x % size.x + size.x) % size.x;
-			y = (y % size.y + size.y) % size.y;
-
-			return pixels[(int)((x + y * size.x) * stride + offset)];
 		}
 
 		private static float Sample_WrapX(NativeArray<float> data, int stride, int offset, int2 size, long x, long y)

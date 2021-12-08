@@ -162,10 +162,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 1
   renderQueue:
     Group: 2000
     Offset: 0
-  blendMode: 1
   orbitOffset: 0
   orbitSpeed: 1
   lit: 0

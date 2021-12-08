@@ -241,7 +241,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 3.4455e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 3.5856e-41, z: 0, w: 6.2937033e-10}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -430,9 +430,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 3
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0
@@ -1080,8 +1081,8 @@ MonoBehaviour:
   nearTex: {fileID: 0}
   nearDistance: 10
   detail: 1
-  detailTex: {fileID: 2800000, guid: b6a3e428f1dfbd04fa351f3670834c1a, type: 3}
-  detailScale: -3
+  detailTex: {fileID: 2800000, guid: 7ca3dceffe452b44abade609680984cc, type: 3}
+  detailScale: 8
   detailTiling: 90
   mesh: {fileID: 4300002, guid: 0eba857bb8ab78c4d98d653565fd1902, type: 3}
   meshRadius: 1
@@ -1487,9 +1488,10 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+  blendMode: 0
   renderQueue:
-    Group: 3000
-    Offset: -1
+    Group: 2000
+    Offset: 0
   seed: 0
   radius: 1000
   squash: 0.846

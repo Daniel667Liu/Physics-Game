@@ -7,15 +7,6 @@ namespace SpaceGraphicsToolkit
 	/// <summary>This base class contains the functionality to render an asteroid belt.</summary>
 	public abstract class SgtBelt : SgtQuads
 	{
-		public enum BlendModeType
-		{
-			Opaque,
-			Additive
-		}
-
-		/// <summary>The blend mode used to render the material.</summary>
-		public BlendModeType BlendMode { set { blendMode = value; } get { return blendMode; } } [SerializeField] private BlendModeType blendMode;
-
 		/// <summary>The amount of seconds this belt has been animating for.</summary>
 		public float OrbitOffset { set { orbitOffset = value; } get { return orbitOffset; } } [FSA("OrbitOffset")] [SerializeField] private float orbitOffset;
 
@@ -87,6 +78,8 @@ namespace SpaceGraphicsToolkit
 			customBelt.layoutColumns     = layoutColumns;
 			customBelt.layoutRows        = layoutRows;
 			customBelt.layoutRects       = new List<Rect>(layoutRects);
+			customBelt.blendMode         = blendMode;
+			customBelt.renderQueue       = renderQueue;
 			customBelt.orbitOffset       = orbitOffset;
 			customBelt.orbitSpeed        = orbitSpeed;
 			customBelt.lit               = lit;
@@ -157,34 +150,20 @@ namespace SpaceGraphicsToolkit
 			Graphics.DrawMesh(mesh, transform.localToWorldMatrix, material, gameObject.layer, camera, 0, properties);
 		}
 
-		private string GetShaderName()
-		{
-			switch (blendMode)
-			{
-				case BlendModeType.Opaque:   return SgtHelper.ShaderNamePrefix + "Belt_Opaque";
-				case BlendModeType.Additive: return SgtHelper.ShaderNamePrefix + "Belt_Additive";
-			}
-
-			return default(string);
-		}
-
 		protected override void UpdateMaterial()
 		{
-			var shaderName = GetShaderName();
-
 			if (material == null)
 			{
-				material = SgtHelper.CreateTempMaterial("Starfield (Generated)", shaderName);
-			}
-
-			if (material.shader.name != shaderName)
-			{
-				material.shader = Shader.Find(shaderName);
+				material = SgtHelper.CreateTempMaterial("Starfield (Generated)", SgtHelper.ShaderNamePrefix + "Belt");
 			}
 
 			base.UpdateMaterial();
 
-			material.SetColor(SgtShader._Color, SgtHelper.Brighten(Color, Color.a * Brightness, false));
+			if (blendMode == BlendModeType.Default)
+			{
+				BuildAlphaTest();
+			}
+
 			material.SetFloat(SgtShader._Age, orbitOffset);
 
 			if (lit == true)
@@ -301,7 +280,6 @@ namespace SpaceGraphicsToolkit
 #if UNITY_EDITOR
 namespace SpaceGraphicsToolkit
 {
-	using UnityEditor;
 	using TARGET = SgtBelt;
 
 	public abstract class SgtBelt_Editor : SgtQuads_Editor
@@ -310,9 +288,12 @@ namespace SpaceGraphicsToolkit
 		{
 			TARGET tgt; TARGET[] tgts; GetTargets(out tgt, out tgts);
 
-			base.DrawMaterial(ref dirtyMaterial);
-
+			Draw("color", ref dirtyMaterial, "The base color will be multiplied by this.");
+			BeginError(Any(tgts, t => t.Brightness < 0.0f));
+				Draw("brightness", ref dirtyMaterial, "The Color.rgb values are multiplied by this, allowing you to quickly adjust the overall brightness.");
+			EndError();
 			Draw("blendMode", ref dirtyMaterial, "The blend mode used to render the material.");
+			Draw("renderQueue", ref dirtyMaterial, "This allows you to adjust the render queue of the belt material. You can normally adjust the render queue in the material settings, but since this material is procedurally generated your changes will be lost.");
 			Draw("orbitOffset", "The amount of seconds this belt has been animating for."); // Updated automatically
 			Draw("orbitSpeed", "The animation speed of this belt."); // Updated automatically
 		}

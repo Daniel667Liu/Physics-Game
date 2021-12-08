@@ -10,19 +10,22 @@ namespace SpaceGraphicsToolkit
 	[AddComponentMenu(SgtHelper.ComponentMenuPrefix + "Floating Rigidbody")]
 	public class SgtFloatingRigidbody : SgtFloatingObject
 	{
-		[System.NonSerialized]
 		private Rigidbody cachedRigidbody;
 
-		protected override void ApplyPosition(SgtFloatingCamera floatingCamera)
+		protected override void UpdatePositionNow(SgtFloatingCamera floatingCamera)
 		{
-			base.ApplyPosition(floatingCamera);
-
 			if (cachedRigidbody == null)
 			{
 				cachedRigidbody = GetComponent<Rigidbody>();
 			}
 
-			cachedRigidbody.position = expectedPosition;
+			expectedPosition = floatingCamera.CalculatePosition(position);
+
+			//cachedRigidbody.position = expectedPosition;
+
+			transform.position = expectedPosition;
+
+			expectedPositionSet = true;
 		}
 	}
 }

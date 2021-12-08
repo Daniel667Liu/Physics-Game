@@ -9,6 +9,7 @@ namespace SpaceGraphicsToolkit
 {
 	/// <summary>This asset stores multiple variants of a shader for different rendering pipelines, and allows you to switch between them in the editor.</summary>
 	//[CreateAssetMenu(fileName = "NewShaderBundle", menuName = "MakeShaderBundle", order = 1)]
+	//[HelpURL(SgtHelper.HelpUrlPrefix + "SgtShaderBundle")]
 	public class SgtShaderBundle : ScriptableObject
 	{
 		public enum Pipeline
@@ -17,10 +18,8 @@ namespace SpaceGraphicsToolkit
 			Standard,
 			URP2019,
 			URP2020,
-			URP2021,
 			HDRP2019,
 			HDRP2020,
-			HDRP2021,
 			COUNT
 		}
 
@@ -30,16 +29,6 @@ namespace SpaceGraphicsToolkit
 		{
 			public Pipeline Pipe;
 			public string   Code;
-			public int      Hash;
-			public bool     Dirty;
-
-			public string HashString
-			{
-				get
-				{
-					return "//<HASH>" + Hash + "</HASH>";
-				}
-			}
 		}
 
 		/// <summary>The title of the generated shader.</summary>
@@ -48,11 +37,11 @@ namespace SpaceGraphicsToolkit
 		/// <summary>The shader that will be modified to work with the selected rendering pipeline.</summary>
 		public Shader Target { set  { target = value; } get { return target; } } [SerializeField] private Shader target;
 
-		/// <summary>The hash code of the currently loaded bundle.</summary>
-		public int VariantHash { set  { variantHash = value; } get { return variantHash; } } [SerializeField] private int variantHash;
+		/// <summary>The raw Better Shaders code of this bundle.</summary>
+		public string Code { set  { code = value; } get { return code; } } [SerializeField] private string code;
 
-		/// <summary>The hash code of the current device to make sure the shaders have been loaded properly.</summary>
-		public int ProjectHash { set  { projectHash = value; } get { return projectHash; } } [SerializeField] private int projectHash;
+		/// <summary>This tells you the rendering pipeline this shader bundle was last set to.</summary>
+		public Pipeline CurrentPipe { get { return currentPipe; } } [SerializeField] private Pipeline currentPipe = Pipeline.Invalid;
 
 		/// <summary>This stores all shader variants for this shader.</summary>
 		public List<ShaderVariant> Variants { get { if (variants == null) variants = new List<ShaderVariant>(); return variants; } } [SerializeField] private List<ShaderVariant> variants;
@@ -61,28 +50,17 @@ namespace SpaceGraphicsToolkit
 		{
 			get
 			{
-				if (variants != null)
-				{
-					foreach (var variant in variants)
-					{
-						if (variant.Dirty == true)
-						{
-							return true;
-						}
-					}
-				}
-
-				return false;
+				return dirty;
 			}
 		}
+		
+		#pragma warning disable 0649
+		[SerializeField] private bool dirty;
+		#pragma warning restore 0649
 
 #if UNITY_EDITOR && AUTO_SWITCH_SHADERS_TO_CURRENT_PIPELINE
 		private static Pipeline lastAutoSetPipe = Pipeline.Invalid;
 #endif
-		public static int GetProjectHash()
-		{
-			return SystemInfo.deviceUniqueIdentifier.GetHashCode() ^ Application.dataPath.GetHashCode();
-		}
 
 		/// <summary>This tells you which rendering pipeline the project is currently using.</summary>
 		public static Pipeline DetectProjectPipeline()
@@ -95,21 +73,15 @@ namespace SpaceGraphicsToolkit
 
 				if (title.Contains("HighDefinition") == true)
 				{
-#if UNITY_2021_2_OR_NEWER
-					//return Pipeline.HDRP2021;
-					return Pipeline.HDRP2020;
-#elif UNITY_2020_2_OR_NEWER
+#if UNITY_2020_2_OR_NEWER
 					return Pipeline.HDRP2020;
 #else
 					return Pipeline.HDRP2019;
 #endif
 				}
-				else// if (title.Contains("Universal") == true)
+				else if (title.Contains("Universal") == true)
 				{
-#if UNITY_2021_2_OR_NEWER
-					//return Pipeline.URP2021;
-					return Pipeline.URP2020;
-#elif UNITY_2020_2_OR_NEWER
+#if UNITY_2020_2_OR_NEWER
 					return Pipeline.URP2020;
 #else
 					return Pipeline.URP2019;
@@ -121,7 +93,7 @@ namespace SpaceGraphicsToolkit
 				return Pipeline.Standard;
 			}
 
-			//return Pipeline.Invalid;
+			return Pipeline.Invalid;
 		}
 
 		public static bool IsStandard(Pipeline pipe)
@@ -136,12 +108,12 @@ namespace SpaceGraphicsToolkit
 
 		public static bool IsURP(Pipeline pipe)
 		{
-			return pipe == Pipeline.URP2019 || pipe == Pipeline.URP2020 || pipe == Pipeline.URP2021;
+			return pipe == Pipeline.URP2019 || pipe == Pipeline.URP2020;
 		}
 
 		public static bool IsHDRP(Pipeline pipe)
 		{
-			return pipe == Pipeline.HDRP2019 || pipe == Pipeline.HDRP2020 || pipe == Pipeline.HDRP2021;
+			return pipe == Pipeline.HDRP2019 || pipe == Pipeline.HDRP2020;
 		}
 
 #if UNITY_EDITOR
@@ -166,8 +138,7 @@ namespace SpaceGraphicsToolkit
 		private static void AutoSwitch()
 		{
 	#if AUTO_SWITCH_SHADERS_TO_CURRENT_PIPELINE
-			var pipe = DetectProjectPipeline();
-			var hash = GetProjectHash();
+			var pipe  = DetectProjectPipeline();
 
 			if (lastAutoSetPipe != pipe)
 			{
@@ -181,42 +152,11 @@ namespace SpaceGraphicsToolkit
 					var path   = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
 					var bundle = UnityEditor.AssetDatabase.LoadAssetAtPath<SgtShaderBundle>(path);
 
-					if (bundle != null && bundle.variantHash != 0)
+					if (bundle != null && bundle.CurrentPipe != pipe)
 					{
-						if (bundle.projectHash != hash)
+						if (bundle.TrySwitchTo(pipe) == true)
 						{
-							if (bundle.TrySwitchTo(pipe) == true)
-							{
-								modified = true;
-
-								continue;
-							}
-						}
-						else
-						{
-							foreach (var variant in bundle.Variants)
-							{
-								// Correct pipe, but out of sync shader
-								if (variant.Pipe == pipe && variant.Hash != bundle.variantHash)
-								{
-									if (bundle.TrySwitchTo(pipe) == true)
-									{
-										modified = true;
-
-										continue;
-									}
-								}
-								// Wrong pipe
-								else if (variant.Pipe != pipe && variant.Hash == bundle.variantHash)
-								{
-									if (bundle.TrySwitchTo(pipe) == true)
-									{
-										modified = true;
-
-										continue;
-									}
-								}
-							}
+							modified = true;
 						}
 					}
 				}
@@ -270,14 +210,11 @@ namespace SpaceGraphicsToolkit
 				{
 					for (var i = 0; i < (int)Pipeline.COUNT; i++)
 					{
-						// Skip non-implemented pipelines
-						if (i == (int)Pipeline.URP2021)
-						{
-							continue;
-						}
-
 						CompileVariant((Pipeline)i, overrides, path);
 					}
+
+					code  = System.IO.File.ReadAllText(path);
+					dirty = false;
 				}
 				else
 				{
@@ -301,12 +238,6 @@ namespace SpaceGraphicsToolkit
 
 					overrides.shaderName = title;
 
-					// Reset all hashes to mark as dirty
-					foreach (var v in variants)
-					{
-						v.Dirty = true;
-					}
-
 					if (System.IO.File.Exists(path) == true)
 					{
 						CompileVariant(overrides, path, variant);
@@ -315,6 +246,8 @@ namespace SpaceGraphicsToolkit
 					{
 						Debug.LogError("Failed to compile shader bundle because of missing file: " + path);
 					}
+
+					dirty = true;
 
 					return;
 				}
@@ -345,11 +278,8 @@ namespace SpaceGraphicsToolkit
 				variant.Code = JBooth.BetterShaders.StackedShaderImporterEditor.BuildExportShader(pipeline, overrides, path);
 			}
 
-			variant.Hash  = Random.value.GetHashCode() ^ variant.Code.GetHashCode();
-			variant.Code  = variant.Code.Replace("\n\r", "\n");
-			variant.Code  = variant.Code.Replace("\r\n", "\n");
-			variant.Code  = variant.HashString + "\n" + variant.Code;
-			variant.Dirty = false;
+			variant.Code = variant.Code.Replace("\n\r", "\n");
+			variant.Code = variant.Code.Replace("\r\n", "\n");
 		}
 	#endif
 
@@ -372,8 +302,7 @@ namespace SpaceGraphicsToolkit
 
 							UnityEditor.Undo.RecordObject(this, "Switching Pipeline");
 
-							variantHash = variant.Hash;
-							projectHash = GetProjectHash();
+							currentPipe = pipe;
 
 							UnityEditor.EditorUtility.SetDirty(this);
 
@@ -442,7 +371,7 @@ namespace SpaceGraphicsToolkit
 
 				foreach (var variant in tgt.Variants)
 				{
-					var active = variant.Hash == tgt.VariantHash;
+					var active = variant.Pipe == tgt.CurrentPipe;
 
 					EditorGUILayout.Toggle(variant.Pipe.ToString(), active);
 				}
@@ -477,7 +406,7 @@ namespace SpaceGraphicsToolkit
 			if (GUILayout.Button("Fast Compile") == true)
 			{
 				tgt.TryCompileFast();
-				tgt.TrySwitchTo(SgtShaderBundle.DetectProjectPipeline());
+				tgt.TrySwitchTo(tgt.CurrentPipe);
 
 				serializedObject.Update();
 			}
@@ -485,7 +414,7 @@ namespace SpaceGraphicsToolkit
 			if (GUILayout.Button("Compile") == true)
 			{
 				tgt.Compile();
-				tgt.TrySwitchTo(SgtShaderBundle.DetectProjectPipeline());
+				tgt.TrySwitchTo(tgt.CurrentPipe);
 
 				serializedObject.Update();
 			}
@@ -562,24 +491,14 @@ namespace SpaceGraphicsToolkit
 			{
 				var bundlePath = System.IO.Path.ChangeExtension(shaderPath, "asset");
 				var bundle     = AssetDatabase.LoadAssetAtPath<SgtShaderBundle>(bundlePath);
-
+				
 				if (bundle != null)
 				{
-					var pipe = SgtShaderBundle.DetectProjectPipeline();
-
-					foreach (var variant in bundle.Variants)
+					if (bundle.Code != System.IO.File.ReadAllText(shaderPath))
 					{
-						if (variant.Pipe == pipe)
-						{
-							if (System.IO.File.ReadAllText(shaderPath).Contains(variant.HashString) == true)
-							{
-								return;
-							}
-						}
+						bundle.TryCompileFast();
+						bundle.TrySwitchTo(bundle.CurrentPipe);
 					}
-
-					bundle.TryCompileFast();
-					bundle.TrySwitchTo(pipe);
 				}
 			}
 		}

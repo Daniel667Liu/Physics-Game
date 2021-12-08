@@ -11,7 +11,7 @@ namespace SpaceGraphicsToolkit
 	public abstract class SgtFloatingPoint : MonoBehaviour
 	{
 		/// <summary>The position wrapped by this component.</summary>
-		public SgtPosition Position { set { SetPosition(value); } get { return position; } } [FSA("Position")] [SerializeField] protected SgtPosition position;
+		public SgtPosition Position { set { position = value; PositionChanged(); } get { return position; } } [FSA("Position")] [SerializeField] protected SgtPosition position;
 
 		/// <summary>Whenever the <b>Position</b> values are modified, this gets called. This is useful for components that depend on this position being known at all times (e.g. SgtFloatingOrbit).</summary>
 		public event System.Action OnPositionChanged;
@@ -22,40 +22,13 @@ namespace SpaceGraphicsToolkit
 		[SerializeField]
 		protected bool expectedPositionSet;
 
-		[System.NonSerialized]
-		private bool notifying;
-
-		/// <summary>This method will invoke the <b>OnPositionChanged</b> event.</summary>
-		public void NotifyPositionChanged()
+		/// <summary>Call this method after you've finished modifying the <b>Position</b>, and it will notify all event listeners.</summary>
+		public virtual void PositionChanged()
 		{
-			if (notifying == false)
+			if (OnPositionChanged != null)
 			{
-				notifying = true;
-
-				if (OnPositionChanged != null)
-				{
-					OnPositionChanged();
-				}
-
-				notifying = false;
+				OnPositionChanged();
 			}
-		}
-
-		/// <summary>This method will apply the current <b>Position</b> to the <b>Transform.Position</b>, in case they go out of sync.</summary>
-		public void ApplyPosition()
-		{
-			if (SgtFloatingCamera.Instances.Count > 0)
-			{
-				ApplyPosition(SgtFloatingCamera.Instances.First.Value);
-			}
-		}
-
-		protected virtual void ApplyPosition(SgtFloatingCamera floatingCamera)
-		{
-			expectedPosition    = floatingCamera.CalculatePosition(position);
-			expectedPositionSet = true;
-
-			transform.position = expectedPosition;
 		}
 
 		/// <summary>This method allows you to change the whole <b>Position</b> state, and it will automatically call the <b>PositionChanged</b> method if the position is different.</summary>
@@ -65,13 +38,11 @@ namespace SpaceGraphicsToolkit
 			{
 				position = newPosition;
 
-				ApplyPosition();
-
-				NotifyPositionChanged();
+				PositionChanged();
 			}
 		}
 
-		protected virtual void CheckForPositionChanges()
+		protected void CheckForPositionChanges()
 		{
 			var currentPosition = transform.position;
 
@@ -87,7 +58,7 @@ namespace SpaceGraphicsToolkit
 
 					expectedPosition = currentPosition;
 
-					NotifyPositionChanged();
+					PositionChanged();
 				}
 			}
 			else
@@ -102,7 +73,7 @@ namespace SpaceGraphicsToolkit
 		{
 			if (expectedPositionSet == true)
 			{
-				ApplyPosition();
+				PositionChanged();
 			}
 		}
 #endif
@@ -140,7 +111,7 @@ namespace SpaceGraphicsToolkit
 
 			if (modified == true)
 			{
-				Each(tgts, t => { t.ApplyPosition(); t.NotifyPositionChanged(); }, true, true);
+				Each(tgts, t => { t.PositionChanged(); }, true, true);
 			}
 		}
 	}
