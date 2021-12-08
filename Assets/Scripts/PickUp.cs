@@ -9,6 +9,8 @@ public class PickUp : MonoBehaviour
 
     public GameObject MainCam;
     public int onMissionIndex = 0;
+    //
+    public GameObject Orbits;
     void Start()
     {
         
@@ -17,9 +19,17 @@ public class PickUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown("joystick button 9"))
         {
-
+            Debug.Log("button down");
+            if(!Orbits.activeSelf)
+            {
+                Orbits.SetActive(true);
+            }
+            else
+            {
+                Orbits.SetActive(false);
+            }
         }
     }
     private void OnTriggerEnter(Collider collision)
