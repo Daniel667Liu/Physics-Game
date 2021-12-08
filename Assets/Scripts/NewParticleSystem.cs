@@ -5,25 +5,41 @@ using UnityEngine;
 public class NewParticleSystem : MonoBehaviour
 {
     public ParticleSystem MainFire;
-    public ParticleSystem MainSmoke;
+  
     public GameObject[] SmallFires;
     
     private float SapceshipXSpeed;
     private float MainFireStrength;
     public float SmallFireStrength = 1.5f;
+    private ShipTransform Shiptransform;
+    private bool isShipSmall;
+    private float ParticleStrengtDelta = 3f;
+    private float ParticleEmmisionDelta = 400f;
 
     // Start is called before the first frame update
     void Start()
     {
         SmallFires = GameObject.FindGameObjectsWithTag("SmallFire");
+        Shiptransform = FindObjectOfType<ShipTransform>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        isShipSmall = Shiptransform.isSmall;
+        if (!isShipSmall) 
+        {
+            ParticleStrengtDelta = 3f;
+            ParticleEmmisionDelta = 400f;
+        }
+        else 
+        {
+            ParticleStrengtDelta = 9f;
+            ParticleEmmisionDelta = 900f;
+        }
         MainFireStrength = Input.GetAxis("Forward");
         MainFireControll();
-        MainSmokeControll();
+       
         SmallFireControl();
 
     }
@@ -40,21 +56,13 @@ public class NewParticleSystem : MonoBehaviour
     public void MainFireControll() 
     {
         
-        MainFire.startSpeed = -1f - (9f * MainFireStrength);
-        MainFire.emissionRate = 100f + (900f * MainFireStrength);
+        MainFire.startSpeed = -1f - (ParticleStrengtDelta * MainFireStrength);
+        MainFire.emissionRate = 100f + (ParticleEmmisionDelta * MainFireStrength);
         float ColorOpacity = 0.01f + (0.29f * MainFireStrength);
         MainFire.startColor = new Color(255, 255, 255,ColorOpacity);
        
     }
 
-    public void MainSmokeControll() 
-    {
-        Vector3 CurrentPos = MainSmoke.transform.localPosition;
-        MainSmoke.transform.localPosition = new Vector3(CurrentPos.x, CurrentPos.y, 1f + MainFireStrength);
-        MainSmoke.startSpeed = 2f + (3f * MainFireStrength);
-        MainSmoke.emissionRate = 25f + (175f * MainFireStrength);
-        MainSmoke.startSize = 2f + (2f * MainFireStrength);
-        
-    }
+   
 
 }
