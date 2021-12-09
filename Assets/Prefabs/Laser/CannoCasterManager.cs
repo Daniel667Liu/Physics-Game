@@ -27,7 +27,7 @@ public class CannoCasterManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(Vector3.Distance(Planet.transform.position, Player.transform.position));
+        //Debug.Log(Vector3.Distance(Planet.transform.position, Player.transform.position));
 
         if(Vector3.Distance(Planet.transform.position,Player.transform.position)<400f)
         {

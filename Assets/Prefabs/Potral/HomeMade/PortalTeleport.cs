@@ -8,10 +8,14 @@ public class PortalTeleport : MonoBehaviour
     public Transform player;
     public Transform reciever;
 
+    public GameObject[] Solar1DisappearPlanets;
+    public GameObject[] Solar2DisappearPlanets;
+
     public bool playerIsOverlapping = false;
+    public GameObject BlackHole;
     void Start()
     {
-        
+        BlackHole = GameObject.FindGameObjectWithTag("BH");
     }
 
     // Update is called once per frame
@@ -19,24 +23,30 @@ public class PortalTeleport : MonoBehaviour
     {
         if(playerIsOverlapping)
         {
-            
-
-/*            Vector3 portalToPlayer = player.position - transform.position;
-            float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
-            Debug.Log("dotProduct: "+ dotProduct);
-            Debug.Log(dotProduct);
-            if (dotProduct<0f)
+            if(this.name== "Round1Teleporter")
             {
-                float rotationDiff = -Quaternion.Angle(transform.rotation, reciever.rotation);
-                Debug.Log("rotationDiff:"+rotationDiff);
-                rotationDiff += 180;
-                player.Rotate(Vector3.up, rotationDiff);
+                for (int i = 0; i < Solar2DisappearPlanets.Length; i++)
+                {
+                    Solar2DisappearPlanets[i].SetActive(true);
+                }
+                for (int j=0;j< Solar1DisappearPlanets.Length;j++)
+                {
+                    Solar1DisappearPlanets[j].SetActive(false);
+                }
+            }
+            if (this.name == "PortalTeleporterWell")
+            {
+                for (int k = 0; k < Solar1DisappearPlanets.Length; k++)
+                {
+                    Solar1DisappearPlanets[k].SetActive(true);
+                }
+                for (int l = 0; l < Solar2DisappearPlanets.Length; l++)
+                {
+                    Solar2DisappearPlanets[l].SetActive(false);
+                }
 
-                Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
-                player.position = reciever.position + positionOffset;
-
-                playerIsOverlapping = false;
-            }*/
+                BlackHole.gameObject.GetComponent<BlackHole>().DESTROY = true;
+            }
             player.position = reciever.position;
             playerIsOverlapping = false;
         }

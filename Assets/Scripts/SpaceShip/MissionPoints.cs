@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class MissionPoints : MonoBehaviour
 {
-    // Indicator icon
-    public Image img;
-    // The target (location, enemy, etc..)
-    public Transform target;
-    // UI Text to display the distance
-    public Text meter;
-    // To adjust the position of the icon
-    public Vector3 offset;
+    // Start is called before the first frame update
+    public Image Point;
+    public Transform PlanetTest;
+    public Transform [] Planets;
+    public TMP_Text Dist;
+    //
+    public int MissionIndex = 0;
+    void Start()
+    {
 
     private void Update()
     {
@@ -58,5 +59,8 @@ public class MissionPoints : MonoBehaviour
     }
 
 
+
+
+    }
 }
 
