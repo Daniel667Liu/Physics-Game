@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1569680075871702101}
   - component: {fileID: 7461354980636417747}
   - component: {fileID: 2345071951724139556}
-  - component: {fileID: 9190949286883435871}
   m_Layer: 0
   m_Name: PM3D_Cube3D_3
   m_TagString: Untagged
@@ -26,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337136010228137949}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3910588770316415493}
@@ -141,7 +140,6 @@ GameObject:
   - component: {fileID: 5427235097969131463}
   - component: {fileID: 4699971898670783886}
   - component: {fileID: 2072316510817984720}
-  - component: {fileID: 8085516403988408340}
   m_Layer: 0
   m_Name: PM3D_Cube3D_4
   m_TagString: Untagged
@@ -156,8 +154,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4577137993151774528}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3910588770316415493}
@@ -237,7 +235,6 @@ GameObject:
   - component: {fileID: 889910870022454242}
   - component: {fileID: 8781559158375392730}
   - component: {fileID: 1570922845638366656}
-  - component: {fileID: 1176120414381306719}
   m_Layer: 0
   m_Name: PM3D_Cube3D_6
   m_TagString: Untagged
@@ -252,8 +249,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6159724266002534286}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3910588770316415493}
@@ -333,7 +330,6 @@ GameObject:
   - component: {fileID: 3416662017002824768}
   - component: {fileID: 7927429263125448269}
   - component: {fileID: 600909479151737386}
-  - component: {fileID: 340854855063651258}
   m_Layer: 0
   m_Name: PM3D_Cube3D_5
   m_TagString: Untagged
@@ -348,8 +344,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9118696643009077106}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3910588770316415493}

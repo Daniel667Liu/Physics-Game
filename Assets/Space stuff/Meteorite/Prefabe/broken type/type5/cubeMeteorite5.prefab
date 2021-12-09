@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3646002538999742670}
   - component: {fileID: 4313501589875479693}
   - component: {fileID: 5783460719246671376}
-  - component: {fileID: 4380837700620886679}
   m_Layer: 0
   m_Name: PM3D_Cube3D_2
   m_TagString: Untagged
@@ -26,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859161062282148164}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6719475407784486704}
@@ -107,7 +106,6 @@ GameObject:
   - component: {fileID: 2329492530952645362}
   - component: {fileID: 3043530675131500731}
   - component: {fileID: 8630924863598196197}
-  - component: {fileID: 5453643721543720681}
   m_Layer: 0
   m_Name: PM3D_Cube3D_4
   m_TagString: Untagged
@@ -122,8 +120,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6088917605683407477}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6719475407784486704}
@@ -236,7 +234,6 @@ GameObject:
   - component: {fileID: 9137226650075240800}
   - component: {fileID: 903361360078572518}
   - component: {fileID: 5444344042489839889}
-  - component: {fileID: 7741396791142363940}
   m_Layer: 0
   m_Name: PM3D_Cube3D_3
   m_TagString: Untagged
@@ -251,8 +248,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8045913719127091944}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6719475407784486704}
