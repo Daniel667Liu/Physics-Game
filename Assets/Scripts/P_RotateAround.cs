@@ -6,7 +6,6 @@ public class P_RotateAround : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject Center;
-    public GameObject Planet;
     public float speed;
     bool rotate = true;
     void Start()
