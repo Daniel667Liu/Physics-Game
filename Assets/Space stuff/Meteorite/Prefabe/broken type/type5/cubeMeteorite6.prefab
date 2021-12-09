@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 1569680075871702101}
   - component: {fileID: 7461354980636417747}
   - component: {fileID: 2345071951724139556}
+  - component: {fileID: 3742882608276121549}
+  - component: {fileID: 3976084971728817565}
+  - component: {fileID: 1122563289228961766}
   m_Layer: 0
   m_Name: PM3D_Cube3D_3
   m_TagString: Untagged
@@ -30,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3910588770316415493}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7461354980636417747
 MeshFilter:
@@ -81,8 +84,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &9190949286883435871
-MeshCollider:
+--- !u!54 &3742882608276121549
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337136010228137949}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3976084971728817565
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,10 +110,24 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7744425307438145019, guid: cce7be3c1941a9949b9bd511dc2f82b6, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 8.69253, y: 17.845314, z: 11.124763}
+  m_Center: {x: 2.7107987, y: 6.356452, z: 6.2629485}
+--- !u!138 &1122563289228961766
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337136010228137949}
+  m_ConnectedBody: {fileID: 4201519342080690522}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &4399703925828561087
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,8 +155,8 @@ Transform:
   m_LocalPosition: {x: 367.42834, y: 207.5205, z: -43.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1569680075871702101}
   - {fileID: 5427235097969131463}
+  - {fileID: 1569680075871702101}
   - {fileID: 3416662017002824768}
   - {fileID: 889910870022454242}
   m_Father: {fileID: 0}
@@ -140,6 +173,8 @@ GameObject:
   - component: {fileID: 5427235097969131463}
   - component: {fileID: 4699971898670783886}
   - component: {fileID: 2072316510817984720}
+  - component: {fileID: 4201519342080690522}
+  - component: {fileID: 1691760273495646990}
   m_Layer: 0
   m_Name: PM3D_Cube3D_4
   m_TagString: Untagged
@@ -159,7 +194,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3910588770316415493}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4699971898670783886
 MeshFilter:
@@ -210,8 +245,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8085516403988408340
-MeshCollider:
+--- !u!54 &4201519342080690522
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577137993151774528}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1691760273495646990
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -220,10 +271,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7714009736933181849, guid: cce7be3c1941a9949b9bd511dc2f82b6, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 5.0425944, y: 23.348167, z: 9.907061}
+  m_Center: {x: -1.6354657, y: -2.566205, z: 0.70056725}
 --- !u!1 &6159724266002534286
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +285,9 @@ GameObject:
   - component: {fileID: 889910870022454242}
   - component: {fileID: 8781559158375392730}
   - component: {fileID: 1570922845638366656}
+  - component: {fileID: 4551413403286630663}
+  - component: {fileID: 6110049364152887335}
+  - component: {fileID: 1902579427162835093}
   m_Layer: 0
   m_Name: PM3D_Cube3D_6
   m_TagString: Untagged
@@ -305,8 +358,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1176120414381306719
-MeshCollider:
+--- !u!54 &4551413403286630663
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6159724266002534286}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6110049364152887335
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -315,10 +384,24 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4540218852482181167, guid: cce7be3c1941a9949b9bd511dc2f82b6, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 8.115839, y: 11.305716, z: 14.67659}
+  m_Center: {x: 2.4224539, y: -19.893147, z: -1.6841984}
+--- !u!138 &1902579427162835093
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6159724266002534286}
+  m_ConnectedBody: {fileID: 4201519342080690522}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &9118696643009077106
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +413,9 @@ GameObject:
   - component: {fileID: 3416662017002824768}
   - component: {fileID: 7927429263125448269}
   - component: {fileID: 600909479151737386}
+  - component: {fileID: 186697055203193642}
+  - component: {fileID: 8443641093351735406}
+  - component: {fileID: 4506301214219511030}
   m_Layer: 0
   m_Name: PM3D_Cube3D_5
   m_TagString: Untagged
@@ -400,8 +486,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &340854855063651258
-MeshCollider:
+--- !u!54 &186697055203193642
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9118696643009077106}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8443641093351735406
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -410,7 +512,21 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2878207425186286803, guid: cce7be3c1941a9949b9bd511dc2f82b6, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 5.4202766, y: 22.979801, z: 7.8525085}
+  m_Center: {x: -4.345604, y: -14.056105, z: -3.225687}
+--- !u!138 &4506301214219511030
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9118696643009077106}
+  m_ConnectedBody: {fileID: 4201519342080690522}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
