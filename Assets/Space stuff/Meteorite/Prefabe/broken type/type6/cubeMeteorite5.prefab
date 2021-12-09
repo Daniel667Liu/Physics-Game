@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3511737638970409589}
   - component: {fileID: 5136813336279278226}
   - component: {fileID: 4851820374607396372}
+  - component: {fileID: 4954098973624906858}
   m_Layer: 0
   m_Name: PM3D_Cube3D_3
   m_TagString: Untagged
@@ -112,6 +113,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!138 &4954098973624906858
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484731228114348428}
+  m_ConnectedBody: {fileID: 1500116825186957734}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &3258793232371007214
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +174,7 @@ GameObject:
   - component: {fileID: 933710386081248897}
   - component: {fileID: 2622879147694877981}
   - component: {fileID: 2978514888116339911}
+  - component: {fileID: 1569651308352433446}
   m_Layer: 0
   m_Name: PM3D_Cube3D_4
   m_TagString: Untagged
@@ -257,6 +274,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!138 &1569651308352433446
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436860611010357521}
+  m_ConnectedBody: {fileID: 1500116825186957734}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &7133440038833814048
 GameObject:
   m_ObjectHideFlags: 0
