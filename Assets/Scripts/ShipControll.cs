@@ -137,8 +137,8 @@ public class ShipControll : MonoBehaviour
             {
                 InputVertical = Input.GetAxis("Mouse Y");
             }
-            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical*-1f, ForceMode.Impulse);
-            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical*-1f , ForceMode.Impulse);
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical , ForceMode.Impulse);
         
     }
     public void YawLeft() 
@@ -207,10 +207,13 @@ public class ShipControll : MonoBehaviour
     void Start()
     {
         FreeLookSwitch = FindObjectOfType<FreeLookSwitch>();
+       //Lock FPS
+        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
        //Debug.Log(isLeftControl);
 

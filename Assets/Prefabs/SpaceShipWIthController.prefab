@@ -48964,6 +48964,8 @@ MonoBehaviour:
   MaxForceTimes: 2
   Acceleration: 0.0005
   UseController: 1
+  InputVertical: 0
+  YawInput: 0
 --- !u!114 &2750645379352383538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78949,6 +78951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpaceshipColliderHolder: {fileID: 0}
   VibrateStrength: 1
+  ShipMain: {fileID: 0}
 --- !u!1 &4220429030526501352
 GameObject:
   m_ObjectHideFlags: 0
