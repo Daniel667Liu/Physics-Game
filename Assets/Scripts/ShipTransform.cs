@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ShipTransform : MonoBehaviour
 {
     public Rigidbody ShipMain;
@@ -20,11 +21,18 @@ public class ShipTransform : MonoBehaviour
     public float Large_R;
     public float Large_Y;
     public float Large_MaxTimes;
+    public TrailRenderer[] Trails;
+    public GameObject ShipCollider;
+    private ShipHealth FuelScript;
+    private ShipCollider ColliderScript;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         ShipControll = FindObjectOfType<ShipControll>();
+        ColliderScript = ShipCollider.GetComponentInChildren<ShipCollider>();
+        FuelScript = FindObjectOfType<ShipHealth>();
     }
 
     // Update is called once per frame
@@ -55,7 +63,12 @@ public class ShipTransform : MonoBehaviour
         ShipControll.RollStrength = Small_R;
         ShipControll.YawStrength = Small_Y;
         ShipControll.MaxForceTimes = Small_MaxTimes;
-        
+        ShipCollider.transform.localScale = (ColliderScript.SmallScale);
+        FuelScript.fuelcutRate = 0.0025f;
+        for (int i = 0; i <= Trails.Length-1; i++) 
+        {
+            Trails[i].time = 5f;
+        }
 
     }
 
@@ -67,8 +80,13 @@ public class ShipTransform : MonoBehaviour
         ShipControll.RollStrength = Large_R;
         ShipControll.YawStrength = Large_Y;
         ShipControll.MaxForceTimes = Large_MaxTimes;
-        Debug.Log(Large_F);
-       
+        ShipCollider.transform.localScale = (ColliderScript.LargeScale);
+        FuelScript.fuelcutRate = 0.0015f;
+        for (int i = 0; i <= Trails.Length-1; i++)
+        {
+            Trails[i].time = 0f;
+        }
+
     }
 
 
