@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8246747136193530003}
   - component: {fileID: 5570520559932102656}
   - component: {fileID: 5541364091411662415}
+  - component: {fileID: 674800968893390682}
   m_Layer: 0
   m_Name: 8
   m_TagString: Untagged
@@ -129,6 +130,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5270879433523947816, guid: 5593ee1c56603b044a3101bc459d5e6c, type: 3}
+--- !u!54 &674800968893390682
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953196755579019399}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5504975416970848590
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +158,7 @@ GameObject:
   - component: {fileID: 2436905965449587434}
   - component: {fileID: 5743162653557972815}
   - component: {fileID: 2544914120115656344}
+  - component: {fileID: 6579422686072219470}
   m_Layer: 0
   m_Name: 7
   m_TagString: Untagged
@@ -225,6 +243,106 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7821917557700976381, guid: 5593ee1c56603b044a3101bc459d5e6c, type: 3}
+--- !u!54 &6579422686072219470
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504975416970848590}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &7540189229397401866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7201241008401890224}
+  - component: {fileID: 6070897507893392405}
+  - component: {fileID: 8333029678937456863}
+  - component: {fileID: 3222266327881717821}
+  - component: {fileID: 8984970585651216610}
+  - component: {fileID: 4713477195491687613}
+  m_Layer: 0
+  m_Name: bioplanet power
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7201241008401890224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540189229397401866}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.9225, y: 0.75294, z: -3.3577}
+  m_LocalScale: {x: 0.94, y: 0.94, z: 0.94}
+  m_Children: []
+  m_Father: {fileID: 2236947331229623957}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6070897507893392405
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540189229397401866}
+  m_Mesh: {fileID: 0}
+--- !u!23 &8333029678937456863
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540189229397401866}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 19982cf8c92c625468425604df216724, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 2
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &3222266327881717821
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1504,94 +1622,19 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: -4633444044135843446, guid: 507d75651a053d746b23a60f606565a9, type: 3}
   m_Mode: 0
---- !u!1001 &7234271898144103515
-PrefabInstance:
+--- !u!54 &4713477195491687613
+Rigidbody:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7540189229397401866}
   serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2236947331229623957}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.94
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.94
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.94
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.9225
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.75294
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.3577
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 19982cf8c92c625468425604df216724, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_SelectedEditorRenderState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -5754084199372789682, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-      propertyPath: m_Name
-      value: bioplanet power
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 507d75651a053d746b23a60f606565a9, type: 3}
---- !u!1 &7540189229397401866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-  m_PrefabInstance: {fileID: 7234271898144103515}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7201241008401890224 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 507d75651a053d746b23a60f606565a9, type: 3}
-  m_PrefabInstance: {fileID: 7234271898144103515}
-  m_PrefabAsset: {fileID: 0}
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
