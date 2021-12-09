@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4826693720726409972}
   - component: {fileID: 3804376566718240365}
   - component: {fileID: 542130605630610829}
-  - component: {fileID: 2721241669028878218}
+  - component: {fileID: 4292915981010186952}
   m_Layer: 0
   m_Name: RockM
   m_TagString: Untagged
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3804376566718240371}
-  m_Mesh: {fileID: 1645802650124303706, guid: 0826725f2f13b469a8384b1245f86da3, type: 3}
+  m_Mesh: {fileID: -3571660130449703130, guid: 0a56ff1b9d1bcc24e868c31b2bb4ad0c, type: 3}
 --- !u!23 &3804376566718240367
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -240,7 +240,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &2721241669028878218
+--- !u!64 &4292915981010186952
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,4 +253,4 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1645802650124303706, guid: 0826725f2f13b469a8384b1245f86da3, type: 3}
+  m_Mesh: {fileID: -3571660130449703130, guid: 0a56ff1b9d1bcc24e868c31b2bb4ad0c, type: 3}
