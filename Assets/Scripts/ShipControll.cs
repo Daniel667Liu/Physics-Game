@@ -137,8 +137,8 @@ public class ShipControll : MonoBehaviour
             {
                 InputVertical = Input.GetAxis("Mouse Y");
             }
-            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical*-1f, ForceMode.Impulse);
-            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical*-1f , ForceMode.Impulse);
+            ForwardCubePos.GetComponent<Rigidbody>().AddForce(DownDir * PitchStrength * InputVertical, ForceMode.Impulse);
+            BackwardCubePos.GetComponent<Rigidbody>().AddForce(UpDir * PitchStrength * InputVertical , ForceMode.Impulse);
         
     }
     public void YawLeft() 
