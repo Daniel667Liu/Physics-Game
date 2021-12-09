@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4410419039548870671}
   - component: {fileID: 5298203033718034596}
   - component: {fileID: 3024495029262266016}
+  - component: {fileID: 54369694327945923}
   m_Layer: 0
   m_Name: PM3D_Cube3D
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2946946891358781397}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1837445956808364894
 MeshFilter:
@@ -112,6 +113,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!138 &54369694327945923
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720280157827651}
+  m_ConnectedBody: {fileID: 7876079101570658972}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &2571124623983895919
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,8 +155,8 @@ Transform:
   m_LocalPosition: {x: -519.3, y: -0.80006427, z: -225.79971}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5295380919365612042}
   - {fileID: 9202250390855032995}
+  - {fileID: 5295380919365612042}
   - {fileID: 4827689085613132156}
   - {fileID: 5996736679573202650}
   m_Father: {fileID: 0}
@@ -174,11 +190,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3395181294037600976}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2946946891358781397}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7959528811173072091
 MeshFilter:
@@ -271,6 +287,7 @@ GameObject:
   - component: {fileID: 7318400067559222742}
   - component: {fileID: 4559242784117837903}
   - component: {fileID: 5239368742341204548}
+  - component: {fileID: 6577625126893904444}
   m_Layer: 0
   m_Name: PM3D_Cube3D2
   m_TagString: Untagged
@@ -370,6 +387,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!138 &6577625126893904444
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962302730680690980}
+  m_ConnectedBody: {fileID: 7876079101570658972}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &9136102044840344361
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +415,7 @@ GameObject:
   - component: {fileID: 5843469501610012426}
   - component: {fileID: 589146963849842587}
   - component: {fileID: 5708037500784597813}
+  - component: {fileID: 3561709478225600294}
   m_Layer: 0
   m_Name: PM3D_Cube3D1_copy1
   m_TagString: Untagged
@@ -482,3 +515,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!138 &3561709478225600294
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9136102044840344361}
+  m_ConnectedBody: {fileID: 7876079101570658972}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: 1000
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1

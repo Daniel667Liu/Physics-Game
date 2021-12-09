@@ -19,9 +19,9 @@ public class ShipUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        int speed = (int)(ship.GetComponent<Rigidbody>().velocity.magnitude * 3.7f);
+        int speed = (int)(ship.GetComponent<Rigidbody>().velocity.magnitude *6.5f);
         SpeedUI.GetComponent<TMP_Text>().text = speed.ToString();
         int health =(int) ShipHealthScript.health;
         HealthUI.GetComponent<TMP_Text>().text = health.ToString();
