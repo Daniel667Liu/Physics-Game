@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6962201947290057853}
   - component: {fileID: 6282924304708318168}
   - component: {fileID: 8130573013715142418}
+  - component: {fileID: 7629615289674477485}
   m_Layer: 0
   m_Name: planet rings 1
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7629615289674477485
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770228213215782599}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4633444044135843446, guid: e01ac9283ca4ddc4e8868f591ae2fadf, type: 3}

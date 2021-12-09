@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1396296661893097348}
   - component: {fileID: 6593572929324507594}
   - component: {fileID: 3389775864012084143}
+  - component: {fileID: 1863408521145763988}
   m_Layer: 0
   m_Name: PM3D_Circle3D2
   m_TagString: Untagged
@@ -880,6 +881,20 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: -1576340461198003071, guid: e34c2d4c90bfcc140ab2f8ca92d0aa0f, type: 3}
   m_Mode: 0
+--- !u!64 &1863408521145763988
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101443872739016102}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2111823338987022633
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +907,7 @@ GameObject:
   - component: {fileID: 7167215785555819535}
   - component: {fileID: 1256782710333278764}
   - component: {fileID: 3389775864012084142}
+  - component: {fileID: 1696360869261264428}
   m_Layer: 0
   m_Name: PM3D_Circle3D3
   m_TagString: Untagged
@@ -5216,6 +5232,20 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: -7677187975508468047, guid: e34c2d4c90bfcc140ab2f8ca92d0aa0f, type: 3}
   m_Mode: 0
+--- !u!64 &1696360869261264428
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111823338987022633}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2344361902827936696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5228,6 +5258,7 @@ GameObject:
   - component: {fileID: 5416639603633731082}
   - component: {fileID: 2622443120805558579}
   - component: {fileID: 3389775864012084140}
+  - component: {fileID: 3841459552900587821}
   m_Layer: 0
   m_Name: PM3D_Circle3D1
   m_TagString: Untagged
@@ -7632,6 +7663,20 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: 4435810101804256117, guid: e34c2d4c90bfcc140ab2f8ca92d0aa0f, type: 3}
   m_Mode: 0
+--- !u!64 &3841459552900587821
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2344361902827936696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2579312311415024902
 GameObject:
   m_ObjectHideFlags: 0
@@ -7680,6 +7725,7 @@ GameObject:
   - component: {fileID: 2630192996621228242}
   - component: {fileID: 1292006847849554434}
   - component: {fileID: 3389775864012084137}
+  - component: {fileID: 8634837167450483745}
   m_Layer: 0
   m_Name: PM3D_Circle3D4
   m_TagString: Untagged
@@ -9124,6 +9170,20 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: -1253735587867275665, guid: e34c2d4c90bfcc140ab2f8ca92d0aa0f, type: 3}
   m_Mode: 0
+--- !u!64 &8634837167450483745
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4028010356994701477}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &4175193596472126605
 GameObject:
   m_ObjectHideFlags: 0
@@ -9136,6 +9196,7 @@ GameObject:
   - component: {fileID: 6680598983971219312}
   - component: {fileID: 903405189982616763}
   - component: {fileID: 3389775864012084131}
+  - component: {fileID: 5298600514475317155}
   m_Layer: 0
   m_Name: PM3D_Circle3D5
   m_TagString: Untagged
@@ -14228,6 +14289,20 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: -8805396566140609987, guid: e34c2d4c90bfcc140ab2f8ca92d0aa0f, type: 3}
   m_Mode: 0
+--- !u!64 &5298600514475317155
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4175193596472126605}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6753175651671252881
 GameObject:
   m_ObjectHideFlags: 0
@@ -14240,6 +14315,7 @@ GameObject:
   - component: {fileID: 9205725241927173746}
   - component: {fileID: 2955515073117817949}
   - component: {fileID: 3389775864012084141}
+  - component: {fileID: 2467922703599455422}
   m_Layer: 0
   m_Name: PM3D_Circle3D
   m_TagString: Untagged
@@ -26940,3 +27016,17 @@ MonoBehaviour:
   m_SkinMeshRef: {fileID: 0}
   m_OriginalMeshObject: {fileID: 6298696147814707051, guid: e34c2d4c90bfcc140ab2f8ca92d0aa0f, type: 3}
   m_Mode: 0
+--- !u!64 &2467922703599455422
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6753175651671252881}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
