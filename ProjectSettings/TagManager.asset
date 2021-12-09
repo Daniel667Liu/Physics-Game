@@ -11,6 +11,7 @@ TagManager:
   - Planet
   - SmallFire
   - ShipCollider
+  - BH
   layers:
   - Default
   - TransparentFX

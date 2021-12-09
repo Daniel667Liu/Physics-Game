@@ -16,15 +16,31 @@ public class MusicRadio : MonoBehaviour
     public bool[] ClipPermissions;
     private int AUDIOindex = 0;
     private bool beginMusic = false;
+    public GameObject PickupUI;
 
     // Start is called before the first frame update
 
     private void Start()
     {
         setSong(AUDIOindex);
+        PickupUI.gameObject.SetActive(false);
         
         //SetMusicUI();
         
+    }
+
+    public void musicPickUp(int musicNum) 
+    {
+        ClipPermissions[musicNum] = true;
+        PickupUI.gameObject.SetActive(true);
+        PickupUI.GetComponent<TMP_Text>().text = MusicNames[musicNum];
+        Invoke("HidePickUI", 5f);
+    }
+
+    private void HidePickUI() 
+    {
+        PickupUI.SetActive(false);
+        CancelInvoke();
     }
 
     public void setSong(int AudioIndex) 

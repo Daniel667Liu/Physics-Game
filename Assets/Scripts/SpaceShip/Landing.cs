@@ -6,6 +6,7 @@ public class Landing : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool isLanding = false;
+    public bool isLandingBH = false;
     public GameObject Planet;
     Vector3 DirG;
     void Start()
@@ -23,7 +24,12 @@ public class Landing : MonoBehaviour
                         this.GetComponent<Rigidbody>().velocity += Planet.GetComponent<Rigidbody>().velocity;*/
 
             DirG = (Planet.transform.position - this.transform.position).normalized;
-            this.GetComponent<Rigidbody>().AddForce(DirG*Planet.GetComponent<CelestialBody>().surfaceGravity,ForceMode.Impulse);
+            this.GetComponent<Rigidbody>().AddForce(DirG*Planet.GetComponent<CelestialBody>().surfaceGravity/10,ForceMode.Impulse);
+        }
+        if(isLandingBH)
+        {
+            DirG = (Planet.transform.position - this.transform.position).normalized;
+            this.GetComponent<Rigidbody>().AddForce(DirG*100f, ForceMode.Impulse);
         }
     }
 
@@ -33,6 +39,12 @@ public class Landing : MonoBehaviour
         if (collision.gameObject.tag == "Planet")
         {
             isLanding = true;
+            Planet = collision.gameObject;
+            //collision.GetComponent<Rigidbody>().velocity
+        }
+        if (collision.gameObject.tag == "BH")
+        {
+            isLandingBH = true;
             Planet = collision.gameObject;
             //collision.GetComponent<Rigidbody>().velocity
         }
@@ -46,10 +58,17 @@ public class Landing : MonoBehaviour
             isLanding = true;
             Planet = other.gameObject;
         }
+        if (other.gameObject.tag == "BH")
+        {
+            isLandingBH = true;
+            Planet = other.gameObject;
+            //collision.GetComponent<Rigidbody>().velocity
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         isLanding = false;
+        isLandingBH = false;
     }
 }
