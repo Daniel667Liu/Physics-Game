@@ -10,6 +10,7 @@ TagManager:
   - Destination
   - Planet
   - SmallFire
+  - ShipCollider
   layers:
   - Default
   - TransparentFX

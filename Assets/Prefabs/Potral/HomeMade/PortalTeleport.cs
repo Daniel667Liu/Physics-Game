@@ -21,7 +21,7 @@ public class PortalTeleport : MonoBehaviour
         {
             
 
-            Vector3 portalToPlayer = player.position - transform.position;
+/*            Vector3 portalToPlayer = player.position - transform.position;
             float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
             Debug.Log("dotProduct: "+ dotProduct);
             Debug.Log(dotProduct);
@@ -36,7 +36,7 @@ public class PortalTeleport : MonoBehaviour
                 player.position = reciever.position + positionOffset;
 
                 playerIsOverlapping = false;
-            }
+            }*/
             player.position = reciever.position;
             playerIsOverlapping = false;
         }
