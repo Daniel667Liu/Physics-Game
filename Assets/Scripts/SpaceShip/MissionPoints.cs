@@ -45,8 +45,7 @@ public class MissionPoints : MonoBehaviour
 
         Point.transform.position = pos;
 
-
-
+        Dist.text = Vector3.Distance(this.transform.position, Planets[MissionIndex].position).ToString();
 
     }
 }
