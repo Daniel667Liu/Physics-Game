@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class MissionPoints : MonoBehaviour
 {
     // Start is called before the first frame update
     public Image Point;
     public Transform PlanetTest;
     public Transform [] Planets;
-    public Text Dist;
+    public TMP_Text Dist;
     //
     public int MissionIndex = 0;
     void Start()
@@ -44,6 +44,7 @@ public class MissionPoints : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
 
         Point.transform.position = pos;
+
 
 
 
