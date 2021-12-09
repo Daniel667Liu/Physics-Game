@@ -11,6 +11,9 @@ TagManager:
   - Planet
   - SmallFire
   - ShipCollider
+  - Music
+  - Mission
+  - Fuel
   layers:
   - Default
   - TransparentFX
