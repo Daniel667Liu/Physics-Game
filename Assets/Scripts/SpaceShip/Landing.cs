@@ -24,7 +24,7 @@ public class Landing : MonoBehaviour
                         this.GetComponent<Rigidbody>().velocity += Planet.GetComponent<Rigidbody>().velocity;*/
 
             DirG = (Planet.transform.position - this.transform.position).normalized;
-            this.GetComponent<Rigidbody>().AddForce(DirG*Planet.GetComponent<CelestialBody>().surfaceGravity/10,ForceMode.Impulse);
+            this.GetComponent<Rigidbody>().AddForce(DirG*Planet.GetComponent<CelestialBody>().surfaceGravity/100,ForceMode.Impulse);
         }
         if(isLandingBH)
         {

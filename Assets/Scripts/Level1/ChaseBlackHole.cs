@@ -28,7 +28,7 @@ public class ChaseBlackHole : MonoBehaviour
         }
         if(Destroy==1)
         {
-            this.GetComponent<Rigidbody>().AddForce(DirG * Random.Range(1f, 150f), ForceMode.Impulse);
+            this.GetComponent<Rigidbody>().AddForce(DirG * Random.Range(1f, 300f), ForceMode.Impulse);
         }
         if (Vector3.Distance( BlackHole.transform.position,this.transform.position)<100f)
         {

@@ -35,14 +35,14 @@ public class Waypoint : MonoBehaviour
                 pos.x = minX;
             }
 
-/*            if (pos.y < Screen.height / 2)
+            if (pos.y < Screen.height / 2)
             {
                 pos.y = maxY;
             }
             else
             {
                 pos.y = minY;
-            }*/
+            }
         }
 
         pos.x = Mathf.Clamp(pos.x,minX,maxX);
