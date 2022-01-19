@@ -25,18 +25,18 @@ public class LaserCaster : MonoBehaviour
         {
             Debug.Log(hit.transform.name);
             Debug.DrawRay(transform.position, LaserDir* hit.distance, Color.yellow);
-            drawPath();
+            //drawPath();
         }
         else
         {
             Debug.DrawRay(transform.position, LaserDir * Dist, Color.white);
 
             Debug.Log("Did not Hit");
-            drawPath();
+            //drawPath();
         }
     }
 
-    void drawPath()
+/*    void drawPath()
     {
         var lineRenderer = this.gameObject.GetComponent<LineRenderer>();
         lineRenderer.enabled = true;
@@ -44,5 +44,5 @@ public class LaserCaster : MonoBehaviour
         lineRenderer.SetWidth(0.5f,0.5f);
         lineRenderer.SetPosition(0, this.transform.position);
         lineRenderer.SetPosition(1, transform.position+LaserDir*Dist);
-    }
+    }*/
 }

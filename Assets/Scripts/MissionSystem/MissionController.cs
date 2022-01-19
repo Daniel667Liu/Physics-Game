@@ -58,7 +58,6 @@ public class MissionController : MonoBehaviour
             if (MissionPoints[MissionIndex].gameObject.name == "FireHoles")
             {
                 Portal_Open = true;
-
             }
             //find dead planet
             else if (MissionPoints[MissionIndex].gameObject.name == "BioP")//if hit BioP
