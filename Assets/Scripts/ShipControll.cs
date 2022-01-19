@@ -216,12 +216,12 @@ public class ShipControll : MonoBehaviour
     void FixedUpdate()
     {
        //Debug.Log(isLeftControl);
-
+       /*
         if (Input.GetKeyDown(KeyCode.G)) 
         {
             ControllerSwitch();
         }
-
+       */
 
         DirectionCal();
 
