@@ -40,7 +40,7 @@ public class LaserNav : MonoBehaviour
                     Debug.Log("Did not Hit");
                     drawPath();
                 }*/
-        if(Input.GetKeyDown("joystick button 9"))
+/*        if(Input.GetKeyDown("joystick button 9"))
         {
             if(Orbits.activeSelf)
             {
@@ -70,14 +70,14 @@ public class LaserNav : MonoBehaviour
         {
 
             drawPath();
-        }
+        }*/
 
     }
-    void drawPath()
+/*    void drawPath()
     {
         LR.positionCount = 2;
         LR.SetWidth(0.1f, 0.1f);
         LR.SetPosition(0, this.transform.position);
         LR.SetPosition(1, Cubes[MC.MissionIndex].transform.position);
-    }
+    }*/
 }

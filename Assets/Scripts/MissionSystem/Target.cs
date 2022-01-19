@@ -18,8 +18,18 @@ public class Target : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        MissionController.GetComponent<MissionController>().MissionComplete();
-        this.gameObject.SetActive(false);
+        if(other.gameObject.name== "ShipWithTrail")
+        {
+            Debug.Log(other.gameObject.name);
+            MissionController.GetComponent<MissionController>().MissionComplete();
+            this.gameObject.SetActive(false);
+        }
+/*        if (other.gameObject.name == "Detector")
+        {
+            Transform HUDPivot;
+            HUDPivot = this.gameObject.transform.Find("HUDPivot");
+            HUDPivot.gameObject.SetActive(true);
+        }*/
     }
+
 }
