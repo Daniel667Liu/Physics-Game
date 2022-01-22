@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Detector : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -9,6 +10,7 @@ public class Detector : MonoBehaviour
     public GameObject MissionController;
     public GameObject CurMissionPoint;
     public Transform CurHUDPivot;
+
     void Start()
     {
         
