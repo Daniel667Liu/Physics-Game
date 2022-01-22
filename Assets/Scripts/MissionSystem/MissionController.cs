@@ -32,7 +32,7 @@ public class MissionController : MonoBehaviour
         MissionPoints[MissionIndex].gameObject.SetActive(true);//active the first mission point
         MissionText = MissionBar.GetComponent<TMP_Text>();
         MissionText.text = MissionBars[MissionIndex];
-
+        //CSdirectors[MissionIndex].Play();
     }
 
     // Update is called once per frame
@@ -58,9 +58,9 @@ public class MissionController : MonoBehaviour
         {
             //find the portal
             Debug.Log(MissionPoints[MissionIndex].gameObject.name);
-            if(MissionPoints[MissionIndex].gameObject.name == "Moon")
+
+            if (MissionPoints[MissionIndex].gameObject.name == "Moon")
             {
-                CSdirectors[0].Play();
                 //CSdirectors[0].Stop();
             }
             if (MissionPoints[MissionIndex].gameObject.name == "FireHoles")
@@ -108,11 +108,14 @@ public class MissionController : MonoBehaviour
                         BlackHole_Open = true;
                     }
                 }*/
-        if(MissionIndex<MissionPoints.Length)
-        {
-            MissionPoints[MissionIndex + 1].gameObject.SetActive(true);
+
+        //set for next target
+        if (MissionIndex<MissionPoints.Length)
+        {       
             MissionIndex++;
+            MissionPoints[MissionIndex].gameObject.SetActive(true);
             MissionText.text = MissionBars[MissionIndex];
+            CSdirectors[MissionIndex].Play();
         }
 
     }
