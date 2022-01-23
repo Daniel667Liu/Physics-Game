@@ -120,7 +120,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _strength: 0
+    - _strength: 0.8056713
     m_Colors:
     - Color_66a314c16a5c4711bc354325d5c3803f: {r: 0, g: 0, b: 0, a: 0}
     - Color_6a7620a4cc8f49a59409249e4dda8a6f: {r: 13.76636, g: 1.9460299, b: 0, a: 0}

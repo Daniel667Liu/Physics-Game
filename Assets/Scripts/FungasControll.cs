@@ -9,6 +9,7 @@ public class FungasControll : MonoBehaviour
     public GameObject GameUI;
     private ShipControll  shipControll;
     private ShipTransform shipAnimControll;
+    public AudioSource AudioSource;
     public string testblock;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class FungasControll : MonoBehaviour
         if (a)//show the ui and enable control
         {
             GameUI.SetActive(true);
+            AudioSource.volume = 1f;
             shipControll.enabled = true;
             shipAnimControll.enabled = true;
             
@@ -40,6 +42,7 @@ public class FungasControll : MonoBehaviour
         else //hide the ui and disable the control
         {
             GameUI.SetActive(false);
+            AudioSource.volume = 0.2f;
             shipControll.enabled = false;
             shipAnimControll.enabled = false;
         }
