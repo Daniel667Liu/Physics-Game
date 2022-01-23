@@ -7,7 +7,7 @@ public class SaveSystemController : MonoBehaviour
     private Player player;
     private ShipHealth ShipHealth;
     private MusicRadio musicRadio;
-    public GameObject SavePoint;
+    //public GameObject SavePoint;
     public GameObject SpaceShip;
     public GameObject[] Engines;
 

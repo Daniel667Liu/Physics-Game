@@ -9,6 +9,7 @@ public class FungasControll : MonoBehaviour
     public GameObject GameUI;
     private ShipControll  shipControll;
     private ShipTransform shipAnimControll;
+    public string testblock;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,7 @@ public class FungasControll : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H)) 
         {
-            Flowchart.ExecuteBlock("TestBlock");
+            Flowchart.ExecuteBlock(testblock);
         }
         UIControll(Flowchart.GetBooleanVariable("UI"));//get bool value from fungus chart
     }
