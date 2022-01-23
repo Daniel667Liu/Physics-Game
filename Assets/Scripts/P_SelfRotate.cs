@@ -7,11 +7,10 @@ public class P_SelfRotate : MonoBehaviour
     // Start is called before the first frame update
     public GameObject Planet;
     public float speedX, speedY, speedZ;
-    bool rotate = true;
     Vector3 DirG;
     public GameObject BlackHole;
 
-    public int Destroy = 0;
+    public int DestroyCount = 0;
     void Start()
     {
         BlackHole = GameObject.FindGameObjectWithTag("BH");
@@ -28,20 +27,17 @@ public class P_SelfRotate : MonoBehaviour
             //this.GetComponent<Rigidbody>().AddForce(DirG * Random.Range(10f, 150f), ForceMode.Impulse);
         }
 
-        if (BlackHole.GetComponent<BlackHole>().DESTROY)
+        if(DestroyCount<1)
         {
-            Destroy++;
-            if (Destroy == 3)
+            if (BlackHole.GetComponent<BlackHole>().DESTROY)
             {
-                Destroy = 2;
+                this.GetComponent<Rigidbody>().AddForce(DirG * Random.Range(10f, 150f), ForceMode.Impulse);
+                DestroyCount++;
             }
         }
-        if (Destroy == 1)
-        {
-            this.GetComponent<Rigidbody>().AddForce(DirG * Random.Range(10f, 150f), ForceMode.Impulse);
-        }
 
-        if (Vector3.Distance(BlackHole.transform.position, this.transform.position) < 100f)
+
+        if (Vector3.Distance(BlackHole.transform.position, this.transform.position) < 300f)
         {
             Destroy(this.gameObject);
         }

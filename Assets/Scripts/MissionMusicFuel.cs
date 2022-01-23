@@ -13,30 +13,47 @@ public class MissionMusicFuel : MonoBehaviour
     //fuel：增加飞船燃料
     private MissionController missionController;//获取任务控制器，追踪任务进度
     private ShipHealth ShipHealth;
+    public List<GameObject> TemFuel;
+    private Player player;//used for save fuel collected.
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Mission")) { missionController.MissionComplete(); }
+        if (other.CompareTag("Mission")) 
+        {
+            missionController.MissionComplete();
+            other.gameObject.SetActive(false);
+
+        }
         if (other.CompareTag("Music")) 
         {
             other.gameObject.TryGetComponent(out MusicPickUp M);
             M.MusicPickup();
+            other.gameObject.SetActive(false);
+
         }
         if (other.CompareTag("Fuel")) 
         {
             ShipHealth.Charge();
-        }
-        
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Mission") || other.CompareTag("Music") || other.CompareTag("Fuel")) 
-        {
+            
             other.gameObject.SetActive(false);
+            TemFuel.Add(other.gameObject);//temrarily store collected fuel
         }
+
     }
 
+    public void GameSave() //call when the game save, clear TemFuel
+    {
+        TemFuel.Clear();
+    }
+
+    public void GameLoad() //call when the game load, activate all fuels in TemFuel
+    {
+        for (int i = 0; i < TemFuel.Count; i++) 
+        {
+            TemFuel[i].SetActive(true);
+        }
+    }
+   
     void Start()
     {
         missionController = FindObjectOfType<MissionController>();//游戏开始时获取任务控制器

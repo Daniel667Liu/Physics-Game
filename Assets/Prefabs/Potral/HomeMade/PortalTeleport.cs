@@ -45,7 +45,7 @@ public class PortalTeleport : MonoBehaviour
                     Solar2DisappearPlanets[l].SetActive(false);
                 }
 
-                BlackHole.gameObject.GetComponent<BlackHole>().DESTROY = true;
+                //BlackHole.gameObject.GetComponent<BlackHole>().DESTROY = true;
             }
             player.position = reciever.position;
             playerIsOverlapping = false;

@@ -88,12 +88,14 @@ public class MusicRadio : MonoBehaviour
             AudioSource.Play();
             Invoke("MusicFunc", AudioSource.clip.length + 1f);
             beginMusic = true;
+            SetMusicUI();
         }
         else 
         {
             skipSong();
             setSong(AUDIOindex);
             playAudio();
+            SetMusicUI();
         }
     }
 
@@ -116,7 +118,7 @@ public class MusicRadio : MonoBehaviour
         {
             CancelInvoke();
             MusicFunc();
-            SetMusicUI();
+            
         }
     }
 }
