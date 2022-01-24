@@ -7,6 +7,7 @@ public class PlayerData //deifne a empty class to store the data, no monobehavio
 {
     public float Health;
     public float Fuel;
+    public int missionIndex;
     public float[] Position;
     public float[] Rotation;
     public bool[] MusicPermissions;
@@ -16,6 +17,7 @@ public class PlayerData //deifne a empty class to store the data, no monobehavio
         Health = player.Health;
         Fuel = player.Fuel;
         MusicPermissions = player.MusicPermissions;
+        missionIndex = player.missionIndex;
 
         Rotation = new float[3];//store rotation into a float array
         Rotation[0] = player.Rotation.x;

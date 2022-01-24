@@ -7,7 +7,8 @@ public class SaveSystemController : MonoBehaviour
     private Player player;
     private ShipHealth ShipHealth;
     private MusicRadio musicRadio;
-    public GameObject SavePoint;
+    private MissionController missionController;
+    //public GameObject SavePoint;
     public GameObject SpaceShip;
     public GameObject[] Engines;
 
@@ -17,14 +18,17 @@ public class SaveSystemController : MonoBehaviour
         player = FindObjectOfType<Player>();//find the Player.cs in scene.
         ShipHealth = FindObjectOfType<ShipHealth>();
         musicRadio = FindObjectOfType<MusicRadio>();
-        player.Position = player.SavePoint.GetComponent<Transform>().position;
-        player.Rotation = player.SavePoint.GetComponent<Transform>().rotation.ToEuler();
+        missionController = FindObjectOfType<MissionController>();
+       
     }
 
     public void Save() 
     {
+        player.Position = player.SavePoint.GetComponent<Transform>().position;
+        player.Rotation = player.SavePoint.GetComponent<Transform>().rotation.ToEuler();
         player.Health = ShipHealth.health;//save spaceship info into player.cs
         player.Fuel = ShipHealth.fuel;
+        player.missionIndex = missionController.MissionIndex;
         
         SaveSystem.SavePlayer(player);//save the player into a binary file
     }
@@ -35,18 +39,22 @@ public class SaveSystemController : MonoBehaviour
         ShipHealth.health = data.Health;
         ShipHealth.fuel = data.Fuel;
 
-        Vector3 position;//create a vector to extract the position info from PlayerDate
-        position.x = data.Position[0];
-        position.y = data.Position[1];
-        position.z = data.Position[2];
+        /*        Vector3 position;//create a vector to extract the position info from PlayerDate
+                position.x = data.Position[0];
+                position.y = data.Position[1];
+                position.z = data.Position[2];
 
-        Vector3 rotation;
-        rotation.x = data.Rotation[0];
-        rotation.y = data.Rotation[1];
-        rotation.z = data.Rotation[2];
+                Vector3 rotation;
+                rotation.x = data.Rotation[0];
+                rotation.y = data.Rotation[1];
+                rotation.z = data.Rotation[2];*/
 
-        SpaceShip.GetComponent<Transform>().position = position;
-        SpaceShip.GetComponent<Transform>().rotation = Quaternion.Euler(rotation);
+
+        Transform SavePoint = missionController.MissionPoints[data.missionIndex].transform.Find("SavePoint");
+        
+
+        SpaceShip.GetComponent<Transform>().position = SavePoint.position;
+        SpaceShip.GetComponent<Transform>().rotation = SavePoint.rotation;
         
         musicRadio.ClipPermissions = data.MusicPermissions;
 
@@ -54,6 +62,8 @@ public class SaveSystemController : MonoBehaviour
         {
             Engines[i].GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         }
+        
+
     }
 
     // Update is called once per frame

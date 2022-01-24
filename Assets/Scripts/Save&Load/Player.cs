@@ -10,6 +10,7 @@ public class Player : MonoBehaviour //usd as an inter-storage script, obj--playe
     public Vector3 Rotation;
     public float Health;
     public float Fuel;
+    public int missionIndex;
     public bool[] MusicPermissions;//no calls, called by MusicPickup.c#
     private ShipHealth shipHealth;
 
