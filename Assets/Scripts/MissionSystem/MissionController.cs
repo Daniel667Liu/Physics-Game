@@ -27,12 +27,16 @@ public class MissionController : MonoBehaviour
                                      //
     //play Cutscenes
     public PlayableDirector[] CSdirectors;
+    //play audio
+    public FungasControll FC;
     void Start()
     {
         MissionPoints[MissionIndex].gameObject.SetActive(true);//active the first mission point
         MissionText = MissionBar.GetComponent<TMP_Text>();
         MissionText.text = MissionBars[MissionIndex];
-        //CSdirectors[MissionIndex].Play();
+        //the Motherland Cutscene and Audio
+        CSdirectors[MissionIndex].Play();
+        FC.Flowchart.ExecuteBlock("MotherLand");
     }
 
     // Update is called once per frame
@@ -59,7 +63,7 @@ public class MissionController : MonoBehaviour
             //find the portal
             Debug.Log(MissionPoints[MissionIndex].gameObject.name);
 
-            if (MissionPoints[MissionIndex].gameObject.name == "Moon")
+            if (MissionPoints[MissionIndex].gameObject.name == "Guard")
             {
                 //CSdirectors[0].Stop();
             }
@@ -69,7 +73,7 @@ public class MissionController : MonoBehaviour
                 Portal_Open = true;
             }
             //find dead planet
-            else if (MissionPoints[MissionIndex].gameObject.name == "BioP")//if hit BioP
+            else if (MissionPoints[MissionIndex].gameObject.name == "GreedyWorm")//if hit BioP
             {
                 Dead_Portal_Open = true;
             }
@@ -116,6 +120,7 @@ public class MissionController : MonoBehaviour
             MissionPoints[MissionIndex].gameObject.SetActive(true);
             MissionText.text = MissionBars[MissionIndex];
             CSdirectors[MissionIndex].Play();
+            FC.Flowchart.ExecuteBlock(MissionPoints[MissionIndex].name);
         }
 
     }
