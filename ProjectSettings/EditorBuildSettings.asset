@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ALphaMergeFinal_Yuri.unity
-    guid: 6557b981e138e3a489aae2500515ba26
+    path: Assets/Scenes/ALphaMergeFinal_Yuri_1.unity
+    guid: b5228e71d4efe0c41a15fe1a6b7004cf
   m_configObjects: {}

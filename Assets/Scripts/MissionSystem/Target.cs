@@ -8,7 +8,7 @@ public class Target : MonoBehaviour
     public GameObject MissionController;
     public GameObject SS;
     public GameObject SavePoint;
-    Transform HUDPivot;
+    public Transform HUDPivot;
     void Start()
     {
         HUDPivot = this.gameObject.transform.Find("HUDPivot");
@@ -21,17 +21,27 @@ public class Target : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name== "ShipWithTrail")
+        if(other.gameObject.name== "ShipWithTrail"&&this.gameObject.tag=="MissionPoint")
         {
             SS.GetComponent<Player>().SavePoint = SavePoint;
             SS.GetComponent<SaveSystemController>().Save();
-            Debug.Log(other.gameObject.name);
+            Debug.Log(this.gameObject.tag);
             MissionController.GetComponent<MissionController>().MissionComplete();
             this.gameObject.GetComponent<MeshRenderer>().enabled=false;
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
             HUDPivot.gameObject.SetActive(false);
 
 
+        }
+        else if(other.gameObject.name == "ShipWithTrail" && this.gameObject.tag == "BigMission")
+        {
+            Debug.Log(this.gameObject.tag);
+            SS.GetComponent<Player>().SavePoint = SavePoint;
+            SS.GetComponent<SaveSystemController>().Save();
+            MissionController.GetComponent<MissionController>().bigMissionComplete++;
+            MissionController.GetComponent<MissionController>().MissionComplete();
+            this.gameObject.SetActive(false);
+            
         }
 /*        if (other.gameObject.name == "Detector")
         {

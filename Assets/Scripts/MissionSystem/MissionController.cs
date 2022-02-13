@@ -42,7 +42,7 @@ public class MissionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(MissionPoints[MissionIndex].gameObject.name);
     }
 
     public void MissionComplete() 
@@ -57,7 +57,7 @@ public class MissionController : MonoBehaviour
         6: back to new portal
         7: go through the black hole*/
 
-
+        //last mission
         if (MissionIndex < MissionPoints.Length)
         {
             //find the portal
@@ -79,6 +79,7 @@ public class MissionController : MonoBehaviour
             }
             else if (MissionPoints[MissionIndex].gameObject.name == "BackPortal")
             {
+                Debug.Log("success");
                 for (int i = 0; i < BMissionPoints.Length; i++)
                 {
                     BMissionPoints[i].gameObject.SetActive(true);//open all the big missions
@@ -88,22 +89,27 @@ public class MissionController : MonoBehaviour
                 Portal_Open = false;
                 Dead_Portal_Open = false;
             }
+
         }
-        else
-        {
-            //bigMission
-            for (int i = 0; i < BMissionPoints.Length; i++)
+            else
             {
-                if (!BMissionPoints[i].activeSelf)
+                Debug.Log("success"+ bigMissionComplete);
+                //bigMission
+                /*                for (int i = 0; i < BMissionPoints.Length; i++)
+                                {
+                                    if (!BMissionPoints[i].activeSelf)
+                                    {
+                                        bigMissionComplete++;
+                                    }
+                                }*/
+                if (bigMissionComplete >= 3)
                 {
-                    bigMissionComplete++;
+                    Debug.Log("success");
+                    CSdirectors[CSdirectors.Length-1].Play();
+                    FC.Flowchart.ExecuteBlock("Blackhole");
+                    BH.DESTROY = true;
                 }
             }
-            if (bigMissionComplete >= 3)
-            {
-                BH.DESTROY = true;
-            }
-        }
         /*        if (MissionIndex >= 5) 
                 {
                     bigMissionComplete++;

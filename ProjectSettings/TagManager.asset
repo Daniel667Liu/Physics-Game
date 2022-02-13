@@ -17,6 +17,7 @@ TagManager:
   - Mission
   - Meteorite
   - MissionPoint
+  - BigMission
   layers:
   - Default
   - TransparentFX

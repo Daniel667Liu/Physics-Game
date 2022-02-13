@@ -6,6 +6,7 @@ public class BlackHole : MonoBehaviour
 {
     // Start is called before the first frame update
     public bool DESTROY = false;
+    public CustomizeSceneManager CSM;
     void Start()
     {
         
@@ -20,7 +21,7 @@ public class BlackHole : MonoBehaviour
     {
         if(other.gameObject.tag=="Player")
         {
-
+            CSM.Level1();
         }
     }
 
@@ -28,4 +29,5 @@ public class BlackHole : MonoBehaviour
     {
 
     }
+
 }
